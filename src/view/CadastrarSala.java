@@ -56,12 +56,12 @@ public class CadastrarSala extends javax.swing.JFrame {
 
         jLabel2.setText("Nome da sala");
 
-        jTextField1.setToolTipText("Sala 01");
+        jTextField1.setToolTipText("Nome da sala");
 
         jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel3.setText("X");
 
-        largura_input.setToolTipText("6");
+        largura_input.setToolTipText("Largura");
         largura_input.setAutoscrolls(false);
         largura_input.setInheritsPopupMenu(true);
 
@@ -177,7 +177,7 @@ public class CadastrarSala extends javax.swing.JFrame {
             }
         });
 
-        profundidade_input.setToolTipText("2");
+        profundidade_input.setToolTipText("Profundidade");
 
         jLabel4.setText("Dimensões");
 
