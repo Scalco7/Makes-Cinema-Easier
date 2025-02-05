@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package view;
 
 /**
@@ -10,11 +6,18 @@ package view;
  */
 public class Login extends javax.swing.JFrame {
 
-    /**
-     * Creates new form login
-     */
-    public Login() {
+    private static Login unicLogin;
+
+    private Login() {
         initComponents();
+    }
+
+    public static Login geraLogin() {
+        if (unicLogin == null) {
+            unicLogin = new Login();
+        }
+
+        return unicLogin;
     }
 
     public void abrirTela() {
@@ -37,7 +40,7 @@ public class Login extends javax.swing.JFrame {
         senha_input = new javax.swing.JPasswordField();
         voltar_botao = new javax.swing.JButton();
         entrar_botao = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
+        criar_conta_botao = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -67,10 +70,10 @@ public class Login extends javax.swing.JFrame {
             }
         });
 
-        jButton1.setText("Criar conta");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        criar_conta_botao.setText("Criar conta");
+        criar_conta_botao.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                criar_conta_botaoActionPerformed(evt);
             }
         });
 
@@ -93,7 +96,7 @@ public class Login extends javax.swing.JFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(214, 214, 214)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jButton1)
+                                    .addComponent(criar_conta_botao)
                                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                         .addComponent(email_label, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addComponent(email_input)
@@ -116,7 +119,7 @@ public class Login extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(senha_input, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton1)
+                .addComponent(criar_conta_botao)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(361, Short.MAX_VALUE)
@@ -130,22 +133,37 @@ public class Login extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void voltar_botaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_voltar_botaoActionPerformed
-        // TODO add your handling code here:
+        voltar();
     }//GEN-LAST:event_voltar_botaoActionPerformed
 
     private void entrar_botaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_entrar_botaoActionPerformed
-        // TODO add your handling code here:
+        fazerLogin();
     }//GEN-LAST:event_entrar_botaoActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+    private void criar_conta_botaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_criar_conta_botaoActionPerformed
+        irParaCriarConta();
+    }//GEN-LAST:event_criar_conta_botaoActionPerformed
+
+    private void voltar() {
+        dispose();
+        CatalogoDeFilmes.geraCatalogoDeFilmes().abrirTela();
+    }
+
+    private void irParaCriarConta() {
+        dispose();
+        CadastrarUsuario.geraCadastrarUsuario().abrirTela();
+    }
+
+    private void fazerLogin() {
+        dispose();
+        
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton criar_conta_botao;
     private javax.swing.JTextField email_input;
     private javax.swing.JLabel email_label;
     private javax.swing.JButton entrar_botao;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPasswordField senha_input;
     private javax.swing.JLabel senha_label;

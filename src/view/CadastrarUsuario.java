@@ -1,20 +1,23 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package view;
 
 /**
  *
  * @author Scalco
  */
-public class Cadastro extends javax.swing.JFrame {
+public class CadastrarUsuario extends javax.swing.JFrame {
 
-    /**
-     * Creates new form login
-     */
-    public Cadastro() {
+    private static CadastrarUsuario unicCadastrarUsuario;
+
+    private CadastrarUsuario() {
         initComponents();
+    }
+
+    public static CadastrarUsuario geraCadastrarUsuario() {
+        if (unicCadastrarUsuario == null) {
+            unicCadastrarUsuario = new CadastrarUsuario();
+        }
+
+        return unicCadastrarUsuario;
     }
 
     public void abrirTela() {

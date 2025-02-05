@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package view;
 
 /**
@@ -10,14 +6,21 @@ package view;
  */
 public class EscolherAssento extends javax.swing.JFrame {
 
-    /**
-     * Creates new form EscolherAssento
-     */
-    public EscolherAssento() {
+    private static EscolherAssento unicEscolherAssento;
+
+    private EscolherAssento() {
         initComponents();
     }
-    
-    public void abrirTela(){
+
+    public static EscolherAssento geraEscolherAssento() {
+        if (unicEscolherAssento == null) {
+            unicEscolherAssento = new EscolherAssento();
+        }
+
+        return unicEscolherAssento;
+    }
+
+    public void abrirTela() {
         setVisible(true);
     }
 

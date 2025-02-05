@@ -1,10 +1,23 @@
 package view;
 
-
 public class CatalogoDeFilmes extends javax.swing.JFrame {
 
-    public CatalogoDeFilmes() {
+    private static CatalogoDeFilmes unicCatalogoDeFilmes;
+
+    private CatalogoDeFilmes() {
         initComponents();
+    }
+
+    public static CatalogoDeFilmes geraCatalogoDeFilmes() {
+        if (unicCatalogoDeFilmes == null) {
+            unicCatalogoDeFilmes = new CatalogoDeFilmes();
+        }
+
+        return unicCatalogoDeFilmes;
+    }
+
+    public void abrirTela() {
+        setVisible(true);
     }
 
     /**
@@ -71,10 +84,11 @@ public class CatalogoDeFilmes extends javax.swing.JFrame {
         goToLogin();
     }//GEN-LAST:event_BotaoEntrarActionPerformed
 
-    private void goToLogin(){
-        
+    private void goToLogin() {
+        dispose();
+        Login.geraLogin().abrirTela();
     }
-    
+
     /**
      * @param args the command line arguments
      */

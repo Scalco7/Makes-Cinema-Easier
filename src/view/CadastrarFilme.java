@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package view;
 
 import java.awt.image.BufferedImage;
@@ -19,11 +15,18 @@ import javax.swing.JOptionPane;
  */
 public class CadastrarFilme extends javax.swing.JFrame {
 
-    /**
-     * Creates new form CadastrarFilme
-     */
-    public CadastrarFilme() {
+    private static CadastrarFilme unicCadastrarFilme;
+
+    private CadastrarFilme() {
         initComponents();
+    }
+
+    public static CadastrarFilme geraCadastrarFilme() {
+        if (unicCadastrarFilme == null) {
+            unicCadastrarFilme = new CadastrarFilme();
+        }
+
+        return unicCadastrarFilme;
     }
 
     public void abrirTela() {

@@ -6,11 +6,18 @@ package view;
  */
 public class CadastrarSala extends javax.swing.JFrame {
 
-    /**
-     * Creates new form CadastrarSala
-     */
-    public CadastrarSala() {
+    private static CadastrarSala unicCadastrarSala;
+
+    private CadastrarSala() {
         initComponents();
+    }
+
+    public static CadastrarSala geraCadastrarSala() {
+        if (unicCadastrarSala == null) {
+            unicCadastrarSala = new CadastrarSala();
+        }
+
+        return unicCadastrarSala;
     }
 
     public void abrirTela() {
