@@ -68,9 +68,13 @@ public class CatalogoDeFilmes extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void BotaoEntrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotaoEntrarActionPerformed
-        // TODO add your handling code here:
+        goToLogin();
     }//GEN-LAST:event_BotaoEntrarActionPerformed
 
+    private void goToLogin(){
+        
+    }
+    
     /**
      * @param args the command line arguments
      */
