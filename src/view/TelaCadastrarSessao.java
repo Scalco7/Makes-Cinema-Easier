@@ -33,6 +33,7 @@ public class TelaCadastrarSessao extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        linguagem_grupo = new javax.swing.ButtonGroup();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         filme_combo_box = new javax.swing.JComboBox<>();
@@ -40,6 +41,9 @@ public class TelaCadastrarSessao extends javax.swing.JFrame {
         sala_combo_box = new javax.swing.JComboBox<>();
         cadastrar_botao = new javax.swing.JButton();
         voltar_botao = new javax.swing.JButton();
+        dublado_radio = new javax.swing.JRadioButton();
+        legendado_radio = new javax.swing.JRadioButton();
+        jLabel4 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -70,6 +74,27 @@ public class TelaCadastrarSessao extends javax.swing.JFrame {
             }
         });
 
+        linguagem_grupo.add(dublado_radio);
+        dublado_radio.setSelected(true);
+        dublado_radio.setText("Dublado");
+        dublado_radio.setToolTipText("Dublado");
+        dublado_radio.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                dublado_radioActionPerformed(evt);
+            }
+        });
+
+        linguagem_grupo.add(legendado_radio);
+        legendado_radio.setText("Legendado");
+        legendado_radio.setToolTipText("Legendado");
+        legendado_radio.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                legendado_radioActionPerformed(evt);
+            }
+        });
+
+        jLabel4.setText("Idioma");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -78,17 +103,22 @@ public class TelaCadastrarSessao extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
+                        .addComponent(voltar_botao)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(cadastrar_botao, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel1)
                             .addComponent(sala_combo_box, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(filme_combo_box, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel3)
-                            .addComponent(jLabel2))
-                        .addGap(0, 476, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(voltar_botao)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(cadastrar_botao, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(jLabel2)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(dublado_radio, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(legendado_radio, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jLabel4))
+                        .addGap(0, 467, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -104,7 +134,13 @@ public class TelaCadastrarSessao extends javax.swing.JFrame {
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(sala_combo_box, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 221, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel4)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(dublado_radio)
+                    .addComponent(legendado_radio))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 160, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(cadastrar_botao, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(voltar_botao))
@@ -122,23 +158,45 @@ public class TelaCadastrarSessao extends javax.swing.JFrame {
 
     }//GEN-LAST:event_filme_combo_boxActionPerformed
 
+    private void dublado_radioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dublado_radioActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_dublado_radioActionPerformed
+
+    private void legendado_radioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_legendado_radioActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_legendado_radioActionPerformed
+
     private void voltar() {
         dispose();
         limparTela();
         TelaGerenciarSessao.geraTelaGerenciarSessao().abrirTela();
     }
 
+    private String getIdioma() {
+        if (dublado_radio.isSelected()) {
+            return "Dublado";
+        } else if (legendado_radio.isSelected()) {
+            return "Legendado";
+        }
+        return "Não selecionado";
+    }
+
     private void limparTela() {
         filme_combo_box.setSelectedIndex(0);
         sala_combo_box.setSelectedIndex(0);
+        dublado_radio.setSelected(true);
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton cadastrar_botao;
+    private javax.swing.JRadioButton dublado_radio;
     private javax.swing.JComboBox<String> filme_combo_box;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JRadioButton legendado_radio;
+    private javax.swing.ButtonGroup linguagem_grupo;
     private javax.swing.JComboBox<String> sala_combo_box;
     private javax.swing.JButton voltar_botao;
     // End of variables declaration//GEN-END:variables

@@ -46,7 +46,6 @@ public class TelaCadastrarFilme extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        linguagem_grupo = new javax.swing.ButtonGroup();
         idade_grupo = new javax.swing.ButtonGroup();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
@@ -56,9 +55,6 @@ public class TelaCadastrarFilme extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         cadastrar_botao = new javax.swing.JButton();
         voltar_botao = new javax.swing.JButton();
-        dublado_radio = new javax.swing.JRadioButton();
-        legendado_radio = new javax.swing.JRadioButton();
-        jLabel4 = new javax.swing.JLabel();
         dez_radio = new javax.swing.JRadioButton();
         livre_radio = new javax.swing.JRadioButton();
         jLabel5 = new javax.swing.JLabel();
@@ -100,27 +96,6 @@ public class TelaCadastrarFilme extends javax.swing.JFrame {
                 voltar_botaoActionPerformed(evt);
             }
         });
-
-        linguagem_grupo.add(dublado_radio);
-        dublado_radio.setSelected(true);
-        dublado_radio.setText("Dublado");
-        dublado_radio.setToolTipText("Dublado");
-        dublado_radio.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                dublado_radioActionPerformed(evt);
-            }
-        });
-
-        linguagem_grupo.add(legendado_radio);
-        legendado_radio.setText("Legendado");
-        legendado_radio.setToolTipText("Legendado");
-        legendado_radio.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                legendado_radioActionPerformed(evt);
-            }
-        });
-
-        jLabel4.setText("Idioma");
 
         idade_grupo.add(dez_radio);
         dez_radio.setText("10+");
@@ -229,11 +204,6 @@ public class TelaCadastrarFilme extends javax.swing.JFrame {
                                 .addGap(64, 64, 64))))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(dublado_radio, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(legendado_radio, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jLabel4)
                             .addComponent(jLabel5)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(livre_radio)
@@ -275,12 +245,6 @@ public class TelaCadastrarFilme extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(duracao_text, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel7))
-                        .addGap(10, 10, 10)
-                        .addComponent(jLabel4)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(dublado_radio)
-                            .addComponent(legendado_radio))
                         .addGap(18, 18, 18)
                         .addComponent(jLabel5)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -291,7 +255,7 @@ public class TelaCadastrarFilme extends javax.swing.JFrame {
                             .addComponent(quatorze_radio)
                             .addComponent(dezesseis_radio)
                             .addComponent(dezoito_radio))
-                        .addGap(19, 19, 19)))
+                        .addGap(40, 40, 40)))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(cadastrar_botao, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(voltar_botao))
@@ -300,14 +264,6 @@ public class TelaCadastrarFilme extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void legendado_radioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_legendado_radioActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_legendado_radioActionPerformed
-
-    private void dublado_radioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dublado_radioActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_dublado_radioActionPerformed
 
     private void dez_radioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dez_radioActionPerformed
         // TODO add your handling code here:
@@ -359,19 +315,9 @@ public class TelaCadastrarFilme extends javax.swing.JFrame {
     private void limparTela() {
         filme_input.setText("");
         descricao_input.setText("");
-        dublado_radio.setSelected(true);
         livre_radio.setSelected(true);
         duracao_text.setText("");
         resetImage();
-    }
-
-    private String getIdioma() {
-        if (dublado_radio.isSelected()) {
-            return "Dublado";
-        } else if (legendado_radio.isSelected()) {
-            return "Legendado";
-        }
-        return "Não selecionado";
     }
 
     private String getClassificacao() {
@@ -499,7 +445,6 @@ public class TelaCadastrarFilme extends javax.swing.JFrame {
     private javax.swing.JRadioButton dezesseis_radio;
     private javax.swing.JRadioButton dezoito_radio;
     private javax.swing.JRadioButton doze_radio;
-    private javax.swing.JRadioButton dublado_radio;
     private javax.swing.JFormattedTextField duracao_text;
     private javax.swing.JTextField filme_input;
     private javax.swing.ButtonGroup idade_grupo;
@@ -508,13 +453,10 @@ public class TelaCadastrarFilme extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JRadioButton legendado_radio;
-    private javax.swing.ButtonGroup linguagem_grupo;
     private javax.swing.JRadioButton livre_radio;
     private javax.swing.JRadioButton quatorze_radio;
     private javax.swing.JButton voltar_botao;
