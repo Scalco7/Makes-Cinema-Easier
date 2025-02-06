@@ -114,10 +114,11 @@ public class FilmeDaoJDBC implements FilmeDao {
     @Override
     public List<Filme> findByName(String nome) {
         List<Filme> filmes = new ArrayList<>();
+        nome = "%"+nome+"%";
         PreparedStatement st = null;
         ResultSet rs = null;
         try {
-            st = conn.prepareStatement("SELECT * FROM filme WHERE Nome = ?");
+            st = conn.prepareStatement("SELECT * FROM filme WHERE Nome LIKE ?");
 
             st.setString(1, nome);
             rs = st.executeQuery();
@@ -127,7 +128,7 @@ public class FilmeDaoJDBC implements FilmeDao {
                 filme.setId(rs.getInt("id"));
                 filme.setNome(rs.getString("nome"));
                 filme.setClassificacao(rs.getString("classificacao"));
-                filme.setMinutosTotais(rs.getInt("minutos_totais"));
+                filme.setMinutosTotais(rs.getInt("minutosTotais"));
                 filmes.add(filme);
             }
 
