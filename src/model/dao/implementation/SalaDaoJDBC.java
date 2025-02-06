@@ -24,7 +24,8 @@ public class SalaDaoJDBC implements SalaDao {
         Sala obj = new Sala();
         obj.setId(rs.getInt("Id"));
         obj.setNome(rs.getString("Nome"));
-        obj.setQtdeAssentos(rs.getInt("QtdeAssentos"));
+        obj.setLargura(rs.getInt("Largura"));
+        obj.setProfundidade(rs.getInt("Profundidade"));
         return obj;
     }
 
@@ -32,10 +33,11 @@ public class SalaDaoJDBC implements SalaDao {
     public void insert(Sala obj) {
         PreparedStatement st = null;
         try {
-            st = conn.prepareStatement("INSERT INTO sala (Nome, QtdeAssentos, Imagem) VALUES (?, ?) ", Statement.RETURN_GENERATED_KEYS);
+            st = conn.prepareStatement("INSERT INTO sala (Nome, Largura, Profundidade) VALUES (?, ?, ?) ", Statement.RETURN_GENERATED_KEYS);
 
             st.setString(1, obj.getNome());
-            st.setInt(2, obj.getQtdeAssentos());
+            st.setInt(2, obj.getLargura());
+            st.setInt(3, obj.getProfundidade());
 
             int rowsAffected = st.executeUpdate();
 
@@ -61,11 +63,12 @@ public class SalaDaoJDBC implements SalaDao {
     public void update(Sala obj) {
         PreparedStatement st = null;
         try {
-            st = conn.prepareStatement("UPDATE sala SET Nome = ?, QtdeAssentos = ? WHERE Id = ? ");
+            st = conn.prepareStatement("UPDATE sala SET Nome = ?, Largura = ?, Profundidade = ? WHERE Id = ? ");
 
             st.setString(1, obj.getNome());
-            st.setInt(2, obj.getQtdeAssentos());
-            st.setInt(3, obj.getId());
+            st.setInt(2, obj.getLargura());
+            st.setInt(3, obj.getProfundidade());
+            st.setInt(4, obj.getId());
 
             st.executeUpdate();
 

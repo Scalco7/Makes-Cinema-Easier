@@ -1,6 +1,8 @@
 package view;
 
+import controller.SalaControl;
 import java.awt.Dimension;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -64,6 +66,11 @@ public class TelaCadastrarSala extends javax.swing.JFrame {
         jLabel4.setText("Dimensões");
 
         cadastrar_botao.setText("Cadastrar");
+        cadastrar_botao.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cadastrar_botaoActionPerformed(evt);
+            }
+        });
 
         voltar_botao.setText("Voltar");
         voltar_botao.addActionListener(new java.awt.event.ActionListener() {
@@ -188,6 +195,32 @@ public class TelaCadastrarSala extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_largura_inputActionPerformed
 
+    private void cadastrar_botaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cadastrar_botaoActionPerformed
+        criarSala();
+    }//GEN-LAST:event_cadastrar_botaoActionPerformed
+
+    private void criarSala() {
+        String nome = nome_input.getText();
+        Integer largura = Integer.parseInt(largura_input.getText());
+        Integer profundidade = Integer.parseInt(profundidade_input.getText());
+
+        boolean sucesso;
+
+        try {
+            SalaControl sala = new SalaControl();
+            sucesso = sala.cadastrarSala(nome, largura, profundidade);
+            if (sucesso) {
+                JOptionPane.showMessageDialog(null, "Cadastro efetuado com sucesso!");
+                TelaGerenciarSala.geraTelaGerenciarSala().atualizarTabela();
+            } else {
+                JOptionPane.showMessageDialog(null, "Erro no preenchimento de campos!");
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Erro: " + e.getMessage());
+        }
+
+    }
+    
     private void voltar() {
         dispose();
         limparTela();

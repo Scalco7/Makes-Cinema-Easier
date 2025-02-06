@@ -38,7 +38,8 @@ public class SessaoDaoJDBC implements SessaoDao{
         Sala obj = new Sala();
         obj.setId(rs.getInt("Id"));
         obj.setNome(rs.getString("Nome"));
-        obj.setQtdeAssentos(rs.getInt("QtdeAssentos"));
+        obj.setLargura(rs.getInt("Largura"));
+        obj.setProfundidade(rs.getInt("Profundidade"));
         return obj;
     }
     

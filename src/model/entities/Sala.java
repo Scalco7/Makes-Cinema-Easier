@@ -1,25 +1,26 @@
 package model.entities;
 
+import db.DB;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Objects;
+import model.dao.implementation.SalaDaoJDBC;
 
 public class Sala implements Serializable{
     
     private static final long serialVersionUID = 1L;
     private Integer id;
     private String nome;
-    private Integer qtdeAssentos;
-    private ArrayList<Assento> assentos;
+    private Integer largura;
+    private Integer profundidade;
 
     public Sala() {
     }
 
-    public Sala(Integer id, String nome, Integer qtdeAssentos, ArrayList<Assento> assentos) {
-        this.id = id;
+    public Sala(String nome, Integer largura, Integer profundidade) {
         this.nome = nome;
-        this.qtdeAssentos = qtdeAssentos;
-        this.assentos = assentos;
+        this.largura = largura;
+        this.profundidade = profundidade;
     }
 
     public Integer getId() {
@@ -38,16 +39,24 @@ public class Sala implements Serializable{
         this.nome = nome;
     }
 
-    public Integer getQtdeAssentos() {
-        return qtdeAssentos;
+    public Integer getLargura() {
+        return largura;
     }
 
-    public void setQtdeAssentos(Integer qtdeAssentos) {
-        this.qtdeAssentos = qtdeAssentos;
+    public void setLargura(Integer largura) {
+        this.largura = largura;
     }
 
-    public ArrayList<Assento> getAssentos() {
-        return assentos;
+    public Integer getProfundidade() {
+        return profundidade;
+    }
+
+    public void setProfundidade(Integer profundidade) {
+        this.profundidade = profundidade;
+    }
+    
+    public void cadastrarSala(Sala obj){
+        new SalaDaoJDBC(DB.getConnection()).insert(obj);
     }
 
     @Override
@@ -74,7 +83,7 @@ public class Sala implements Serializable{
 
     @Override
     public String toString() {
-        return "Sala{" + "id=" + id + ", nome=" + nome + ", qtdeAssentos=" + qtdeAssentos + ", assentos=" + assentos + '}';
+        return "Sala{" + "id=" + id + ", nome=" + nome + ", largura=" + largura + ", profundidade=" + profundidade + '}';
     }
     
 }
