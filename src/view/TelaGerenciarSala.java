@@ -51,6 +51,11 @@ public class TelaGerenciarSala extends javax.swing.JFrame {
 
         nova_botao.setText("Nova");
         nova_botao.setToolTipText("");
+        nova_botao.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                nova_botaoActionPerformed(evt);
+            }
+        });
 
         editar_botao.setText("Editar");
 
@@ -152,9 +157,18 @@ public class TelaGerenciarSala extends javax.swing.JFrame {
         voltar();
     }//GEN-LAST:event_voltar_botaoActionPerformed
 
+    private void nova_botaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nova_botaoActionPerformed
+        abrirTelaCadastrar();
+    }//GEN-LAST:event_nova_botaoActionPerformed
+
     private void voltar() {
         dispose();
         TelaCentralAdministrador.geraTelaCentralAdministrador().abrirTela();
+    }
+
+    private void abrirTelaCadastrar() {
+        dispose();
+        TelaCadastrarSala.geraCadastrarSala().abrirTela();
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

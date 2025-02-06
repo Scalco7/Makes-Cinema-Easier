@@ -35,9 +35,9 @@ public class TelaCadastrarSessao extends javax.swing.JFrame {
 
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        filme_combo_box = new javax.swing.JComboBox<>();
         jLabel3 = new javax.swing.JLabel();
-        jComboBox2 = new javax.swing.JComboBox<>();
+        sala_combo_box = new javax.swing.JComboBox<>();
         cadastrar_botao = new javax.swing.JButton();
         voltar_botao = new javax.swing.JButton();
 
@@ -48,17 +48,27 @@ public class TelaCadastrarSessao extends javax.swing.JFrame {
 
         jLabel2.setText("Selecione o Filme");
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Homem aranha 1", "Homem aranha 2", "Homem aranha 3", " " }));
-        jComboBox1.setToolTipText("Filmes disponíveis");
+        filme_combo_box.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Homem aranha 1", "Homem aranha 2", "Homem aranha 3", " " }));
+        filme_combo_box.setToolTipText("Filmes disponíveis");
+        filme_combo_box.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                filme_combo_boxActionPerformed(evt);
+            }
+        });
 
         jLabel3.setText("Selecione a Sala");
 
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Sala 1", "Sala 2", "Sala 3" }));
-        jComboBox2.setToolTipText("Filmes disponíveis");
+        sala_combo_box.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Sala 1", "Sala 2", "Sala 3" }));
+        sala_combo_box.setToolTipText("Filmes disponíveis");
 
         cadastrar_botao.setText("Cadastrar");
 
         voltar_botao.setText("Voltar");
+        voltar_botao.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                voltar_botaoActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -70,8 +80,8 @@ public class TelaCadastrarSessao extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel1)
-                            .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(sala_combo_box, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(filme_combo_box, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel3)
                             .addComponent(jLabel2))
                         .addGap(0, 476, Short.MAX_VALUE))
@@ -89,11 +99,11 @@ public class TelaCadastrarSessao extends javax.swing.JFrame {
                 .addGap(45, 45, 45)
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(filme_combo_box, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(sala_combo_box, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 221, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(cadastrar_botao, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -104,13 +114,32 @@ public class TelaCadastrarSessao extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void voltar_botaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_voltar_botaoActionPerformed
+        voltar();
+    }//GEN-LAST:event_voltar_botaoActionPerformed
+
+    private void filme_combo_boxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_filme_combo_boxActionPerformed
+
+    }//GEN-LAST:event_filme_combo_boxActionPerformed
+
+    private void voltar() {
+        dispose();
+        limparTela();
+        TelaGerenciarSessao.geraTelaGerenciarSessao().abrirTela();
+    }
+
+    private void limparTela() {
+        filme_combo_box.setSelectedIndex(0);
+        sala_combo_box.setSelectedIndex(0);
+    }
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton cadastrar_botao;
-    private javax.swing.JComboBox<String> jComboBox1;
-    private javax.swing.JComboBox<String> jComboBox2;
+    private javax.swing.JComboBox<String> filme_combo_box;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JComboBox<String> sala_combo_box;
     private javax.swing.JButton voltar_botao;
     // End of variables declaration//GEN-END:variables
 }

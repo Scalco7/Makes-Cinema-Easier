@@ -35,7 +35,7 @@ public class TelaCadastrarSala extends javax.swing.JFrame {
 
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        nome_input = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         largura_input = new javax.swing.JTextField();
         assento_botao_b_4 = new javax.swing.JButton();
@@ -63,7 +63,7 @@ public class TelaCadastrarSala extends javax.swing.JFrame {
 
         jLabel2.setText("Nome da sala");
 
-        jTextField1.setToolTipText("Nome da sala");
+        nome_input.setToolTipText("Nome da sala");
 
         jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel3.setText("X");
@@ -191,6 +191,11 @@ public class TelaCadastrarSala extends javax.swing.JFrame {
         cadastrar_botao.setText("Cadastrar");
 
         voltar_botao.setText("Voltar");
+        voltar_botao.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                voltar_botaoActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -202,7 +207,7 @@ public class TelaCadastrarSala extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel1)
-                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(nome_input, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel2))
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
@@ -275,7 +280,7 @@ public class TelaCadastrarSala extends javax.swing.JFrame {
                         .addGap(43, 43, 43)
                         .addComponent(jLabel2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(nome_input, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(jLabel4)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -343,6 +348,22 @@ public class TelaCadastrarSala extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_assento_botao_b_3ActionPerformed
 
+    private void voltar_botaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_voltar_botaoActionPerformed
+        voltar();
+    }//GEN-LAST:event_voltar_botaoActionPerformed
+
+    private void voltar() {
+        dispose();
+        limparTela();
+        TelaGerenciarSala.geraTelaGerenciarSala().abrirTela();
+    }
+
+    private void limparTela() {
+        nome_input.setText("");
+        largura_input.setText("");
+        profundidade_input.setText("");
+    }
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton assento_botao_a_1;
     private javax.swing.JButton assento_botao_a_2;
@@ -362,8 +383,8 @@ public class TelaCadastrarSala extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField largura_input;
+    private javax.swing.JTextField nome_input;
     private javax.swing.JTextField profundidade_input;
     private javax.swing.JButton voltar_botao;
     // End of variables declaration//GEN-END:variables

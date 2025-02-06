@@ -96,6 +96,9 @@
         <Property name="text" type="java.lang.String" value="Nova"/>
         <Property name="toolTipText" type="java.lang.String" value=""/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="nova_botaoActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="editar_botao">
       <Properties>

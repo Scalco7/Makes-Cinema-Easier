@@ -50,6 +50,11 @@ public class TelaGerenciarFilme extends javax.swing.JFrame {
         jLabel1.setText("Filmes");
 
         novo_botao.setText("Novo");
+        novo_botao.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                novo_botaoActionPerformed(evt);
+            }
+        });
 
         editar_botao.setText("Editar");
 
@@ -151,9 +156,18 @@ public class TelaGerenciarFilme extends javax.swing.JFrame {
         voltar();
     }//GEN-LAST:event_voltar_botaoActionPerformed
 
+    private void novo_botaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_novo_botaoActionPerformed
+        abrirCadastrarFilme();
+    }//GEN-LAST:event_novo_botaoActionPerformed
+
     private void voltar() {
         dispose();
         TelaCentralAdministrador.geraTelaCentralAdministrador().abrirTela();
+    }
+    
+    private void abrirCadastrarFilme(){
+        dispose();
+        TelaCadastrarFilme.geraCadastrarFilme().abrirTela();
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
