@@ -146,6 +146,7 @@ public class TelaLogin extends javax.swing.JFrame {
             sucesso = user.login(email, senha);
             if(sucesso){
                 JOptionPane.showMessageDialog(null, "Login efetuado com sucesso!");
+                TelaCentralAdministrador.geraTelaCentralAdministrador().abrirTela();
             } else{
                 JOptionPane.showMessageDialog(null, "Email ou senha incorretos!");
             }
