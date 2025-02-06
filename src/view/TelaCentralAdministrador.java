@@ -38,6 +38,8 @@ public class TelaCentralAdministrador extends javax.swing.JFrame {
         gerenciar_salas_botao = new javax.swing.JButton();
         gerenciar_sessoes_botao = new javax.swing.JButton();
         gerenciar_filmes_botao = new javax.swing.JButton();
+        eidtar_perfil_botao = new javax.swing.JButton();
+        sair_botao = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setPreferredSize(new java.awt.Dimension(678, 443));
@@ -73,30 +75,46 @@ public class TelaCentralAdministrador extends javax.swing.JFrame {
             }
         });
 
+        eidtar_perfil_botao.setText("Editar conta");
+
+        sair_botao.setText("sair");
+        sair_botao.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                sair_botaoActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addGap(262, 262, 262)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jLabel1))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(262, 262, 262)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(gerenciar_filmes_botao, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(gerenciar_sessoes_botao, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(gerenciar_salas_botao, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(cadastrar_botao, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addComponent(gerenciar_filmes_botao, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(gerenciar_sessoes_botao, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(gerenciar_salas_botao, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cadastrar_botao, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(265, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(sair_botao, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(eidtar_perfil_botao, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel1)
-                .addGap(74, 74, 74)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(eidtar_perfil_botao))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(sair_botao)
+                .addGap(43, 43, 43)
                 .addComponent(cadastrar_botao, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(gerenciar_salas_botao, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -126,22 +144,31 @@ public class TelaCentralAdministrador extends javax.swing.JFrame {
         irParaGerenciarFilme();
     }//GEN-LAST:event_gerenciar_filmes_botaoActionPerformed
 
-    public void irParaCadastro() {
+    private void sair_botaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sair_botaoActionPerformed
+        sair();
+    }//GEN-LAST:event_sair_botaoActionPerformed
+
+    private void sair(){
+        dispose();
+        TelaCatalogoDeFilmes.geraCatalogoDeFilmes().abrirTela();
+    }
+    
+    private void irParaCadastro() {
         dispose();
         TelaCadastrarUsuario.geraCadastrarUsuario().abrirTela();
     }
 
-    public void irParaGerenciarSessao() {
+    private void irParaGerenciarSessao() {
         dispose();
         TelaGerenciarSessao.geraTelaGerenciarSessao().abrirTela();
     }
 
-    public void irParaGerenciarFilme() {
+    private void irParaGerenciarFilme() {
         dispose();
         TelaGerenciarFilme.geraTelaGerenciarFilme().abrirTela();
     }
 
-    public void irParaGerenciarSala() {
+    private void irParaGerenciarSala() {
         dispose();
         TelaGerenciarSala.geraTelaGerenciarSala().abrirTela();
     }
@@ -187,9 +214,11 @@ public class TelaCentralAdministrador extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton cadastrar_botao;
+    private javax.swing.JButton eidtar_perfil_botao;
     private javax.swing.JButton gerenciar_filmes_botao;
     private javax.swing.JButton gerenciar_salas_botao;
     private javax.swing.JButton gerenciar_sessoes_botao;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JButton sair_botao;
     // End of variables declaration//GEN-END:variables
 }

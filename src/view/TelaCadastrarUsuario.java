@@ -185,6 +185,14 @@ public class TelaCadastrarUsuario extends javax.swing.JFrame {
         dispose();
         TelaCentralAdministrador.geraTelaCentralAdministrador().abrirTela();
     }
+    
+    private void limparTela(){
+        cpf_input.setText("");
+        nome_input.setText("");
+        email_input.setText("");
+        senha_input.setText("");
+        telefone_input.setText("");
+    }
 
     private void criarConta() {
         String cpf = cpf_input.getText();
@@ -199,6 +207,8 @@ public class TelaCadastrarUsuario extends javax.swing.JFrame {
             sucesso = user.cadastrarUsuario(cpf, nome, email, senha, telefone);
             if(sucesso){
                 JOptionPane.showMessageDialog(null, "Cadastro efetuado com sucesso!");
+                limparTela();
+                voltar();
             } else{
                 JOptionPane.showMessageDialog(null, "Erro no preenchimento de campos!");
             }
