@@ -17,7 +17,7 @@ public class TelaGerenciarFilme extends javax.swing.JFrame {
 
     private TelaGerenciarFilme() {
         initComponents();
-        //atualizarTabela();
+        atualizarTabela();
     }
 
     public static TelaGerenciarFilme geraTelaGerenciarFilme() {
@@ -111,6 +111,11 @@ public class TelaGerenciarFilme extends javax.swing.JFrame {
         pesquisar_botao.setMaximumSize(new java.awt.Dimension(646, 647));
         pesquisar_botao.setMinimumSize(new java.awt.Dimension(646, 647));
         pesquisar_botao.setPreferredSize(new java.awt.Dimension(646, 647));
+        pesquisar_botao.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                pesquisar_botaoActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -175,14 +180,19 @@ public class TelaGerenciarFilme extends javax.swing.JFrame {
     }//GEN-LAST:event_nova_botaoActionPerformed
 
     private void pesquisar_inputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pesquisar_inputActionPerformed
-        pesquisarFilme();
+        
     }//GEN-LAST:event_pesquisar_inputActionPerformed
 
+    private void pesquisar_botaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pesquisar_botaoActionPerformed
+        pesquisarFilme();
+    }//GEN-LAST:event_pesquisar_botaoActionPerformed
+
     private void pesquisarFilme() {
-        String nomeFilme = pesquisar_input.getText();
+        String nomeFilme = pesquisar_input.getText().trim();
         if (!nomeFilme.isEmpty()) {
             FilmeDao filmeDao = DaoFactory.createFilmeDao();
             List<Filme> filmes = filmeDao.findByName(nomeFilme);
+            System.out.println(nomeFilme);
             atualizarTabela(filmes);
         } else {
             JOptionPane.showMessageDialog(this, "Por favor, insira o nome do filme para pesquisa.");
@@ -191,15 +201,18 @@ public class TelaGerenciarFilme extends javax.swing.JFrame {
 
     private void atualizarTabela(List<Filme> filmes) {
         DefaultTableModel modelo = (DefaultTableModel) tabela.getModel();
-        modelo.setRowCount(0);
+        
+        int posLin = 0;
+        modelo.setRowCount(posLin);
 
         for (Filme filme : filmes) {
-            modelo.addRow(new Object[]{
+            modelo.insertRow(posLin, new Object[]{
                 filme.getId(),
                 filme.getNome(),
                 filme.getClassificacao(),
                 filme.getMinutosTotais()
             });
+            posLin++;
         }
     }
 
