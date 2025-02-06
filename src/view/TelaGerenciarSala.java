@@ -91,6 +91,11 @@ public class TelaGerenciarSala extends javax.swing.JFrame {
         });
 
         pesquisar_input.setToolTipText("Barra de pesquisa");
+        pesquisar_input.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                pesquisar_inputActionPerformed(evt);
+            }
+        });
 
         jLabel2.setText("Pesquisar");
 
@@ -160,6 +165,10 @@ public class TelaGerenciarSala extends javax.swing.JFrame {
     private void nova_botaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nova_botaoActionPerformed
         abrirTelaCadastrar();
     }//GEN-LAST:event_nova_botaoActionPerformed
+
+    private void pesquisar_inputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pesquisar_inputActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_pesquisar_inputActionPerformed
 
     private void voltar() {
         dispose();

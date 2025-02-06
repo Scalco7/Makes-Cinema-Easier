@@ -8,7 +8,7 @@ public interface FilmeDao {
     void insert(Filme obj);
     void update(Filme obj);
     Filme findById(Integer id);
-    Filme findByName(String nome);
+    List<Filme> findByName(String nome);
     List<Filme> findByAll();
     
 }
