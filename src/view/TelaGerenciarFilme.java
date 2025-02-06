@@ -192,7 +192,6 @@ public class TelaGerenciarFilme extends javax.swing.JFrame {
         if (!nomeFilme.isEmpty()) {
             FilmeDao filmeDao = DaoFactory.createFilmeDao();
             List<Filme> filmes = filmeDao.findByName(nomeFilme);
-            System.out.println(nomeFilme);
             atualizarTabela(filmes);
         } else {
             JOptionPane.showMessageDialog(this, "Por favor, insira o nome do filme para pesquisa.");

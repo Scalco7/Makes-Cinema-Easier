@@ -1,5 +1,12 @@
 package view;
 
+import java.util.List;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import model.dao.DaoFactory;
+import model.dao.SalaDao;
+import model.entities.Sala;
+
 /**
  *
  * @author Scalco
@@ -21,6 +28,7 @@ public class TelaGerenciarSala extends javax.swing.JFrame {
     }
 
     public void abrirTela() {
+        atualizarTabela();
         setVisible(true);
     }
 
@@ -103,6 +111,11 @@ public class TelaGerenciarSala extends javax.swing.JFrame {
         pesquisar_botao.setMaximumSize(new java.awt.Dimension(646, 647));
         pesquisar_botao.setMinimumSize(new java.awt.Dimension(646, 647));
         pesquisar_botao.setPreferredSize(new java.awt.Dimension(646, 647));
+        pesquisar_botao.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                pesquisar_botaoActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -170,6 +183,10 @@ public class TelaGerenciarSala extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_pesquisar_inputActionPerformed
 
+    private void pesquisar_botaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pesquisar_botaoActionPerformed
+        pesquisarSala();
+    }//GEN-LAST:event_pesquisar_botaoActionPerformed
+
     private void voltar() {
         dispose();
         TelaCentralAdministrador.geraTelaCentralAdministrador().abrirTela();
@@ -178,6 +195,51 @@ public class TelaGerenciarSala extends javax.swing.JFrame {
     private void abrirTelaCadastrar() {
         dispose();
         TelaCadastrarSala.geraCadastrarSala().abrirTela();
+    }
+    
+    private void pesquisarSala() {
+        String nomeSala = pesquisar_input.getText().trim();
+        if (!nomeSala.isEmpty()) {
+            SalaDao salaDao = DaoFactory.createSalaDao();
+            List<Sala> salas = salaDao.findByName(nomeSala);
+            atualizarTabela(salas);
+        } else {
+            JOptionPane.showMessageDialog(this, "Por favor, insira o nome do filme para pesquisa.");
+        }
+    }
+
+    private void atualizarTabela(List<Sala> salas) {
+        DefaultTableModel modelo = (DefaultTableModel) tabela.getModel();
+        
+        int posLin = 0;
+        modelo.setRowCount(posLin);
+        for (Sala sala : salas) {
+            modelo.insertRow(posLin, new Object[]{
+                sala.getId(),
+                sala.getNome(),
+                sala.getLargura()*sala.getProfundidade()
+            });
+            posLin++;
+        }
+    }
+    
+    public void atualizarTabela() {
+        DefaultTableModel modelo = (DefaultTableModel) tabela.getModel();
+        modelo.setRowCount(0);
+
+        SalaDao salaDao = DaoFactory.createSalaDao();
+        List<Sala> salas = salaDao.findByAll();
+        int posLin = 0;
+        modelo.setRowCount(posLin);
+
+        for (Sala sala : salas) {
+            modelo.insertRow(posLin, new Object[]{
+                sala.getId(),
+                sala.getNome(),
+                sala.getLargura()*sala.getProfundidade()
+            });
+            posLin++;
+        }
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

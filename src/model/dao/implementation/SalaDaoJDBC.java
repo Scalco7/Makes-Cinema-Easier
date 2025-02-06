@@ -131,4 +131,36 @@ public class SalaDaoJDBC implements SalaDao {
         }
     }
 
+    @Override
+    public List<Sala> findByName(String nome) {
+        System.out.println(nome);
+        List<Sala> salas = new ArrayList<>();
+        nome = "%"+nome+"%";
+        PreparedStatement st = null;
+        ResultSet rs = null;
+        try {
+            st = conn.prepareStatement("SELECT * FROM sala WHERE Nome LIKE ?");
+
+            st.setString(1, nome);
+            rs = st.executeQuery();
+
+            while (rs.next()) {
+                Sala sala = new Sala();
+                sala.setId(rs.getInt("Id"));
+                sala.setNome(rs.getString("Nome"));
+                sala.setLargura(rs.getInt("Largura"));
+                sala.setProfundidade(rs.getInt("Profundidade"));
+                salas.add(sala);
+            }
+
+            return salas;
+
+        } catch (SQLException e) {
+            throw new DbException(e.getMessage());
+        } finally {
+            DB.closeStatement(st);
+            DB.closeResultSet(rs);
+        }
+    }
+
 }

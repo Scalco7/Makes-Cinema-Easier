@@ -8,6 +8,8 @@ public interface SalaDao {
     void insert(Sala obj);
     void update(Sala obj);
     Sala findById(Integer id);
+    List<Sala> findByName(String nome);
     List<Sala> findByAll();
+    
     
 }
