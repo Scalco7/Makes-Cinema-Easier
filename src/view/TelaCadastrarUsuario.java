@@ -183,7 +183,7 @@ public class TelaCadastrarUsuario extends javax.swing.JFrame {
 
     private void voltar() {
         dispose();
-        TelaLogin.geraLogin().abrirTela();
+        TelaCentralAdministrador.geraTelaCentralAdministrador().abrirTela();
     }
 
     private void criarConta() {
