@@ -11,6 +11,7 @@ public class Cliente implements Serializable{
     private String email;
     private String senha;
     private String telefone;
+    private int ooo;
 
     public Cliente() {
     }
