@@ -43,7 +43,6 @@ public class TelaLogin extends javax.swing.JFrame {
         senha_input = new javax.swing.JPasswordField();
         voltar_botao = new javax.swing.JButton();
         entrar_botao = new javax.swing.JButton();
-        criar_conta_botao = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -73,13 +72,6 @@ public class TelaLogin extends javax.swing.JFrame {
             }
         });
 
-        criar_conta_botao.setText("Criar conta");
-        criar_conta_botao.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                criar_conta_botaoActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -98,13 +90,11 @@ public class TelaLogin extends javax.swing.JFrame {
                                 .addComponent(jLabel1))
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(214, 214, 214)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(criar_conta_botao)
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                        .addComponent(email_label, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(email_input)
-                                        .addComponent(senha_label, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(senha_input, javax.swing.GroupLayout.DEFAULT_SIZE, 228, Short.MAX_VALUE)))))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(email_label, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(email_input)
+                                    .addComponent(senha_label, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(senha_input, javax.swing.GroupLayout.DEFAULT_SIZE, 228, Short.MAX_VALUE))))
                         .addGap(0, 202, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -121,8 +111,6 @@ public class TelaLogin extends javax.swing.JFrame {
                 .addComponent(senha_label)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(senha_input, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(criar_conta_botao)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(361, Short.MAX_VALUE)
@@ -143,18 +131,9 @@ public class TelaLogin extends javax.swing.JFrame {
         fazerLogin();
     }//GEN-LAST:event_entrar_botaoActionPerformed
 
-    private void criar_conta_botaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_criar_conta_botaoActionPerformed
-        irParaCriarConta();
-    }//GEN-LAST:event_criar_conta_botaoActionPerformed
-
     private void voltar() {
         dispose();
         TelaCatalogoDeFilmes.geraCatalogoDeFilmes().abrirTela();
-    }
-
-    private void irParaCriarConta() {
-        dispose();
-        TelaCadastrarUsuario.geraCadastrarUsuario().abrirTela();
     }
 
     private void fazerLogin() {
@@ -176,7 +155,6 @@ public class TelaLogin extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton criar_conta_botao;
     private javax.swing.JTextField email_input;
     private javax.swing.JLabel email_label;
     private javax.swing.JButton entrar_botao;
