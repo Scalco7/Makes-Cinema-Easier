@@ -1,6 +1,6 @@
 package view;
 
-import controller.ClienteControl;
+import controller.UsuarioControl;
 import javax.swing.JOptionPane;
 
 /**
@@ -190,14 +190,13 @@ public class TelaCadastrarUsuario extends javax.swing.JFrame {
         String cpf = cpf_input.getText();
         String nome = nome_input.getText();
         String email = email_input.getText();
-        System.out.println(senha_input.getText());
         String senha = senha_input.getText();
         String telefone = telefone_input.getText();
         boolean sucesso;
         
         try{
-            ClienteControl cc = new ClienteControl(); 
-            sucesso = cc.cadastrarCliente(cpf, nome, email, senha, telefone);
+            UsuarioControl user = new UsuarioControl(); 
+            sucesso = user.cadastrarUsuario(cpf, nome, email, senha, telefone);
             if(sucesso){
                 JOptionPane.showMessageDialog(null, "Cadastro efetuado com sucesso!");
             } else{

@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.Map;
 import model.entities.Ingresso;
 import model.dao.IngressoDao;
-import model.entities.Cliente;
+import model.entities.Usuario;
 import model.entities.Filme;
 import model.entities.Sala;
 import model.entities.Sessao;
@@ -26,7 +26,7 @@ public class IngressoDaoJDBC implements IngressoDao {
         this.conn = conn;
     }
 
-    private Ingresso instantiateIngresso(ResultSet rs, Sessao ses, Cliente cli) throws SQLException {
+    private Ingresso instantiateIngresso(ResultSet rs, Sessao ses, Usuario cli) throws SQLException {
         Ingresso obj = new Ingresso();
         obj.setId(rs.getInt("Id"));
         obj.setPreco(rs.getDouble("Preco"));
@@ -35,8 +35,8 @@ public class IngressoDaoJDBC implements IngressoDao {
         return obj;
     }
 
-    private Cliente instantiateCliente(ResultSet rs) throws SQLException {
-        Cliente obj = new Cliente();
+    private Usuario instantiateCliente(ResultSet rs) throws SQLException {
+        Usuario obj = new Usuario();
         obj.setCpf(rs.getString("Cpf"));
         obj.setNome(rs.getString("Nome"));
         obj.setEmail(rs.getString("Email"));
@@ -152,7 +152,7 @@ public class IngressoDaoJDBC implements IngressoDao {
                 Filme film = instantiateFilme(rs);
                 Sala sal = instantiateSala(rs);
                 Sessao ses = instantiateSessao(rs, sal, film);
-                Cliente cli = instantiateCliente(rs);
+                Usuario cli = instantiateCliente(rs);
                 Ingresso ass = instantiateIngresso(rs, ses, cli);
                 return ass;
             }
@@ -190,7 +190,7 @@ public class IngressoDaoJDBC implements IngressoDao {
             Map<Integer, Sessao> sessaoMap = new HashMap<>();
             Map<Integer, Sala> salaMap = new HashMap<>();
             Map<Integer, Filme> filmeMap = new HashMap<>();
-            Map<String, Cliente> clienteMap = new HashMap<>();
+            Map<String, Usuario> clienteMap = new HashMap<>();
 
             while (rs.next()) {
                 // Recuperar ou instanciar entidades relacionadas
@@ -215,7 +215,7 @@ public class IngressoDaoJDBC implements IngressoDao {
                     sessaoMap.put(sessao.getId(), sessao);
                 }
 
-                Cliente cliente = clienteMap.get(rs.getString("ClienteCpf"));
+                Usuario cliente = clienteMap.get(rs.getString("ClienteCpf"));
                 if (cliente == null) {
                     cliente = instantiateCliente(rs);
                     cliente.setCpf(rs.getString("ClienteCpf"));

@@ -9,12 +9,12 @@ public class Ingresso implements Serializable{
     private Integer id;
     private Double preco;
     private Sessao sessao;
-    private Cliente cliente;
+    private Usuario cliente;
 
     public Ingresso() {
     }
 
-    public Ingresso(Integer id, Double preco, Sessao sessao, Cliente cliente) {
+    public Ingresso(Integer id, Double preco, Sessao sessao, Usuario cliente) {
         this.id = id;
         this.preco = preco;
         this.sessao = sessao;
@@ -45,11 +45,11 @@ public class Ingresso implements Serializable{
         this.sessao = sessao;
     }
 
-    public Cliente getCliente() {
+    public Usuario getCliente() {
         return cliente;
     }
 
-    public void setCliente(Cliente cliente) {
+    public void setCliente(Usuario cliente) {
         this.cliente = cliente;
     }
 

@@ -16,8 +16,7 @@ public class Filme implements Serializable{
 
     public Filme() {}
 
-    public Filme(Integer id, String nome, String descricao, String classificacao, String idioma, Integer minutosTotais, String base64Image) {
-        this.id = id;
+    public Filme(String nome, String descricao, String classificacao, String idioma, Integer minutosTotais, String base64Image) {
         this.nome = nome;
         this.descricao = descricao;
         this.classificacao = classificacao;
@@ -80,6 +79,10 @@ public class Filme implements Serializable{
 
     public void setMinutosTotais(Integer minutosTotais) {
         this.minutosTotais = minutosTotais;
+    }
+    
+    public void cadastrarFilme(Filme obj){
+        
     }
 
     @Override

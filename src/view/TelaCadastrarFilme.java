@@ -1,5 +1,7 @@
 package view;
 
+import controller.FilmeControl;
+import java.awt.RadialGradientPaint;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -81,6 +83,11 @@ public class TelaCadastrarFilme extends javax.swing.JFrame {
         jLabel3.setText("Descrição");
 
         cadastrar_botao.setText("Cadastrar");
+        cadastrar_botao.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cadastrar_botaoActionPerformed(evt);
+            }
+        });
 
         voltar_botao.setText("Voltar");
 
@@ -199,9 +206,9 @@ public class TelaCadastrarFilme extends javax.swing.JFrame {
                                 .addComponent(livre_radio)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(dez_radio)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGap(18, 18, 18)
                                 .addComponent(doze_radio)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(quatorze_radio)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(dezesseis_radio))
@@ -307,6 +314,58 @@ public class TelaCadastrarFilme extends javax.swing.JFrame {
             resetImage();
         }
     }//GEN-LAST:event_image_actionActionPerformed
+
+    private void cadastrar_botaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cadastrar_botaoActionPerformed
+        criarFilme();
+    }//GEN-LAST:event_cadastrar_botaoActionPerformed
+
+    private String getIdioma() {
+        if (dublado_radio.isSelected()) {
+            return "Dublado";
+        } else if (legendado_radio.isSelected()) {
+            return "Legendado";
+        }
+        return "Não selecionado";
+    }
+
+    private String getClassificacao() {
+        if (livre_radio.isSelected()) {
+            return "Livre";
+        } else if (dez_radio.isSelected()) {
+            return "10+";
+        } else if (doze_radio.isSelected()) {
+            return "12+";
+        } else if (quatorze_radio.isSelected()) {
+            return "14+";
+        } else if (dezesseis_radio.isSelected()) {
+            return "16+";
+        } else if (dezoito_radio.isSelected()) {
+            return "18+";
+        }
+        return "Não selecionado";
+    }
+
+    private void criarFilme() {
+        String nome = filme_input.getText();
+        String descricao = descricao_input.getText();
+        String classificacao = getClassificacao();
+        String idioma = getIdioma();
+        String image = "imag";
+        boolean sucesso;
+        
+        try{
+            FilmeControl film = new FilmeControl(); 
+            sucesso = film.cadastrarFilme(nome, descricao, classificacao, idioma, PROPERTIES, image);
+            if(sucesso){
+                JOptionPane.showMessageDialog(null, "Cadastro efetuado com sucesso!");
+            } else{
+                JOptionPane.showMessageDialog(null, "Erro no preenchimento de campos!");
+            }
+        } catch(Exception e){
+            JOptionPane.showMessageDialog(null, "Erro: " + e.getMessage());
+        }
+
+    }
 
     private void uploadImage() {
         JFileChooser fileChooser = new JFileChooser();

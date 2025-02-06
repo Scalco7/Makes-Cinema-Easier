@@ -2,7 +2,7 @@ package model.dao;
 
 import db.DB;
 import model.dao.implementacion.AssentoDaoJDBC;
-import model.dao.implementacion.ClienteDaoJDBC;
+import model.dao.implementacion.UsuarioDaoJDBC;
 import model.dao.implementacion.FilmeDaoJDBC;
 import model.dao.implementacion.IngressoDaoJDBC;
 import model.dao.implementacion.SalaDaoJDBC;
@@ -19,8 +19,8 @@ public class DaoFactory {
         return new AssentoDaoJDBC(DB.getConnection());
     }
     
-    public static ClienteDao createClienteDao(){
-        return new ClienteDaoJDBC(DB.getConnection());
+    public static UsuarioDao createClienteDao(){
+        return new UsuarioDaoJDBC(DB.getConnection());
     }
     
     public static FilmeDao createFilmeDao(){

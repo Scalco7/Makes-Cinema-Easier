@@ -8,19 +8,19 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import model.entities.Cliente;
-import model.dao.ClienteDao;
+import model.entities.Usuario;
+import model.dao.UsuarioDao;
 
-public class ClienteDaoJDBC implements ClienteDao{
+public class UsuarioDaoJDBC implements UsuarioDao{
     
     private Connection conn;
     
-    public ClienteDaoJDBC(Connection conn){
+    public UsuarioDaoJDBC(Connection conn){
         this.conn = conn;
     }
     
-    private Cliente instantiateCliente(ResultSet rs) throws SQLException {
-        Cliente obj = new Cliente();
+    private Usuario instantiateUsuario(ResultSet rs) throws SQLException {
+        Usuario obj = new Usuario();
         obj.setCpf(rs.getString("Cpf"));
         obj.setNome(rs.getString("Nome"));
         obj.setEmail(rs.getString("Email"));
@@ -30,7 +30,7 @@ public class ClienteDaoJDBC implements ClienteDao{
     }
 
     @Override
-    public void insert(Cliente obj) {
+    public void insert(Usuario obj) {
         PreparedStatement st = null;
         try {
             st = conn.prepareStatement("INSERT INTO cliente (Cpf, Nome, Email, Senha, Telefone) VALUES (?, ?, ?, ?, ?) ");
@@ -55,7 +55,7 @@ public class ClienteDaoJDBC implements ClienteDao{
     }
 
     @Override
-    public void update(Cliente obj) {
+    public void update(Usuario obj) {
         PreparedStatement st = null;
         try {
             st = conn.prepareStatement("UPDATE cliente SET Nome = ?, Email = ?, Senha = ?, Telefone = ? WHERE Cpf = ? ");
@@ -76,7 +76,7 @@ public class ClienteDaoJDBC implements ClienteDao{
     }
 
     @Override
-    public Cliente findById(String cpf) {
+    public Usuario findById(String cpf) {
         PreparedStatement st = null;
         ResultSet rs = null;
         try {
@@ -86,8 +86,8 @@ public class ClienteDaoJDBC implements ClienteDao{
             rs = st.executeQuery();
 
             if (rs.next()) {
-                Cliente client = instantiateCliente(rs);
-                return client;
+                Usuario user = instantiateUsuario(rs);
+                return user;
             }
 
             return null;
@@ -101,7 +101,7 @@ public class ClienteDaoJDBC implements ClienteDao{
     }
     
     @Override
-    public Cliente findByName(String nome) {
+    public Usuario findByName(String nome) {
         PreparedStatement st = null;
         ResultSet rs = null;
         try {
@@ -111,8 +111,8 @@ public class ClienteDaoJDBC implements ClienteDao{
             rs = st.executeQuery();
 
             if (rs.next()) {
-                Cliente client = instantiateCliente(rs);
-                return client;
+                Usuario user = instantiateUsuario(rs);
+                return user;
             }
 
             return null;
@@ -126,7 +126,7 @@ public class ClienteDaoJDBC implements ClienteDao{
     }
 
     @Override
-    public List<Cliente> findByAll() {
+    public List<Usuario> findByAll() {
         PreparedStatement st = null;
         ResultSet rs = null;
         try {
@@ -134,15 +134,41 @@ public class ClienteDaoJDBC implements ClienteDao{
 
             rs = st.executeQuery();
 
-            List<Cliente> list = new ArrayList<>();
+            List<Usuario> list = new ArrayList<>();
 
             while (rs.next()) {
-                Cliente client = instantiateCliente(rs);
+                Usuario user = instantiateUsuario(rs);
 
-                list.add(client);
+                list.add(user);
             }
 
             return list;
+
+        } catch (SQLException e) {
+            throw new DbException(e.getMessage());
+        } finally {
+            DB.closeStatement(st);
+            DB.closeResultSet(rs);
+        }
+    }
+    
+    public Usuario findByEmailAndPassword(String email, String senha) {
+        PreparedStatement st = null;
+        ResultSet rs = null;
+        try {
+            st = conn.prepareStatement("SELECT Cpf, Nome, Email, Senha, Telefone FROM cliente WHERE Email = ? AND Senha = ?");
+
+            st.setString(1, email);
+            st.setString(2, senha);
+            rs = st.executeQuery();
+            Usuario usuario = null;
+
+            if (rs.next()) {
+                usuario = instantiateUsuario(rs);
+                //return usuario;
+            }
+
+            return usuario;
 
         } catch (SQLException e) {
             throw new DbException(e.getMessage());

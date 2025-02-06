@@ -1,5 +1,8 @@
 package view;
 
+import controller.UsuarioControl;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Scalco
@@ -155,7 +158,21 @@ public class TelaLogin extends javax.swing.JFrame {
     }
 
     private void fazerLogin() {
-        dispose();  
+        String email = email_input.getText();
+        String senha = senha_input.getText();
+        boolean sucesso;
+        
+        try{
+            UsuarioControl user = new UsuarioControl(); 
+            sucesso = user.login(email, senha);
+            if(sucesso){
+                JOptionPane.showMessageDialog(null, "Login efetuado com sucesso!");
+            } else{
+                JOptionPane.showMessageDialog(null, "Email ou senha incorretos!");
+            }
+        } catch(Exception e){
+            JOptionPane.showMessageDialog(null, "Erro: " + e.getMessage());
+        }
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

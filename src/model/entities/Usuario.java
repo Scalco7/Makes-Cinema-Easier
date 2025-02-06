@@ -4,9 +4,9 @@ import db.DB;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Objects;
-import model.dao.implementacion.ClienteDaoJDBC;
+import model.dao.implementacion.UsuarioDaoJDBC;
 
-public class Cliente implements Serializable {
+public class Usuario implements Serializable {
 
     private static final long serialVersionUID = 1L;
     private String cpf;
@@ -16,10 +16,10 @@ public class Cliente implements Serializable {
     private String telefone;
     private ArrayList<Ingresso> ingressos = new ArrayList<>();
 
-    public Cliente() {
+    public Usuario() {
     }
 
-    public Cliente(String cpf, String nome, String email, String senha, String telefone) {
+    public Usuario(String cpf, String nome, String email, String senha, String telefone) {
         this.cpf = cpf;
         this.nome = nome;
         this.email = email;
@@ -67,8 +67,8 @@ public class Cliente implements Serializable {
         this.telefone = telefone;
     }
     
-    public void cadastrarCliente(Cliente obj){
-        new ClienteDaoJDBC(DB.getConnection()).insert(obj);
+    public void cadastrarUsuario(Usuario obj){
+        new UsuarioDaoJDBC(DB.getConnection()).insert(obj);
     }
 
     @Override
@@ -89,7 +89,7 @@ public class Cliente implements Serializable {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final Cliente other = (Cliente) obj;
+        final Usuario other = (Usuario) obj;
         return Objects.equals(this.cpf, other.cpf);
     }
 
