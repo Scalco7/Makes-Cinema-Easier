@@ -1,5 +1,13 @@
 package view;
 
+import java.sql.Timestamp;
+import java.time.format.DateTimeFormatter;
+import java.util.List;
+import javax.swing.table.DefaultTableModel;
+import model.dao.DaoFactory;
+import model.dao.SessaoDao;
+import model.entities.Sessao;
+
 /**
  *
  * @author Scalco
@@ -164,6 +172,57 @@ public class TelaGerenciarSessao extends javax.swing.JFrame {
     private void abrirTelaCadastrar() {
         dispose();
         TelaCadastrarSessao.geraCadastrarSessao().abrirTela();
+    }
+    
+    /*private void pesquisarSessao() {
+        String nomeSessao = pesquisar_input.getText().trim();
+        if (!nomeFilme.isEmpty()) {
+            FilmeDao filmeDao = DaoFactory.createFilmeDao();
+            List<Filme> filmes = filmeDao.findByName(nomeFilme);
+            atualizarTabela(filmes);
+        } else {
+            JOptionPane.showMessageDialog(this, "Por favor, insira o nome do filme para pesquisa.");
+        }
+    }
+
+    private void atualizarTabela(List<Filme> filmes) {
+        DefaultTableModel modelo = (DefaultTableModel) tabela.getModel();
+        
+        int posLin = 0;
+        modelo.setRowCount(posLin);
+
+        for (Filme filme : filmes) {
+            modelo.insertRow(posLin, new Object[]{
+                filme.getId(),
+                filme.getNome(),
+                filme.getClassificacao(),
+                filme.getMinutosTotais()
+            });
+            posLin++;
+        }
+    }*/
+
+    private void atualizarTabela() {
+        DefaultTableModel modelo = (DefaultTableModel) tabela.getModel();
+        modelo.setRowCount(0);
+
+        SessaoDao sessaoDao = DaoFactory.createSessaoDao();
+        List<Sessao> sessoes = sessaoDao.findByAll();
+        int posLin = 0;
+        modelo.setRowCount(posLin);
+        
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM HH:mm");
+
+        for (Sessao sessao : sessoes) {
+            modelo.insertRow(posLin, new Object[]{
+                sessao.getId(),
+                sessao.getCam(),
+                sessao.getHorarioDaSessao().format(formatter),
+                sessao.getFilme().getNome(),
+                sessao.getSala().getNome()
+            });
+            posLin++;
+        }
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

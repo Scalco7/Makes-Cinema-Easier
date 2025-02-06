@@ -10,6 +10,5 @@ public interface SalaDao {
     Sala findById(Integer id);
     List<Sala> findByName(String nome);
     List<Sala> findByAll();
-    
-    
+   
 }

@@ -1,6 +1,7 @@
 package model.entities;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.Objects;
 
@@ -9,14 +10,14 @@ public class Sessao implements Serializable{
     private static final long serialVersionUID = 1L;
     private Integer id;
     private String cam;
-    private Date horarioDaSessao;
+    private LocalDateTime horarioDaSessao;
     private Filme filme;
     private Sala sala;
 
     public Sessao() {
     }
 
-    public Sessao(Integer id, String cam, Date horarioDaSessao, Filme filme, Sala sala) {
+    public Sessao(Integer id, String cam, LocalDateTime horarioDaSessao, Filme filme, Sala sala) {
         this.id = id;
         this.cam = cam;
         this.horarioDaSessao = horarioDaSessao;
@@ -40,11 +41,11 @@ public class Sessao implements Serializable{
         this.cam = cam;
     }
 
-    public Date getHorarioDaSessao() {
+    public LocalDateTime getHorarioDaSessao() {
         return horarioDaSessao;
     }
 
-    public void setHorarioDaSessao(Date horarioDaSessao) {
+    public void setHorarioDaSessao(LocalDateTime horarioDaSessao) {
         this.horarioDaSessao = horarioDaSessao;
     }
 

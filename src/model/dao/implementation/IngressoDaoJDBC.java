@@ -7,6 +7,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.PreparedStatement;
 import java.sql.Statement;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -68,7 +69,10 @@ public class IngressoDaoJDBC implements IngressoDao {
         Sessao obj = new Sessao();
         obj.setId(rs.getInt("Id"));
         obj.setCam(rs.getString("Cam"));
-        obj.setHorarioDaSessao(rs.getDate("HorarioDaSessao"));
+        Timestamp timestamp = rs.getTimestamp("HorarioDaSessao");
+        if (timestamp != null) {
+            obj.setHorarioDaSessao(timestamp.toLocalDateTime());
+        }
         obj.setFilme(film);
         obj.setSala(sal);
         return obj;

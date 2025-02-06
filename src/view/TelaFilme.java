@@ -1,5 +1,6 @@
 package view;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 import model.entities.Filme;
 import model.entities.Sala;
@@ -240,7 +241,7 @@ public class TelaFilme extends javax.swing.JFrame {
     private void irParaAssento() {
         Filme mockFilme = new Filme();
         Sala mockSala = new Sala();
-        Sessao mockSessao = new Sessao(0, "dublado", new Date(), mockFilme, mockSala);
+        Sessao mockSessao = new Sessao(0, "dublado", new LocalDateTime(), mockFilme, mockSala);
         
         
         dispose();
