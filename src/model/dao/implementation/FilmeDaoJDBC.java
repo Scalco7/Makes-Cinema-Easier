@@ -1,4 +1,3 @@
-
 package model.dao.implementation;
 
 import db.DB;
@@ -13,14 +12,14 @@ import java.util.List;
 import model.entities.Filme;
 import model.dao.FilmeDao;
 
-public class FilmeDaoJDBC implements FilmeDao{
-    
+public class FilmeDaoJDBC implements FilmeDao {
+
     private Connection conn;
-    
-    public FilmeDaoJDBC(Connection conn){
+
+    public FilmeDaoJDBC(Connection conn) {
         this.conn = conn;
     }
-    
+
     private Filme instantiateFilme(ResultSet rs) throws SQLException {
         Filme obj = new Filme();
         obj.setId(rs.getInt("Id"));
@@ -36,7 +35,8 @@ public class FilmeDaoJDBC implements FilmeDao{
     public void insert(Filme obj) {
         PreparedStatement st = null;
         try {
-            st = conn.prepareStatement("INSERT INTO filme (Nome, Imagem, Descricao, Classificacao MinutosTotais) VALUES (?, ?, ?, ?, ?) ", Statement.RETURN_GENERATED_KEYS);
+
+            st = conn.prepareStatement("INSERT INTO filme (Nome, Imagem, Descricao, Classificacao, MinutosTotais) VALUES (?, ?, ?, ?, ?) ", Statement.RETURN_GENERATED_KEYS);
 
             st.setString(1, obj.getNome());
             st.setString(2, obj.getBase64Image());
@@ -110,9 +110,10 @@ public class FilmeDaoJDBC implements FilmeDao{
             DB.closeResultSet(rs);
         }
     }
-    
+
     @Override
-    public Filme findByName(String nome) {
+    public List<Filme> findByName(String nome) {
+        List<Filme> filmes = new ArrayList<>();
         PreparedStatement st = null;
         ResultSet rs = null;
         try {
@@ -121,12 +122,16 @@ public class FilmeDaoJDBC implements FilmeDao{
             st.setString(1, nome);
             rs = st.executeQuery();
 
-            if (rs.next()) {
-                Filme film = instantiateFilme(rs);
-                return film;
+            while (rs.next()) {
+                Filme filme = new Filme();
+                filme.setId(rs.getInt("id"));
+                filme.setNome(rs.getString("nome"));
+                filme.setClassificacao(rs.getString("classificacao"));
+                filme.setMinutosTotais(rs.getInt("minutos_totais"));
+                filmes.add(filme);
             }
 
-            return null;
+            return filmes;
 
         } catch (SQLException e) {
             throw new DbException(e.getMessage());
@@ -162,5 +167,5 @@ public class FilmeDaoJDBC implements FilmeDao{
             DB.closeResultSet(rs);
         }
     }
-    
+
 }

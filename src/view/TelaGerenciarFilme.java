@@ -5,6 +5,8 @@ import javax.swing.table.DefaultTableModel;
 import model.dao.DaoFactory;
 import model.dao.FilmeDao;
 import model.entities.Filme;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Scalco
@@ -98,6 +100,11 @@ public class TelaGerenciarFilme extends javax.swing.JFrame {
         });
 
         pesqusiar_input.setToolTipText("Barra de pesquisa");
+        pesqusiar_input.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                pesqusiar_inputActionPerformed(evt);
+            }
+        });
 
         jLabel2.setText("Pesquisar");
 
@@ -105,6 +112,11 @@ public class TelaGerenciarFilme extends javax.swing.JFrame {
         pesquisar_botao.setMaximumSize(new java.awt.Dimension(646, 647));
         pesquisar_botao.setMinimumSize(new java.awt.Dimension(646, 647));
         pesquisar_botao.setPreferredSize(new java.awt.Dimension(646, 647));
+        pesquisar_botao.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                pesquisar_botaoActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -168,6 +180,39 @@ public class TelaGerenciarFilme extends javax.swing.JFrame {
         abrirCadastrarFilme();
     }//GEN-LAST:event_novo_botaoActionPerformed
 
+    private void pesquisar_botaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pesquisar_botaoActionPerformed
+        pesquisarFilme();
+    }//GEN-LAST:event_pesquisar_botaoActionPerformed
+
+    private void pesqusiar_inputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pesqusiar_inputActionPerformed
+        
+    }//GEN-LAST:event_pesqusiar_inputActionPerformed
+
+    private void pesquisarFilme() {
+        String nomeFilme = pesqusiar_input.getText();
+        if (!nomeFilme.isEmpty()) {
+            FilmeDao filmeDao = DaoFactory.createFilmeDao();
+            List<Filme> filmes = filmeDao.findByName(nomeFilme);
+            atualizarTabela(filmes);
+        } else {
+            JOptionPane.showMessageDialog(this, "Por favor, insira o nome do filme para pesquisa.");
+        }
+    }
+
+    private void atualizarTabela(List<Filme> filmes) {
+        DefaultTableModel modelo = (DefaultTableModel) tabela.getModel();
+        modelo.setRowCount(0);
+
+        for (Filme filme : filmes) {
+            modelo.addRow(new Object[]{
+                filme.getId(),
+                filme.getNome(),
+                filme.getClassificacao(),
+                filme.getMinutosTotais()
+            });
+        }
+    }
+
     public void atualizarTabela() {
         DefaultTableModel modelo = (DefaultTableModel) tabela.getModel();
         modelo.setRowCount(0);
@@ -197,7 +242,7 @@ public class TelaGerenciarFilme extends javax.swing.JFrame {
         dispose();
         TelaCadastrarFilme.geraCadastrarFilme().abrirTela();
     }
-    
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton editar_botao;

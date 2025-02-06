@@ -4,7 +4,9 @@ import controller.FilmeControl;
 import java.awt.RadialGradientPaint;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.util.Base64;
 import javax.imageio.ImageIO;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
@@ -18,6 +20,7 @@ import javax.swing.JOptionPane;
 public class TelaCadastrarFilme extends javax.swing.JFrame {
 
     private static TelaCadastrarFilme unicCadastrarFilme;
+    private String imagemBase64;
 
     private TelaCadastrarFilme() {
         initComponents();
@@ -214,7 +217,7 @@ public class TelaCadastrarFilme extends javax.swing.JFrame {
                                 .addComponent(filme_input, javax.swing.GroupLayout.PREFERRED_SIZE, 301, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(jLabel6)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(duracao_text, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(duracao_text, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jLabel7)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 74, Short.MAX_VALUE)
@@ -348,20 +351,21 @@ public class TelaCadastrarFilme extends javax.swing.JFrame {
         voltar();
     }//GEN-LAST:event_voltar_botaoActionPerformed
 
-    private void voltar(){
+    private void voltar() {
         dispose();
         limparTela();
         TelaGerenciarFilme.geraTelaGerenciarFilme().abrirTela();
     }
-    
-    private void limparTela(){
+
+    private void limparTela() {
         filme_input.setText("");
         descricao_input.setText("");
         dublado_radio.setSelected(true);
         livre_radio.setSelected(true);
+        duracao_text.setText("");
         resetImage();
     }
-    
+
     private String getIdioma() {
         if (dublado_radio.isSelected()) {
             return "Dublado";
@@ -392,20 +396,20 @@ public class TelaCadastrarFilme extends javax.swing.JFrame {
         String nome = filme_input.getText();
         String descricao = descricao_input.getText();
         String classificacao = getClassificacao();
-        String idioma = getIdioma();
-        String image = "imag";
+        Integer minutos = Integer.parseInt(duracao_text.getText());
+
         boolean sucesso;
-        
-        try{
-            FilmeControl film = new FilmeControl(); 
-            sucesso = film.cadastrarFilme(nome, descricao, classificacao, idioma, 15, image);
-            if(sucesso){
+
+        try {
+            FilmeControl film = new FilmeControl();
+            sucesso = film.cadastrarFilme(nome, descricao, classificacao, minutos, imagemBase64);
+            if (sucesso) {
                 JOptionPane.showMessageDialog(null, "Cadastro efetuado com sucesso!");
                 TelaGerenciarFilme.geraTelaGerenciarFilme().atualizarTabela();
-            } else{
+            } else {
                 JOptionPane.showMessageDialog(null, "Erro no preenchimento de campos!");
             }
-        } catch(Exception e){
+        } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Erro: " + e.getMessage());
         }
 
@@ -415,22 +419,78 @@ public class TelaCadastrarFilme extends javax.swing.JFrame {
         JFileChooser fileChooser = new JFileChooser();
         fileChooser.setCurrentDirectory(new File(System.getProperty("user.home")));
         int result = fileChooser.showOpenDialog(getParent());
+
         if (result == JFileChooser.APPROVE_OPTION) {
             try {
                 File file = fileChooser.getSelectedFile();
                 BufferedImage picture = ImageIO.read(file);
 
+                // Exibir no JLabel
                 image_label.setIcon(new ImageIcon(picture));
                 image_action.setText("Remover imagem");
+
+                // Converter para Base64 e salvar na variável
+                imagemBase64 = converterImagemParaBase64(file);
             } catch (IOException ioe) {
-                JOptionPane.showMessageDialog(null, "ERROR");
+                JOptionPane.showMessageDialog(null, "Erro ao carregar a imagem.");
             }
+        }
+    }
+
+    private String converterImagemParaBase64(File file) {
+        try {
+            FileInputStream fis = new FileInputStream(file);
+            byte[] bytes = fis.readAllBytes();
+            fis.close();
+            return Base64.getEncoder().encodeToString(bytes);
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
         }
     }
 
     private void resetImage() {
         image_label.setIcon(null);
         image_action.setText("Subir imagem");
+    }
+
+    public static void main(String args[]) {
+        /* Set the Nimbus look and feel */
+        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         */
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ClassNotFoundException ex) {
+            java.util.logging.Logger.getLogger(TelaCatalogoDeFilmes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(TelaCatalogoDeFilmes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(TelaCatalogoDeFilmes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(TelaCatalogoDeFilmes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+
+        /* Create and display the form */
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new TelaCadastrarFilme().setVisible(true);
+            }
+        });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
