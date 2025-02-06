@@ -15,7 +15,7 @@ public class TelaGerenciarFilme extends javax.swing.JFrame {
 
     private TelaGerenciarFilme() {
         initComponents();
-        atualizarTabela();
+        //atualizarTabela();
     }
 
     public static TelaGerenciarFilme geraTelaGerenciarFilme() {
@@ -98,6 +98,11 @@ public class TelaGerenciarFilme extends javax.swing.JFrame {
         });
 
         pesqusiar_input.setToolTipText("Barra de pesquisa");
+        pesqusiar_input.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                pesqusiar_inputActionPerformed(evt);
+            }
+        });
 
         jLabel2.setText("Pesquisar");
 
@@ -167,6 +172,10 @@ public class TelaGerenciarFilme extends javax.swing.JFrame {
     private void novo_botaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_novo_botaoActionPerformed
         abrirCadastrarFilme();
     }//GEN-LAST:event_novo_botaoActionPerformed
+
+    private void pesqusiar_inputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pesqusiar_inputActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_pesqusiar_inputActionPerformed
 
     public void atualizarTabela() {
         DefaultTableModel modelo = (DefaultTableModel) tabela.getModel();
