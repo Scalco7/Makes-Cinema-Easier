@@ -17,7 +17,6 @@ public class TelaEscolherAssento extends javax.swing.JFrame {
     private static TelaEscolherAssento unicEscolherAssento;
 
     private ArrayList<String> assentosReservados = new ArrayList<>();
-
     private Sessao sessao;
 
     private TelaEscolherAssento() {
@@ -78,6 +77,11 @@ public class TelaEscolherAssento extends javax.swing.JFrame {
         title_label.setText("Escolha seu assento");
 
         reservar_botao.setText("Reservar");
+        reservar_botao.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                reservar_botaoActionPerformed(evt);
+            }
+        });
 
         voltar_botao.setText("Voltar");
         voltar_botao.addActionListener(new java.awt.event.ActionListener() {
@@ -421,8 +425,17 @@ public class TelaEscolherAssento extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_voltar_botaoActionPerformed
 
+    private void reservar_botaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_reservar_botaoActionPerformed
+        reservar();
+    }//GEN-LAST:event_reservar_botaoActionPerformed
+
     private void renderizaTela() {
         //carregar assentos
+    }
+
+    private void reservar() {
+        dispose();
+        TelaReservarAssentos.geraTelaReservarAssentos().abrirTela(sessao, assentosReservados);
     }
 
     private void toogleReservarAssento(javax.swing.JButton button, String code) {
