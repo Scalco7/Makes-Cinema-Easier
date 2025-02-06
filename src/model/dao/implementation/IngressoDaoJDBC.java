@@ -1,4 +1,4 @@
-package model.dao.implementacion;
+package model.dao.implementation;
 
 import db.DB;
 import db.DbException;
@@ -137,11 +137,11 @@ public class IngressoDaoJDBC implements IngressoDao {
         try {
             st = conn.prepareStatement("SELECT ingresso.Id AS IngressoId, ingresso.Preco, sessao.Id AS SessaoId, sessao.Cam, sessao.HorarioDaSessao, "
                     + "sala.Id AS SalaId, sala.Nome AS SalaNome, sala.QtdeAssentos, filme.Id AS FilmeId, filme.Nome AS FilmeNome,"
-                    + "cliente.Cpf AS ClienteCpf, cliente.Nome AS ClienteNome"
+                    + "usuario.Cpf AS ClienteCpf, usuario.Nome AS ClienteNome"
                     + "FROM ingresso INNER JOIN sessao ON ingresso.SessaoId = sessao.Id "
                     + "INNER JOIN sala ON sessao.SalaId = sala.Id "
                     + "INNER JOIN filme ON sessao.FilmeId = filme.Id "
-                    + "INNER JOIN cliente ON ingresso.ClienteId = cliente.Cpf "
+                    + "INNER JOIN usuario ON ingresso.ClienteId = usuario.Cpf "
                     + "ORDER BY ingresso.Id "
                     + "WHERE Id = ?");
 
@@ -176,11 +176,11 @@ public class IngressoDaoJDBC implements IngressoDao {
             st = conn.prepareStatement(
                     "SELECT ingresso.Id AS IngressoId, ingresso.Preco, sessao.Id AS SessaoId, sessao.Cam, sessao.HorarioDaSessao, "
                     + "sala.Id AS SalaId, sala.Nome AS SalaNome, sala.QtdeAssentos, filme.Id AS FilmeId, filme.Nome AS FilmeNome,"
-                    + "cliente.Cpf AS ClienteCpf, cliente.Nome AS ClienteNome"
+                    + "usuario.Cpf AS ClienteCpf, usuario.Nome AS ClienteNome"
                     + "FROM ingresso INNER JOIN sessao ON ingresso.SessaoId = sessao.Id "
                     + "INNER JOIN sala ON sessao.SalaId = sala.Id "
                     + "INNER JOIN filme ON sessao.FilmeId = filme.Id "
-                    + "INNER JOIN cliente ON ingresso.ClienteId = cliente.Cpf "
+                    + "INNER JOIN usuario ON ingresso.ClienteId = usuario.Cpf "
                     + "ORDER BY ingresso.Id"
             );
 

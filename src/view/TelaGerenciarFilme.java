@@ -1,5 +1,10 @@
 package view;
 
+import java.util.List;
+import javax.swing.table.DefaultTableModel;
+import model.dao.DaoFactory;
+import model.dao.FilmeDao;
+import model.entities.Filme;
 /**
  *
  * @author Scalco
@@ -10,6 +15,7 @@ public class TelaGerenciarFilme extends javax.swing.JFrame {
 
     private TelaGerenciarFilme() {
         initComponents();
+        atualizarTabela();
     }
 
     public static TelaGerenciarFilme geraTelaGerenciarFilme() {
@@ -45,6 +51,7 @@ public class TelaGerenciarFilme extends javax.swing.JFrame {
         pesquisar_botao = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setFocusableWindowState(false);
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel1.setText("Filmes");
@@ -65,10 +72,11 @@ public class TelaGerenciarFilme extends javax.swing.JFrame {
                 {null, null, null, null},
                 {null, null, null, null},
                 {null, null, null, null},
+                {null, null, null, null},
                 {null, null, null, null}
             },
             new String [] {
-                "Id", "Nome", "Classificação", "Idioma"
+                "Id", "Nome", "Classificação", "Minutos"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -160,15 +168,36 @@ public class TelaGerenciarFilme extends javax.swing.JFrame {
         abrirCadastrarFilme();
     }//GEN-LAST:event_novo_botaoActionPerformed
 
+    public void atualizarTabela() {
+        DefaultTableModel modelo = (DefaultTableModel) tabela.getModel();
+        modelo.setRowCount(0);
+
+        FilmeDao filmeDao = DaoFactory.createFilmeDao();
+        List<Filme> filmes = filmeDao.findByAll();
+        int posLin = 0;
+        modelo.setRowCount(posLin);
+
+        for (Filme filme : filmes) {
+            modelo.insertRow(posLin, new Object[]{
+                filme.getId(),
+                filme.getNome(),
+                filme.getClassificacao(),
+                filme.getMinutosTotais()
+            });
+            posLin++;
+        }
+    }
+
     private void voltar() {
         dispose();
         TelaCentralAdministrador.geraTelaCentralAdministrador().abrirTela();
     }
-    
-    private void abrirCadastrarFilme(){
+
+    private void abrirCadastrarFilme() {
         dispose();
         TelaCadastrarFilme.geraCadastrarFilme().abrirTela();
     }
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton editar_botao;

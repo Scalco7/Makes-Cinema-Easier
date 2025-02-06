@@ -1,12 +1,12 @@
 package model.dao;
 
 import db.DB;
-import model.dao.implementacion.AssentoDaoJDBC;
-import model.dao.implementacion.UsuarioDaoJDBC;
-import model.dao.implementacion.FilmeDaoJDBC;
-import model.dao.implementacion.IngressoDaoJDBC;
-import model.dao.implementacion.SalaDaoJDBC;
-import model.dao.implementacion.SessaoDaoJDBC;
+import model.dao.implementation.AssentoDaoJDBC;
+import model.dao.implementation.UsuarioDaoJDBC;
+import model.dao.implementation.FilmeDaoJDBC;
+import model.dao.implementation.IngressoDaoJDBC;
+import model.dao.implementation.SalaDaoJDBC;
+import model.dao.implementation.SessaoDaoJDBC;
 
 //Injecao de dependencia sem insplicitar a implementacao
 public class DaoFactory {
@@ -19,7 +19,7 @@ public class DaoFactory {
         return new AssentoDaoJDBC(DB.getConnection());
     }
     
-    public static UsuarioDao createClienteDao(){
+    public static UsuarioDao createUsuarioDao(){
         return new UsuarioDaoJDBC(DB.getConnection());
     }
     

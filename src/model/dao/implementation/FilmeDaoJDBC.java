@@ -1,5 +1,5 @@
 
-package model.dao.implementacion;
+package model.dao.implementation;
 
 import db.DB;
 import db.DbException;
@@ -25,10 +25,9 @@ public class FilmeDaoJDBC implements FilmeDao{
         Filme obj = new Filme();
         obj.setId(rs.getInt("Id"));
         obj.setNome(rs.getString("Nome"));
-        obj.setBase64Image(rs.getString("Base64Image"));
+        obj.setBase64Image(rs.getString("Imagem"));
         obj.setDescricao(rs.getString("Descricao"));
         obj.setClassificacao(rs.getString("Classificacao"));
-        obj.setIdioma(rs.getString("Idioma"));
         obj.setMinutosTotais(rs.getInt("MinutosTotais"));
         return obj;
     }
@@ -37,14 +36,13 @@ public class FilmeDaoJDBC implements FilmeDao{
     public void insert(Filme obj) {
         PreparedStatement st = null;
         try {
-            st = conn.prepareStatement("INSERT INTO filme (Nome, Base64Image, Descricao, Classificacao, Idioma, MinutosTotais) VALUES (?, ?, ?, ?, ?, ?) ", Statement.RETURN_GENERATED_KEYS);
+            st = conn.prepareStatement("INSERT INTO filme (Nome, Imagem, Descricao, Classificacao MinutosTotais) VALUES (?, ?, ?, ?, ?) ", Statement.RETURN_GENERATED_KEYS);
 
             st.setString(1, obj.getNome());
             st.setString(2, obj.getBase64Image());
             st.setString(3, obj.getDescricao());
             st.setString(4, obj.getClassificacao());
-            st.setString(4, obj.getIdioma());
-            st.setInt(6, obj.getMinutosTotais());
+            st.setInt(5, obj.getMinutosTotais());
 
             int rowsAffected = st.executeUpdate();
 
@@ -70,15 +68,14 @@ public class FilmeDaoJDBC implements FilmeDao{
     public void update(Filme obj) {
         PreparedStatement st = null;
         try {
-            st = conn.prepareStatement("UPDATE filme SET Nome = ?, Base64Image = ?, Descricao = ?, Classificacao = ?, Idioma = ?, MinutosTotais = ? WHERE Id = ? ");
+            st = conn.prepareStatement("UPDATE filme SET Nome = ?, Imagem = ?, Descricao = ?, Classificacao = ?, MinutosTotais = ? WHERE Id = ? ");
 
             st.setString(1, obj.getNome());
             st.setString(2, obj.getBase64Image());
             st.setString(3, obj.getDescricao());
             st.setString(4, obj.getClassificacao());
-            st.setString(5, obj.getIdioma());
-            st.setInt(6, obj.getMinutosTotais());
-            st.setInt(7, obj.getId());
+            st.setInt(5, obj.getMinutosTotais());
+            st.setInt(6, obj.getId());
 
             st.executeUpdate();
 

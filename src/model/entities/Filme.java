@@ -1,7 +1,9 @@
 package model.entities;
 
+import db.DB;
 import java.io.Serializable;
 import java.util.Objects;
+import model.dao.implementation.FilmeDaoJDBC;
 
 public class Filme implements Serializable{
     
@@ -11,17 +13,15 @@ public class Filme implements Serializable{
     private String base64Image;
     private String descricao;
     private String classificacao;
-    private String idioma;
     private Integer minutosTotais;
 
     public Filme() {}
 
-    public Filme(String nome, String descricao, String classificacao, String idioma, Integer minutosTotais, String base64Image) {
+    public Filme(String nome, String descricao, String classificacao, Integer minutosTotais, String base64Image) {
         this.nome = nome;
         this.descricao = descricao;
         this.classificacao = classificacao;
         this.minutosTotais = minutosTotais;
-        this.idioma = idioma;
         this.base64Image = base64Image;
     }
 
@@ -64,14 +64,6 @@ public class Filme implements Serializable{
     public void setClassificacao(String classificacao) {
         this.classificacao = classificacao;
     }
-    
-    public String getIdioma(){
-        return idioma;
-    }
-    
-    public void setIdioma(String idioma){
-        this.idioma = idioma;
-    }
 
     public Integer getMinutosTotais() {
         return minutosTotais;
@@ -82,7 +74,7 @@ public class Filme implements Serializable{
     }
     
     public void cadastrarFilme(Filme obj){
-        
+        new FilmeDaoJDBC(DB.getConnection()).insert(obj);
     }
 
     @Override

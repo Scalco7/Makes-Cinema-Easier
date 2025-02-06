@@ -2,7 +2,7 @@ package controller;
 
 import java.sql.Connection;
 import db.DB;
-import model.dao.implementacion.UsuarioDaoJDBC;
+import model.dao.implementation.UsuarioDaoJDBC;
 import model.entities.Usuario;
 
 public class UsuarioControl {

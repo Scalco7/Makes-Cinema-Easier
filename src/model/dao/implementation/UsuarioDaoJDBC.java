@@ -1,4 +1,4 @@
-package model.dao.implementacion;
+package model.dao.implementation;
 
 import db.DB;
 import db.DbException;
@@ -33,7 +33,7 @@ public class UsuarioDaoJDBC implements UsuarioDao{
     public void insert(Usuario obj) {
         PreparedStatement st = null;
         try {
-            st = conn.prepareStatement("INSERT INTO cliente (Cpf, Nome, Email, Senha, Telefone) VALUES (?, ?, ?, ?, ?) ");
+            st = conn.prepareStatement("INSERT INTO usuario (Cpf, Nome, Email, Senha, Telefone) VALUES (?, ?, ?, ?, ?) ");
 
             st.setString(1, obj.getCpf());
             st.setString(2, obj.getNome());
@@ -58,7 +58,7 @@ public class UsuarioDaoJDBC implements UsuarioDao{
     public void update(Usuario obj) {
         PreparedStatement st = null;
         try {
-            st = conn.prepareStatement("UPDATE cliente SET Nome = ?, Email = ?, Senha = ?, Telefone = ? WHERE Cpf = ? ");
+            st = conn.prepareStatement("UPDATE usuario SET Nome = ?, Email = ?, Senha = ?, Telefone = ? WHERE Cpf = ? ");
 
             st.setString(1, obj.getNome());
             st.setString(2, obj.getEmail());
@@ -80,7 +80,7 @@ public class UsuarioDaoJDBC implements UsuarioDao{
         PreparedStatement st = null;
         ResultSet rs = null;
         try {
-            st = conn.prepareStatement("SELECT Cpf, Nome, Email, Telefone FROM cliente WHERE Cpf = ?");
+            st = conn.prepareStatement("SELECT Cpf, Nome, Email, Telefone FROM usuario WHERE Cpf = ?");
 
             st.setString(1, cpf);
             rs = st.executeQuery();
@@ -105,7 +105,7 @@ public class UsuarioDaoJDBC implements UsuarioDao{
         PreparedStatement st = null;
         ResultSet rs = null;
         try {
-            st = conn.prepareStatement("SELECT Cpf, Nome, Email, Telefone FROM cliente WHERE Nome = ?");
+            st = conn.prepareStatement("SELECT Cpf, Nome, Email, Telefone FROM usuario WHERE Nome = ?");
 
             st.setString(1, nome);
             rs = st.executeQuery();
@@ -130,7 +130,7 @@ public class UsuarioDaoJDBC implements UsuarioDao{
         PreparedStatement st = null;
         ResultSet rs = null;
         try {
-            st = conn.prepareStatement("SELECT Cpf, Nome, Email, Telefone FROM cliente ORDER BY Nome");
+            st = conn.prepareStatement("SELECT Cpf, Nome, Email, Telefone FROM usuario ORDER BY Nome");
 
             rs = st.executeQuery();
 
@@ -156,7 +156,7 @@ public class UsuarioDaoJDBC implements UsuarioDao{
         PreparedStatement st = null;
         ResultSet rs = null;
         try {
-            st = conn.prepareStatement("SELECT Cpf, Nome, Email, Senha, Telefone FROM cliente WHERE Email = ? AND Senha = ?");
+            st = conn.prepareStatement("SELECT Cpf, Nome, Email, Senha, Telefone FROM usuario WHERE Email = ? AND Senha = ?");
 
             st.setString(1, email);
             st.setString(2, senha);

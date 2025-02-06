@@ -374,9 +374,10 @@ public class TelaCadastrarFilme extends javax.swing.JFrame {
         
         try{
             FilmeControl film = new FilmeControl(); 
-            sucesso = film.cadastrarFilme(nome, descricao, classificacao, idioma, PROPERTIES, image);
+            sucesso = film.cadastrarFilme(nome, descricao, classificacao, idioma, 15, image);
             if(sucesso){
                 JOptionPane.showMessageDialog(null, "Cadastro efetuado com sucesso!");
+                TelaGerenciarFilme.geraTelaGerenciarFilme().atualizarTabela();
             } else{
                 JOptionPane.showMessageDialog(null, "Erro no preenchimento de campos!");
             }

@@ -1,4 +1,4 @@
-package model.dao.implementacion;
+package model.dao.implementation;
 
 import db.DB;
 import db.DbException;
@@ -32,7 +32,7 @@ public class SalaDaoJDBC implements SalaDao {
     public void insert(Sala obj) {
         PreparedStatement st = null;
         try {
-            st = conn.prepareStatement("INSERT INTO sala (Nome, QtdeAssentos) VALUES (?, ?) ", Statement.RETURN_GENERATED_KEYS);
+            st = conn.prepareStatement("INSERT INTO sala (Nome, QtdeAssentos, Imagem) VALUES (?, ?) ", Statement.RETURN_GENERATED_KEYS);
 
             st.setString(1, obj.getNome());
             st.setInt(2, obj.getQtdeAssentos());

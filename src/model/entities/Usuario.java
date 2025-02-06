@@ -4,7 +4,7 @@ import db.DB;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Objects;
-import model.dao.implementacion.UsuarioDaoJDBC;
+import model.dao.implementation.UsuarioDaoJDBC;
 
 public class Usuario implements Serializable {
 

@@ -11,9 +11,9 @@ public class TelaCatalogoDeFilmes extends javax.swing.JFrame {
     private ArrayList<Filme> filmes = new ArrayList<>();
 
     private TelaCatalogoDeFilmes() {
-        filmes.add(new Filme("Aranha verso", "Homem aranha ganha de td mundo", "12+", "Dublado", 120, ""));
-        filmes.add(new Filme("Eu vinho do futuro", "UMa comédia sobre vinhos mt loka", "Livre", "Legendado", 101, ""));
-        filmes.add(new Filme("Aranha verso", "Homem aranha ganha de td mundo", "12+", "Dublado", 120, ""));
+        filmes.add(new Filme("Aranha verso", "Homem aranha ganha de td mundo", "12+", 120, ""));
+        filmes.add(new Filme("Eu vinho do futuro", "UMa comédia sobre vinhos mt loka", "Legendado", 101, ""));
+        filmes.add(new Filme("Aranha verso", "Homem aranha ganha de td mundo", "12+", 120, ""));
 
         initComponents();
         renderizaFilmes();
