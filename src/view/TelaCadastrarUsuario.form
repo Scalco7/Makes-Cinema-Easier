@@ -136,6 +136,9 @@
       <Properties>
         <Property name="toolTipText" type="java.lang.String" value="Senha"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="senha_inputActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="voltar_botao">
       <Properties>

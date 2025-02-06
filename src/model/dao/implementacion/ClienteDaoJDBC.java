@@ -43,14 +43,7 @@ public class ClienteDaoJDBC implements ClienteDao{
 
             int rowsAffected = st.executeUpdate();
 
-            if (rowsAffected > 0) {
-                ResultSet rs = st.getGeneratedKeys();
-                if (rs.next()) {
-                    String cpf = rs.getString(1);
-                    obj.setCpf(cpf);
-                }
-                DB.closeResultSet(rs);
-            } else {
+            if (rowsAffected == 0) {
                 throw new DbException("Unexpected error! Nenhuma linha afetada!");
             }
 

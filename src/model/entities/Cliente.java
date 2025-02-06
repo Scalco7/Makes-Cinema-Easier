@@ -1,17 +1,20 @@
 package model.entities;
 
+import db.DB;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Objects;
+import model.dao.implementacion.ClienteDaoJDBC;
 
-public class Cliente implements Serializable{
-    
+public class Cliente implements Serializable {
+
     private static final long serialVersionUID = 1L;
     private String cpf;
     private String nome;
     private String email;
     private String senha;
     private String telefone;
-    private int ooo;
+    private ArrayList<Ingresso> ingressos = new ArrayList<>();
 
     public Cliente() {
     }
@@ -63,6 +66,10 @@ public class Cliente implements Serializable{
     public void setTelefone(String telefone) {
         this.telefone = telefone;
     }
+    
+    public void cadastrarCliente(Cliente obj){
+        new ClienteDaoJDBC(DB.getConnection()).insert(obj);
+    }
 
     @Override
     public int hashCode() {
@@ -90,5 +97,5 @@ public class Cliente implements Serializable{
     public String toString() {
         return "Cliente{" + "cpf=" + cpf + ", nome=" + nome + ", email=" + email + ", senha=" + senha + ", telefone=" + telefone + '}';
     }
-    
+
 }

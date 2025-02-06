@@ -1,5 +1,8 @@
 package view;
 
+import controller.ClienteControl;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Scalco
@@ -60,6 +63,11 @@ public class TelaCadastrarUsuario extends javax.swing.JFrame {
         senha_label.setText("Senha");
 
         senha_input.setToolTipText("Senha");
+        senha_input.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                senha_inputActionPerformed(evt);
+            }
+        });
 
         voltar_botao.setText("Voltar");
         voltar_botao.addActionListener(new java.awt.event.ActionListener() {
@@ -169,13 +177,35 @@ public class TelaCadastrarUsuario extends javax.swing.JFrame {
         criarConta();
     }//GEN-LAST:event_entrar_botaoActionPerformed
 
+    private void senha_inputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_senha_inputActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_senha_inputActionPerformed
+
     private void voltar() {
         dispose();
         TelaLogin.geraLogin().abrirTela();
     }
 
     private void criarConta() {
-        dispose();
+        String cpf = cpf_input.getText();
+        String nome = nome_input.getText();
+        String email = email_input.getText();
+        System.out.println(senha_input.getText());
+        String senha = senha_input.getText();
+        String telefone = telefone_input.getText();
+        boolean sucesso;
+        
+        try{
+            ClienteControl cc = new ClienteControl(); 
+            sucesso = cc.cadastrarCliente(cpf, nome, email, senha, telefone);
+            if(sucesso){
+                JOptionPane.showMessageDialog(null, "Cadastro efetuado com sucesso!");
+            } else{
+                JOptionPane.showMessageDialog(null, "Erro no preenchimento de campos!");
+            }
+        } catch(Exception e){
+            JOptionPane.showMessageDialog(null, "Erro: " + e.getMessage());
+        }
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
