@@ -76,7 +76,7 @@ public class TelaCadastrarUsuario extends javax.swing.JFrame {
             }
         });
 
-        entrar_botao.setText("Entrar");
+        entrar_botao.setText("Cadastrar");
         entrar_botao.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 entrar_botaoActionPerformed(evt);
@@ -182,6 +182,7 @@ public class TelaCadastrarUsuario extends javax.swing.JFrame {
     }//GEN-LAST:event_senha_inputActionPerformed
 
     private void voltar() {
+        limparTela();
         dispose();
         TelaCentralAdministrador.geraTelaCentralAdministrador().abrirTela();
     }
@@ -207,7 +208,6 @@ public class TelaCadastrarUsuario extends javax.swing.JFrame {
             sucesso = user.cadastrarUsuario(cpf, nome, email, senha, telefone);
             if(sucesso){
                 JOptionPane.showMessageDialog(null, "Cadastro efetuado com sucesso!");
-                limparTela();
                 voltar();
             } else{
                 JOptionPane.showMessageDialog(null, "Erro no preenchimento de campos!");

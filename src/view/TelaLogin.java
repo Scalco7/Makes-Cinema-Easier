@@ -132,25 +132,36 @@ public class TelaLogin extends javax.swing.JFrame {
     }//GEN-LAST:event_entrar_botaoActionPerformed
 
     private void voltar() {
+        limparTela();
         dispose();
         TelaCatalogoDeFilmes.geraCatalogoDeFilmes().abrirTela();
+    }
+
+    private void vaiParaTelaCentral() {
+        limparTela();
+        dispose();
+        TelaCentralAdministrador.geraTelaCentralAdministrador().abrirTela();
+    }
+
+    private void limparTela() {
+        email_input.setText("");
+        senha_input.setText("");
     }
 
     private void fazerLogin() {
         String email = email_input.getText();
         String senha = senha_input.getText();
         boolean sucesso;
-        
-        try{
-            UsuarioControl user = new UsuarioControl(); 
+
+        try {
+            UsuarioControl user = new UsuarioControl();
             sucesso = user.login(email, senha);
-            if(sucesso){
-                JOptionPane.showMessageDialog(null, "Login efetuado com sucesso!");
-                TelaCentralAdministrador.geraTelaCentralAdministrador().abrirTela();
-            } else{
+            if (sucesso) {
+                vaiParaTelaCentral();
+            } else {
                 JOptionPane.showMessageDialog(null, "Email ou senha incorretos!");
             }
-        } catch(Exception e){
+        } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Erro: " + e.getMessage());
         }
     }

@@ -17,7 +17,6 @@ public class TelaGerenciarFilme extends javax.swing.JFrame {
 
     private TelaGerenciarFilme() {
         initComponents();
-        atualizarTabela();
     }
 
     public static TelaGerenciarFilme geraTelaGerenciarFilme() {
@@ -29,6 +28,7 @@ public class TelaGerenciarFilme extends javax.swing.JFrame {
     }
 
     public void abrirTela() {
+        atualizarTabela();
         setVisible(true);
     }
 
