@@ -1,7 +1,6 @@
 package view;
 
 import controller.FilmeControl;
-import java.awt.RadialGradientPaint;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileInputStream;

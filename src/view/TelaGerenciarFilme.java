@@ -1,11 +1,11 @@
 package view;
 
 import java.util.List;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import model.dao.DaoFactory;
 import model.dao.FilmeDao;
 import model.entities.Filme;
-import javax.swing.JOptionPane;
 
 /**
  *
@@ -42,26 +42,26 @@ public class TelaGerenciarFilme extends javax.swing.JFrame {
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
-        novo_botao = new javax.swing.JButton();
+        nova_botao = new javax.swing.JButton();
         editar_botao = new javax.swing.JButton();
         excluir_botao = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tabela = new javax.swing.JTable();
         voltar_botao = new javax.swing.JButton();
-        pesqusiar_input = new javax.swing.JTextField();
+        pesquisar_input = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         pesquisar_botao = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setFocusableWindowState(false);
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel1.setText("Filmes");
 
-        novo_botao.setText("Novo");
-        novo_botao.addActionListener(new java.awt.event.ActionListener() {
+        nova_botao.setText("Novo");
+        nova_botao.setToolTipText("");
+        nova_botao.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                novo_botaoActionPerformed(evt);
+                nova_botaoActionPerformed(evt);
             }
         });
 
@@ -71,7 +71,6 @@ public class TelaGerenciarFilme extends javax.swing.JFrame {
 
         tabela.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
                 {null, null, null, null},
                 {null, null, null, null},
                 {null, null, null, null},
@@ -99,10 +98,10 @@ public class TelaGerenciarFilme extends javax.swing.JFrame {
             }
         });
 
-        pesqusiar_input.setToolTipText("Barra de pesquisa");
-        pesqusiar_input.addActionListener(new java.awt.event.ActionListener() {
+        pesquisar_input.setToolTipText("Barra de pesquisa");
+        pesquisar_input.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                pesqusiar_inputActionPerformed(evt);
+                pesquisar_inputActionPerformed(evt);
             }
         });
 
@@ -112,11 +111,6 @@ public class TelaGerenciarFilme extends javax.swing.JFrame {
         pesquisar_botao.setMaximumSize(new java.awt.Dimension(646, 647));
         pesquisar_botao.setMinimumSize(new java.awt.Dimension(646, 647));
         pesquisar_botao.setPreferredSize(new java.awt.Dimension(646, 647));
-        pesquisar_botao.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                pesquisar_botaoActionPerformed(evt);
-            }
-        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -133,14 +127,14 @@ public class TelaGerenciarFilme extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 608, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(novo_botao, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(nova_botao, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(editar_botao, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(excluir_botao, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(pesqusiar_input, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(pesquisar_input, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel2))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(pesquisar_botao, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -156,9 +150,9 @@ public class TelaGerenciarFilme extends javax.swing.JFrame {
                         .addGap(28, 28, 28)
                         .addComponent(jLabel2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(pesqusiar_input, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(pesquisar_input, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(novo_botao, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(nova_botao, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(editar_botao, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(excluir_botao, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(pesquisar_botao, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -176,20 +170,16 @@ public class TelaGerenciarFilme extends javax.swing.JFrame {
         voltar();
     }//GEN-LAST:event_voltar_botaoActionPerformed
 
-    private void novo_botaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_novo_botaoActionPerformed
+    private void nova_botaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nova_botaoActionPerformed
         abrirCadastrarFilme();
-    }//GEN-LAST:event_novo_botaoActionPerformed
+    }//GEN-LAST:event_nova_botaoActionPerformed
 
-    private void pesquisar_botaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pesquisar_botaoActionPerformed
+    private void pesquisar_inputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pesquisar_inputActionPerformed
         pesquisarFilme();
-    }//GEN-LAST:event_pesquisar_botaoActionPerformed
-
-    private void pesqusiar_inputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pesqusiar_inputActionPerformed
-        
-    }//GEN-LAST:event_pesqusiar_inputActionPerformed
+    }//GEN-LAST:event_pesquisar_inputActionPerformed
 
     private void pesquisarFilme() {
-        String nomeFilme = pesqusiar_input.getText();
+        String nomeFilme = pesquisar_input.getText();
         if (!nomeFilme.isEmpty()) {
             FilmeDao filmeDao = DaoFactory.createFilmeDao();
             List<Filme> filmes = filmeDao.findByName(nomeFilme);
@@ -243,16 +233,15 @@ public class TelaGerenciarFilme extends javax.swing.JFrame {
         TelaCadastrarFilme.geraCadastrarFilme().abrirTela();
     }
 
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton editar_botao;
     private javax.swing.JButton excluir_botao;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JButton novo_botao;
+    private javax.swing.JButton nova_botao;
     private javax.swing.JButton pesquisar_botao;
-    private javax.swing.JTextField pesqusiar_input;
+    private javax.swing.JTextField pesquisar_input;
     private javax.swing.JTable tabela;
     private javax.swing.JButton voltar_botao;
     // End of variables declaration//GEN-END:variables
