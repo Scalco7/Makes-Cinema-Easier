@@ -4,17 +4,17 @@ package view;
  *
  * @author Scalco
  */
-public class EscolherAssento extends javax.swing.JFrame {
+public class TelaEscolherAssento extends javax.swing.JFrame {
 
-    private static EscolherAssento unicEscolherAssento;
+    private static TelaEscolherAssento unicEscolherAssento;
 
-    private EscolherAssento() {
+    private TelaEscolherAssento() {
         initComponents();
     }
 
-    public static EscolherAssento geraEscolherAssento() {
+    public static TelaEscolherAssento geraEscolherAssento() {
         if (unicEscolherAssento == null) {
-            unicEscolherAssento = new EscolherAssento();
+            unicEscolherAssento = new TelaEscolherAssento();
         }
 
         return unicEscolherAssento;
@@ -179,21 +179,17 @@ public class EscolherAssento extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(title_label)
-                        .addGap(0, 520, Short.MAX_VALUE))
+                        .addComponent(voltar_botao)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(reservar_botao, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(assentos_quantidade_label)
-                                .addGap(0, 0, Short.MAX_VALUE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(voltar_botao)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(reservar_botao, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                            .addComponent(title_label)
+                            .addComponent(assentos_quantidade_label))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
             .addGroup(layout.createSequentialGroup()
                 .addGap(252, 252, 252)
@@ -223,7 +219,7 @@ public class EscolherAssento extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(assento_botao_a_6))
                     .addComponent(filme_label, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(261, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

@@ -13,17 +13,17 @@ import javax.swing.JOptionPane;
  *
  * @author Scalco
  */
-public class CadastrarFilme extends javax.swing.JFrame {
+public class TelaCadastrarFilme extends javax.swing.JFrame {
 
-    private static CadastrarFilme unicCadastrarFilme;
+    private static TelaCadastrarFilme unicCadastrarFilme;
 
-    private CadastrarFilme() {
+    private TelaCadastrarFilme() {
         initComponents();
     }
 
-    public static CadastrarFilme geraCadastrarFilme() {
+    public static TelaCadastrarFilme geraCadastrarFilme() {
         if (unicCadastrarFilme == null) {
-            unicCadastrarFilme = new CadastrarFilme();
+            unicCadastrarFilme = new TelaCadastrarFilme();
         }
 
         return unicCadastrarFilme;

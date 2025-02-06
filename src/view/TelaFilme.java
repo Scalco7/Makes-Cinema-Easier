@@ -4,17 +4,17 @@ package view;
  *
  * @author Scalco
  */
-public class Filme extends javax.swing.JFrame {
+public class TelaFilme extends javax.swing.JFrame {
 
-    private static Filme unicFilme;
+    private static TelaFilme unicFilme;
 
-    private Filme() {
+    private TelaFilme() {
         initComponents();
     }
 
-    public static Filme geraFilme() {
+    public static TelaFilme geraFilme() {
         if (unicFilme == null) {
-            unicFilme = new Filme();
+            unicFilme = new TelaFilme();
         }
 
         return unicFilme;

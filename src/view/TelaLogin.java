@@ -4,17 +4,17 @@ package view;
  *
  * @author Scalco
  */
-public class Login extends javax.swing.JFrame {
+public class TelaLogin extends javax.swing.JFrame {
 
-    private static Login unicLogin;
+    private static TelaLogin unicLogin;
 
-    private Login() {
+    private TelaLogin() {
         initComponents();
     }
 
-    public static Login geraLogin() {
+    public static TelaLogin geraLogin() {
         if (unicLogin == null) {
-            unicLogin = new Login();
+            unicLogin = new TelaLogin();
         }
 
         return unicLogin;
@@ -146,17 +146,16 @@ public class Login extends javax.swing.JFrame {
 
     private void voltar() {
         dispose();
-        CatalogoDeFilmes.geraCatalogoDeFilmes().abrirTela();
+        TelaCatalogoDeFilmes.geraCatalogoDeFilmes().abrirTela();
     }
 
     private void irParaCriarConta() {
         dispose();
-        CadastrarUsuario.geraCadastrarUsuario().abrirTela();
+        TelaCadastrarUsuario.geraCadastrarUsuario().abrirTela();
     }
 
     private void fazerLogin() {
-        dispose();
-        
+        dispose();  
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

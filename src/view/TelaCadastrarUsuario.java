@@ -4,17 +4,17 @@ package view;
  *
  * @author Scalco
  */
-public class CadastrarUsuario extends javax.swing.JFrame {
+public class TelaCadastrarUsuario extends javax.swing.JFrame {
 
-    private static CadastrarUsuario unicCadastrarUsuario;
+    private static TelaCadastrarUsuario unicCadastrarUsuario;
 
-    private CadastrarUsuario() {
+    private TelaCadastrarUsuario() {
         initComponents();
     }
 
-    public static CadastrarUsuario geraCadastrarUsuario() {
+    public static TelaCadastrarUsuario geraCadastrarUsuario() {
         if (unicCadastrarUsuario == null) {
-            unicCadastrarUsuario = new CadastrarUsuario();
+            unicCadastrarUsuario = new TelaCadastrarUsuario();
         }
 
         return unicCadastrarUsuario;
@@ -162,12 +162,21 @@ public class CadastrarUsuario extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void voltar_botaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_voltar_botaoActionPerformed
-        // TODO add your handling code here:
+        voltar();
     }//GEN-LAST:event_voltar_botaoActionPerformed
 
     private void entrar_botaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_entrar_botaoActionPerformed
-        // TODO add your handling code here:
+        criarConta();
     }//GEN-LAST:event_entrar_botaoActionPerformed
+
+    private void voltar() {
+        dispose();
+        TelaLogin.geraLogin().abrirTela();
+    }
+
+    private void criarConta() {
+        dispose();
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField cpf_input;

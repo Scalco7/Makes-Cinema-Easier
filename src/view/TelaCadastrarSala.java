@@ -4,17 +4,17 @@ package view;
  *
  * @author Scalco
  */
-public class CadastrarSala extends javax.swing.JFrame {
+public class TelaCadastrarSala extends javax.swing.JFrame {
 
-    private static CadastrarSala unicCadastrarSala;
+    private static TelaCadastrarSala unicCadastrarSala;
 
-    private CadastrarSala() {
+    private TelaCadastrarSala() {
         initComponents();
     }
 
-    public static CadastrarSala geraCadastrarSala() {
+    public static TelaCadastrarSala geraCadastrarSala() {
         if (unicCadastrarSala == null) {
-            unicCadastrarSala = new CadastrarSala();
+            unicCadastrarSala = new TelaCadastrarSala();
         }
 
         return unicCadastrarSala;
@@ -287,12 +287,8 @@ public class CadastrarSala extends javax.swing.JFrame {
                 .addComponent(filme_label)
                 .addGap(101, 101, 101)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(cadastrar_botao, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(voltar_botao)))
+                    .addComponent(cadastrar_botao, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(voltar_botao))
                 .addContainerGap())
         );
 

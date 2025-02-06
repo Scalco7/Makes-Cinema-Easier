@@ -1,16 +1,23 @@
 package view;
 
-public class CatalogoDeFilmes extends javax.swing.JFrame {
+import java.util.ArrayList;
+import model.entities.Filme;
 
-    private static CatalogoDeFilmes unicCatalogoDeFilmes;
+public class TelaCatalogoDeFilmes extends javax.swing.JFrame {
 
-    private CatalogoDeFilmes() {
+    private static TelaCatalogoDeFilmes unicCatalogoDeFilmes;
+    
+    private ArrayList<Filme> filmes;
+
+    private TelaCatalogoDeFilmes() {
         initComponents();
+        filmes.add(new Filme(1, "Aranha verso", "Homem aranha ganha de td mundo", "12+", "Dublado", 120, ""));
+        filmes.add(new Filme(2, "Eu vinho do futuro", "UMa comédia sobre vinhos mt loka", "Livre", "Legendado", 101, ""));
     }
 
-    public static CatalogoDeFilmes geraCatalogoDeFilmes() {
+    public static TelaCatalogoDeFilmes geraCatalogoDeFilmes() {
         if (unicCatalogoDeFilmes == null) {
-            unicCatalogoDeFilmes = new CatalogoDeFilmes();
+            unicCatalogoDeFilmes = new TelaCatalogoDeFilmes();
         }
 
         return unicCatalogoDeFilmes;
@@ -86,7 +93,7 @@ public class CatalogoDeFilmes extends javax.swing.JFrame {
 
     private void goToLogin() {
         dispose();
-        Login.geraLogin().abrirTela();
+        TelaLogin.geraLogin().abrirTela();
     }
 
     /**
@@ -106,14 +113,18 @@ public class CatalogoDeFilmes extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(CatalogoDeFilmes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaCatalogoDeFilmes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(CatalogoDeFilmes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaCatalogoDeFilmes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(CatalogoDeFilmes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaCatalogoDeFilmes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(CatalogoDeFilmes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaCatalogoDeFilmes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
@@ -122,7 +133,7 @@ public class CatalogoDeFilmes extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new CatalogoDeFilmes().setVisible(true);
+                new TelaCatalogoDeFilmes().setVisible(true);
             }
         });
     }

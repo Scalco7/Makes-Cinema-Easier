@@ -8,19 +8,22 @@ public class Filme implements Serializable{
     private static final long serialVersionUID = 1L;
     private Integer id;
     private String nome;
+    private String base64Image;
     private String descricao;
     private String classificacao;
+    private String idioma;
     private Integer minutosTotais;
 
-    public Filme() {
-    }
+    public Filme() {}
 
-    public Filme(Integer id, String nome, String descricao, String classificacao, Integer minutosTotais) {
+    public Filme(Integer id, String nome, String descricao, String classificacao, String idioma, Integer minutosTotais, String base64Image) {
         this.id = id;
         this.nome = nome;
         this.descricao = descricao;
         this.classificacao = classificacao;
         this.minutosTotais = minutosTotais;
+        this.idioma = idioma;
+        this.base64Image = base64Image;
     }
 
     public Integer getId() {
@@ -38,6 +41,14 @@ public class Filme implements Serializable{
     public void setNome(String nome) {
         this.nome = nome;
     }
+    
+    public String getBase64Image(){
+        return base64Image;
+    }
+    
+    public void setBase64Image(String base64Image){
+        this.base64Image = base64Image;
+    }
 
     public String getDescricao() {
         return descricao;
@@ -53,6 +64,14 @@ public class Filme implements Serializable{
 
     public void setClassificacao(String classificacao) {
         this.classificacao = classificacao;
+    }
+    
+    public String getIdioma(){
+        return idioma;
+    }
+    
+    public void setIdioma(String idioma){
+        this.idioma = idioma;
     }
 
     public Integer getMinutosTotais() {

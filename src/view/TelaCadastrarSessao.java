@@ -4,17 +4,17 @@ package view;
  *
  * @author Scalco
  */
-public class CadastrarSessao extends javax.swing.JFrame {
+public class TelaCadastrarSessao extends javax.swing.JFrame {
 
-    private static CadastrarSessao unicCadastrarSessao;
+    private static TelaCadastrarSessao unicCadastrarSessao;
 
-    private CadastrarSessao() {
+    private TelaCadastrarSessao() {
         initComponents();
     }
 
-    public static CadastrarSessao geraCadastrarSessao() {
+    public static TelaCadastrarSessao geraCadastrarSessao() {
         if (unicCadastrarSessao == null) {
-            unicCadastrarSessao = new CadastrarSessao();
+            unicCadastrarSessao = new TelaCadastrarSessao();
         }
 
         return unicCadastrarSessao;
