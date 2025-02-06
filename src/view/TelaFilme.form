@@ -213,6 +213,9 @@
         </Property>
         <Property name="text" type="java.lang.String" value="13:45"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="hora_botao_1ActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="hora_botao_2">
       <Properties>

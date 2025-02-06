@@ -1,12 +1,24 @@
 package view;
 
+import java.awt.Color;
+import java.util.ArrayList;
+import model.entities.Sessao;
+
 /**
  *
  * @author Scalco
  */
 public class TelaEscolherAssento extends javax.swing.JFrame {
 
+    private final Color defaultColor = new Color(255, 255, 255);
+    private final Color selectedColor = new Color(153, 255, 153);
+    private final Color ocupedColor = new Color(255, 102, 102);
+
     private static TelaEscolherAssento unicEscolherAssento;
+
+    private ArrayList<String> assentosReservados = new ArrayList<>();
+
+    private Sessao sessao;
 
     private TelaEscolherAssento() {
         initComponents();
@@ -20,7 +32,9 @@ public class TelaEscolherAssento extends javax.swing.JFrame {
         return unicEscolherAssento;
     }
 
-    public void abrirTela() {
+    public void abrirTela(Sessao sessao) {
+        this.sessao = sessao;
+        renderizaTela();
         setVisible(true);
     }
 
@@ -36,7 +50,7 @@ public class TelaEscolherAssento extends javax.swing.JFrame {
         title_label = new javax.swing.JLabel();
         reservar_botao = new javax.swing.JButton();
         voltar_botao = new javax.swing.JButton();
-        assentos_quantidade_label = new javax.swing.JLabel();
+        label = new javax.swing.JLabel();
         assento_botao_b_3 = new javax.swing.JButton();
         assento_botao_a_1 = new javax.swing.JButton();
         assento_botao_b_6 = new javax.swing.JButton();
@@ -50,6 +64,13 @@ public class TelaEscolherAssento extends javax.swing.JFrame {
         assento_botao_b_4 = new javax.swing.JButton();
         assento_botao_b_2 = new javax.swing.JButton();
         assento_botao_b_5 = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jPanel1 = new javax.swing.JPanel();
+        jPanel2 = new javax.swing.JPanel();
+        jPanel3 = new javax.swing.JPanel();
+        quantidade_label = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -59,8 +80,13 @@ public class TelaEscolherAssento extends javax.swing.JFrame {
         reservar_botao.setText("Reservar");
 
         voltar_botao.setText("Voltar");
+        voltar_botao.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                voltar_botaoActionPerformed(evt);
+            }
+        });
 
-        assentos_quantidade_label.setText("Quantidade selecionada: 0");
+        label.setText("Quantidade selecionada:");
 
         assento_botao_b_3.setIconTextGap(0);
         assento_botao_b_3.setLabel("B2");
@@ -107,6 +133,7 @@ public class TelaEscolherAssento extends javax.swing.JFrame {
             }
         });
 
+        assento_botao_a_4.setBackground(new java.awt.Color(153, 255, 153));
         assento_botao_a_4.setIconTextGap(0);
         assento_botao_a_4.setLabel("A4");
         assento_botao_a_4.setMargin(new java.awt.Insets(3, 5, 3, 5));
@@ -125,6 +152,7 @@ public class TelaEscolherAssento extends javax.swing.JFrame {
             }
         });
 
+        assento_botao_a_6.setBackground(new java.awt.Color(255, 102, 102));
         assento_botao_a_6.setIconTextGap(0);
         assento_botao_a_6.setLabel("A6");
         assento_botao_a_6.setMargin(new java.awt.Insets(3, 5, 3, 5));
@@ -174,23 +202,69 @@ public class TelaEscolherAssento extends javax.swing.JFrame {
             }
         });
 
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabel1.setText("Livre");
+
+        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabel2.setText("Reservado");
+
+        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabel3.setText("Ocupado");
+
+        jPanel1.setBackground(new java.awt.Color(255, 102, 102));
+        jPanel1.setMaximumSize(new java.awt.Dimension(16, 16));
+        jPanel1.setMinimumSize(new java.awt.Dimension(16, 16));
+        jPanel1.setPreferredSize(new java.awt.Dimension(16, 16));
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 16, Short.MAX_VALUE)
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 16, Short.MAX_VALUE)
+        );
+
+        jPanel2.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel2.setMaximumSize(new java.awt.Dimension(16, 16));
+        jPanel2.setMinimumSize(new java.awt.Dimension(16, 16));
+        jPanel2.setPreferredSize(new java.awt.Dimension(16, 16));
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 16, Short.MAX_VALUE)
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 16, Short.MAX_VALUE)
+        );
+
+        jPanel3.setBackground(new java.awt.Color(153, 255, 153));
+        jPanel3.setMaximumSize(new java.awt.Dimension(16, 16));
+        jPanel3.setMinimumSize(new java.awt.Dimension(16, 16));
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 16, Short.MAX_VALUE)
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 16, Short.MAX_VALUE)
+        );
+
+        quantidade_label.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        quantidade_label.setText("0");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(voltar_botao)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(reservar_botao, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(title_label)
-                            .addComponent(assentos_quantidade_label))
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap())
             .addGroup(layout.createSequentialGroup()
                 .addGap(252, 252, 252)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -220,6 +294,29 @@ public class TelaEscolherAssento extends javax.swing.JFrame {
                         .addComponent(assento_botao_a_6))
                     .addComponent(filme_label, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(261, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(voltar_botao)
+                    .addComponent(title_label)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(label)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(quantidade_label)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(reservar_botao, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -227,8 +324,24 @@ public class TelaEscolherAssento extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(title_label)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(assentos_quantidade_label)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 111, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(label)
+                        .addComponent(quantidade_label))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jLabel3)
+                                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel1))
+                            .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel2)
+                            .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 126, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(assento_botao_b_2)
                     .addComponent(assento_botao_b_3)
@@ -246,7 +359,7 @@ public class TelaEscolherAssento extends javax.swing.JFrame {
                     .addComponent(assento_botao_a_6))
                 .addGap(38, 38, 38)
                 .addComponent(filme_label)
-                .addGap(99, 99, 99)
+                .addGap(40, 40, 40)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(reservar_botao, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(voltar_botao, javax.swing.GroupLayout.Alignment.TRAILING))
@@ -285,24 +398,56 @@ public class TelaEscolherAssento extends javax.swing.JFrame {
     }//GEN-LAST:event_assento_botao_a_5ActionPerformed
 
     private void assento_botao_a_6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_assento_botao_a_6ActionPerformed
-        // TODO add your handling code here:
+        toogleReservarAssento(assento_botao_a_6, "A6");
     }//GEN-LAST:event_assento_botao_a_6ActionPerformed
 
     private void assento_botao_b_1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_assento_botao_b_1ActionPerformed
-        // TODO add your handling code here:
+        toogleReservarAssento(assento_botao_b_1, "B1");
     }//GEN-LAST:event_assento_botao_b_1ActionPerformed
 
     private void assento_botao_b_4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_assento_botao_b_4ActionPerformed
-        // TODO add your handling code here:
+        toogleReservarAssento(assento_botao_b_4, "B4");
     }//GEN-LAST:event_assento_botao_b_4ActionPerformed
 
     private void assento_botao_b_2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_assento_botao_b_2ActionPerformed
-        // TODO add your handling code here:
+        toogleReservarAssento(assento_botao_b_2, "B2");
     }//GEN-LAST:event_assento_botao_b_2ActionPerformed
 
     private void assento_botao_b_5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_assento_botao_b_5ActionPerformed
-        // TODO add your handling code here:
+        toogleReservarAssento(assento_botao_b_5, "B5");
     }//GEN-LAST:event_assento_botao_b_5ActionPerformed
+
+    private void voltar_botaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_voltar_botaoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_voltar_botaoActionPerformed
+
+    private void renderizaTela() {
+        //carregar assentos
+    }
+
+    private void toogleReservarAssento(javax.swing.JButton button, String code) {
+        Color color = button.getBackground();
+
+        if (color.equals(ocupedColor)) {
+            System.out.println("aquii" + color);
+            return;
+        }
+
+        if (color.equals(defaultColor)) {
+            button.setBackground(selectedColor);
+            assentosReservados.add(code);
+        } else {
+            button.setBackground(defaultColor);
+            assentosReservados.remove(code);
+        }
+
+        atualizaQuantidade();
+    }
+
+    private void atualizaQuantidade() {
+        int quantidade = assentosReservados.size();
+        quantidade_label.setText(Integer.toString(quantidade));
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton assento_botao_a_1;
@@ -317,8 +462,15 @@ public class TelaEscolherAssento extends javax.swing.JFrame {
     private javax.swing.JButton assento_botao_b_4;
     private javax.swing.JButton assento_botao_b_5;
     private javax.swing.JButton assento_botao_b_6;
-    private javax.swing.JLabel assentos_quantidade_label;
     private javax.swing.JLabel filme_label;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
+    private javax.swing.JLabel label;
+    private javax.swing.JLabel quantidade_label;
     private javax.swing.JButton reservar_botao;
     private javax.swing.JLabel title_label;
     private javax.swing.JButton voltar_botao;

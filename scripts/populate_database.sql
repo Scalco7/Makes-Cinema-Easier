@@ -2,9 +2,9 @@ use projetocinema;
 
 -- Inserindo salas
 INSERT INTO sala (Nome, Largura, Profundidade) VALUES
-('Sala IMAX', 30, 20),
-('Sala 3D', 25, 18),
-('Sala VIP', 20, 15);
+('Sala IMAX', 7, 9),
+('Sala 3D', 7, 7),
+('Sala VIP', 3, 9);
 
 -- Inserindo filmes
 INSERT INTO filme (Nome, Descricao, Classificacao, MinutosTotais, Imagem) VALUES

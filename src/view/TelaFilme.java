@@ -1,6 +1,9 @@
 package view;
 
+import java.util.Date;
 import model.entities.Filme;
+import model.entities.Sala;
+import model.entities.Sessao;
 
 /**
  *
@@ -109,6 +112,11 @@ public class TelaFilme extends javax.swing.JFrame {
 
         hora_botao_1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         hora_botao_1.setText("13:45");
+        hora_botao_1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                hora_botao_1ActionPerformed(evt);
+            }
+        });
 
         hora_botao_2.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         hora_botao_2.setText("17:45");
@@ -214,17 +222,31 @@ public class TelaFilme extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_hora_botao_3ActionPerformed
 
-    private void renderizaTela(){
+    private void hora_botao_1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_hora_botao_1ActionPerformed
+        irParaAssento();
+    }//GEN-LAST:event_hora_botao_1ActionPerformed
+
+    private void renderizaTela() {
         filme_nome.setText(filme.getNome());
         idade_text.setText(filme.getClassificacao());
         descricao_text.setText(filme.getDescricao());
     }
-    
-    private void voltar(){
+
+    private void voltar() {
         dispose();
         TelaCatalogoDeFilmes.geraCatalogoDeFilmes().abrirTela();
     }
-    
+
+    private void irParaAssento() {
+        Filme mockFilme = new Filme();
+        Sala mockSala = new Sala();
+        Sessao mockSessao = new Sessao(0, "dublado", new Date(), mockFilme, mockSala);
+        
+        
+        dispose();
+        TelaEscolherAssento.geraEscolherAssento().abrirTela(mockSessao);
+    }
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton data_botao_1;
     private javax.swing.JButton data_botao_2;

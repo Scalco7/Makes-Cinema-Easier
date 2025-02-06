@@ -40,14 +40,12 @@
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="editar_botao" min="-2" pref="84" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Component id="excluir_botao" min="-2" pref="84" max="-2" attributes="0"/>
-                      <EmptySpace max="32767" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="pesquisar_input" min="-2" pref="212" max="-2" attributes="0"/>
                           <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
+                          <Component id="pesquisar_input" min="-2" pref="302" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="pesquisar_botao" min="-2" pref="84" max="-2" attributes="0"/>
+                      <Component id="pesquisar_botao" pref="0" max="32767" attributes="0"/>
                   </Group>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
@@ -69,7 +67,6 @@
                   <Group type="103" alignment="1" groupAlignment="3" attributes="0">
                       <Component id="nova_botao" alignment="3" min="-2" pref="31" max="-2" attributes="0"/>
                       <Component id="editar_botao" alignment="3" min="-2" pref="31" max="-2" attributes="0"/>
-                      <Component id="excluir_botao" alignment="3" min="-2" pref="31" max="-2" attributes="0"/>
                   </Group>
                   <Component id="pesquisar_botao" min="-2" pref="31" max="-2" attributes="0"/>
               </Group>
@@ -103,11 +100,6 @@
     <Component class="javax.swing.JButton" name="editar_botao">
       <Properties>
         <Property name="text" type="java.lang.String" value="Editar"/>
-      </Properties>
-    </Component>
-    <Component class="javax.swing.JButton" name="excluir_botao">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Excluir"/>
       </Properties>
     </Component>
     <Container class="javax.swing.JScrollPane" name="jScrollPane1">
