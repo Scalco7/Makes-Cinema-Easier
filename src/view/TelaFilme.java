@@ -1,5 +1,7 @@
 package view;
 
+import model.entities.Filme;
+
 /**
  *
  * @author Scalco
@@ -7,6 +9,7 @@ package view;
 public class TelaFilme extends javax.swing.JFrame {
 
     private static TelaFilme unicFilme;
+    private Filme filme;
 
     private TelaFilme() {
         initComponents();
@@ -20,7 +23,9 @@ public class TelaFilme extends javax.swing.JFrame {
         return unicFilme;
     }
 
-    public void abrirTela() {
+    public void abrirTela(Filme filme) {
+        this.filme = filme;
+        renderizaTela();
         setVisible(true);
     }
 
@@ -198,7 +203,7 @@ public class TelaFilme extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void voltar_botaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_voltar_botaoActionPerformed
-        // TODO add your handling code here:
+        voltar();
     }//GEN-LAST:event_voltar_botaoActionPerformed
 
     private void hora_botao_2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_hora_botao_2ActionPerformed
@@ -209,6 +214,18 @@ public class TelaFilme extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_hora_botao_3ActionPerformed
 
+    private void renderizaTela(){
+        filme_nome.setText(filme.getNome());
+        idade_text.setText(filme.getClassificacao());
+        lingua_text.setText(filme.getIdioma());
+        descricao_text.setText(filme.getDescricao());
+    }
+    
+    private void voltar(){
+        dispose();
+        TelaCatalogoDeFilmes.geraCatalogoDeFilmes().abrirTela();
+    }
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton data_botao_1;
     private javax.swing.JButton data_botao_2;

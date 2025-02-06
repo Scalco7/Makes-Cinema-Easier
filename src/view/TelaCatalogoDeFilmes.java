@@ -1,5 +1,6 @@
 package view;
 
+import java.awt.Dimension;
 import java.util.ArrayList;
 import model.entities.Filme;
 
@@ -12,6 +13,7 @@ public class TelaCatalogoDeFilmes extends javax.swing.JFrame {
     private TelaCatalogoDeFilmes() {
         filmes.add(new Filme(1, "Aranha verso", "Homem aranha ganha de td mundo", "12+", "Dublado", 120, ""));
         filmes.add(new Filme(2, "Eu vinho do futuro", "UMa comédia sobre vinhos mt loka", "Livre", "Legendado", 101, ""));
+        filmes.add(new Filme(1, "Aranha verso", "Homem aranha ganha de td mundo", "12+", "Dublado", 120, ""));
 
         initComponents();
         renderizaFilmes();
@@ -39,8 +41,9 @@ public class TelaCatalogoDeFilmes extends javax.swing.JFrame {
     private void initComponents() {
 
         BotaoEntrar = new javax.swing.JButton();
-        Catalogo = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        catalogo = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -51,21 +54,29 @@ public class TelaCatalogoDeFilmes extends javax.swing.JFrame {
             }
         });
 
-        Catalogo.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-
-        javax.swing.GroupLayout CatalogoLayout = new javax.swing.GroupLayout(Catalogo);
-        Catalogo.setLayout(CatalogoLayout);
-        CatalogoLayout.setHorizontalGroup(
-            CatalogoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 589, Short.MAX_VALUE)
-        );
-        CatalogoLayout.setVerticalGroup(
-            CatalogoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 338, Short.MAX_VALUE)
-        );
-
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel1.setText("Catalogo");
+
+        jScrollPane1.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+
+        catalogo.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                catalogoMouseClicked(evt);
+            }
+        });
+
+        javax.swing.GroupLayout catalogoLayout = new javax.swing.GroupLayout(catalogo);
+        catalogo.setLayout(catalogoLayout);
+        catalogoLayout.setHorizontalGroup(
+            catalogoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 617, Short.MAX_VALUE)
+        );
+        catalogoLayout.setVerticalGroup(
+            catalogoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 335, Short.MAX_VALUE)
+        );
+
+        jScrollPane1.setViewportView(catalogo);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -75,12 +86,12 @@ public class TelaCatalogoDeFilmes extends javax.swing.JFrame {
                 .addGap(19, 19, 19)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 590, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 16, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(BotaoEntrar))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(Catalogo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 13, Short.MAX_VALUE)))
+                        .addComponent(BotaoEntrar)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -94,7 +105,8 @@ public class TelaCatalogoDeFilmes extends javax.swing.JFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)))
-                .addComponent(Catalogo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 324, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
@@ -105,16 +117,54 @@ public class TelaCatalogoDeFilmes extends javax.swing.JFrame {
         goToLogin();
     }//GEN-LAST:event_BotaoEntrarActionPerformed
 
+    private void catalogoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_catalogoMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_catalogoMouseClicked
+
     private void goToLogin() {
         dispose();
         TelaLogin.geraLogin().abrirTela();
     }
     
-    private void renderizaFilmes(){
-        /*for(int i = 0; i < filmes.size(); i++){
-            JPanel filme = new javax.swing.JPanel().add(new javax.swing.JLabel());
-            Catalogo.add();
-        }*/
+    private void filmeClicado(java.awt.event.MouseEvent evt, int index){
+        dispose();
+        TelaFilme.geraFilme().abrirTela(filmes.get(index));
+    }
+
+    private void renderizaFilmes() {
+        int largura = 150;
+        int altura = 200;
+        int x = 20;
+        int y = 20;
+
+        for (int i = 0; i < filmes.size(); i++) {
+            Filme filme = filmes.get(i);
+            javax.swing.JPanel filmePanel = new javax.swing.JPanel();
+            filmePanel.add(new javax.swing.JLabel(filme.getNome()));
+            filmePanel.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+
+            filmePanel.setBounds(x, y, largura, altura);
+
+            final int filmeIndex = i;
+            filmePanel.addMouseListener(new java.awt.event.MouseAdapter() {
+                @Override
+                public void mouseClicked(java.awt.event.MouseEvent evt) {
+                    filmeClicado(evt, filmeIndex);
+                }
+            });
+
+            catalogo.add(filmePanel);
+            catalogo.setPreferredSize(new Dimension(617, y + altura + 30));
+            catalogo.revalidate();
+            catalogo.repaint();
+
+            x = x + largura + 20;
+
+            if ((i + 1) % 3 == 0) {
+                y = y + altura + 20;
+                x = 20;
+            }
+        }
     }
 
     /**
@@ -161,7 +211,8 @@ public class TelaCatalogoDeFilmes extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BotaoEntrar;
-    private javax.swing.JPanel Catalogo;
+    private javax.swing.JPanel catalogo;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables
 }
