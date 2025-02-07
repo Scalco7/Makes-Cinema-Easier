@@ -241,8 +241,7 @@ public class TelaFilme extends javax.swing.JFrame {
     private void irParaAssento() {
         Filme mockFilme = new Filme();
         Sala mockSala = new Sala();
-        Sessao mockSessao = new Sessao(0, "dublado", LocalDateTime.of(2025, 2, 6, 14, 30), mockFilme, mockSala);
-        
+        Sessao mockSessao = new Sessao("dublado", LocalDateTime.of(2025, 2, 6, 14, 30), mockFilme, mockSala);
         
         dispose();
         TelaEscolherAssento.geraEscolherAssento().abrirTela(mockSessao);
