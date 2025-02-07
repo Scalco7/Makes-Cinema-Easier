@@ -56,7 +56,6 @@ public class TelaFilme extends javax.swing.JFrame {
         filme_nome = new javax.swing.JLabel();
         voltar_botao = new javax.swing.JButton();
         idade_text = new javax.swing.JLabel();
-        lingua_text = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         descricao_text = new javax.swing.JTextArea();
         filme_img = new javax.swing.JLabel();
@@ -76,8 +75,6 @@ public class TelaFilme extends javax.swing.JFrame {
         });
 
         idade_text.setText("12+");
-
-        lingua_text.setText("Dublado");
 
         jScrollPane1.setBackground(new java.awt.Color(242, 242, 242));
         jScrollPane1.setBorder(null);
@@ -119,8 +116,7 @@ public class TelaFilme extends javax.swing.JFrame {
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(filme_nome, javax.swing.GroupLayout.DEFAULT_SIZE, 416, Short.MAX_VALUE)
                                     .addComponent(idade_text, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jScrollPane1)
-                                    .addComponent(lingua_text, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addComponent(jScrollPane1)))
                             .addComponent(voltar_botao))
                         .addGap(0, 64, Short.MAX_VALUE)))
                 .addContainerGap())
@@ -135,10 +131,8 @@ public class TelaFilme extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(filme_nome)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(lingua_text)
-                        .addGap(12, 12, 12)
                         .addComponent(idade_text)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGap(40, 40, 40)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(7, 7, 7)
@@ -172,7 +166,7 @@ public class TelaFilme extends javax.swing.JFrame {
             byte[] bytes = Base64.getDecoder().decode(filme.getBase64Image());
             ImageIcon imageIcon = new ImageIcon(bytes);
             Image image = imageIcon.getImage();
-            Image newimg = image.getScaledInstance(168, 205, java.awt.Image.SCALE_SMOOTH);
+            Image newimg = image.getScaledInstance(168, 224, java.awt.Image.SCALE_SMOOTH);
             imageIcon = new ImageIcon(newimg);
             filme_img.setIcon(imageIcon);
         } catch (Exception exc) {
@@ -184,7 +178,8 @@ public class TelaFilme extends javax.swing.JFrame {
         int width = 100;
         int height = 35;
 
-        for (Sessao sessao : sessoes) {
+        for (int i = 1; i <= sessoes.size(); i++) {
+            Sessao sessao = sessoes.get(i-1);
             JButton button = new JButton();
             LocalDateTime hora = sessao.getHorarioDaSessao();
 
@@ -195,9 +190,9 @@ public class TelaFilme extends javax.swing.JFrame {
 
             button.setBounds(x, y, width, height);
             sessoes_pnl.add(button);
-            
+
             x = x + width + 20;
-            if(sessoes.indexOf(sessao) + 1 % 5 == 0){
+            if (i % 4 == 0) {
                 x = 10;
                 y = y + height + 15;
             }
@@ -225,7 +220,6 @@ public class TelaFilme extends javax.swing.JFrame {
     private javax.swing.JLabel filme_nome;
     private javax.swing.JLabel idade_text;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JLabel lingua_text;
     private javax.swing.JPanel sessoes_pnl;
     private javax.swing.JButton voltar_botao;
     // End of variables declaration//GEN-END:variables

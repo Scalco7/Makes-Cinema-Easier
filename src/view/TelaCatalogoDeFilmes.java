@@ -148,23 +148,23 @@ public class TelaCatalogoDeFilmes extends javax.swing.JFrame {
 
     private void renderizaFilmes() {
         int largura = 150;
-        int altura = 200;
+        int altura = 220;
         int x = 45;
-        int y = 20;
+        int y = 10;
 
         for (int i = 0; i < filmes.size(); i++) {
             Filme filme = filmes.get(i);
             javax.swing.JPanel filmePanel = new javax.swing.JPanel();
             javax.swing.JLabel img = new javax.swing.JLabel();
 
-            img.setPreferredSize(new Dimension(142, 160));
+            img.setPreferredSize(new Dimension(141, 188));
             img.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
 
             try {
                 byte[] bytes = Base64.getDecoder().decode(filme.getBase64Image());
                 ImageIcon imageIcon = new ImageIcon(bytes);
                 Image image = imageIcon.getImage();
-                Image newimg = image.getScaledInstance(142, 160, java.awt.Image.SCALE_SMOOTH); 
+                Image newimg = image.getScaledInstance(141, 188, java.awt.Image.SCALE_SMOOTH); 
                 imageIcon = new ImageIcon(newimg);
                 img.setIcon(imageIcon);
             } catch (Exception exc) {

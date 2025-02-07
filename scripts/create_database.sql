@@ -23,7 +23,7 @@ CREATE TABLE filme (
 CREATE TABLE sessao (
   Id int(11) NOT NULL AUTO_INCREMENT,
   Cam varchar(30) NOT NULL,
-  HorarioDaSessao date NOT NULL,
+  HorarioDaSessao datetime NOT NULL,
   FilmeId int(11) NOT NULL,
   SalaId int(11) NOT NULL,
   PRIMARY KEY (Id),
