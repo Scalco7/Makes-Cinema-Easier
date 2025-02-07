@@ -262,5 +262,60 @@ public class SessaoDaoJDBC implements SessaoDao {
             DB.closeResultSet(rs);
         }
     }
+    
+    public List<Sessao> buscarSessaoDisponivel(Integer idFilme) throws SQLException{
+    List<Sessao> sessoes = new ArrayList<>();
+    
+    PreparedStatement st = null;
+    ResultSet rs = null;
+    try {
+        // Consulta SQL para buscar as sessões de um filme dentro de uma semana
+        st = conn.prepareStatement(
+                "SELECT sessao.Id, sessao.HorarioDaSessao, sessao.Cam, " +
+                "filme.Id AS FilmeId, filme.Nome AS FilmeNome, filme.Descricao, filme.Classificacao, filme.MinutosTotais " +
+                "FROM sessao " +
+                "INNER JOIN filme ON sessao.FilmeId = filme.Id " +
+                "WHERE sessao.FilmeId = ? " +
+                "AND sessao.HorarioDaSessao BETWEEN NOW() AND DATE_ADD(NOW(), INTERVAL 1 WEEK) " +
+                "ORDER BY sessao.HorarioDaSessao ASC");
+        
+        st.setInt(1, idFilme); // Define o id do filme na consulta
+        rs = st.executeQuery();
+
+        while (rs.next()) {
+            // Instancia o filme
+            Filme filme = new Filme();
+            filme.setId(rs.getInt("FilmeId"));
+            filme.setNome(rs.getString("FilmeNome"));
+            filme.setDescricao(rs.getString("Descricao"));
+            filme.setClassificacao(rs.getString("Classificacao"));
+            filme.setMinutosTotais(rs.getInt("MinutosTotais"));
+
+            // Cria a sessão e popula os dados
+            Sessao sessao = new Sessao();
+            sessao.setId(rs.getInt("Id"));
+            sessao.setCam(rs.getString("Cam"));
+            sessao.setFilme(filme);
+
+            // Converte Timestamp para LocalDateTime
+            Timestamp timestamp = rs.getTimestamp("HorarioDaSessao");
+            if (timestamp != null) {
+                sessao.setHorarioDaSessao(timestamp.toLocalDateTime());
+            }
+
+            // Adiciona à lista de sessões
+            sessoes.add(sessao);
+        }
+
+    } catch (SQLException e) {
+        throw new DbException(e.getMessage());
+    } finally {
+        DB.closeStatement(st);
+        DB.closeResultSet(rs);
+    }
+
+    return sessoes;
+}
+
 
 }
