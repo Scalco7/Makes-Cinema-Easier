@@ -29,6 +29,7 @@ public class TelaGerenciarSessao extends javax.swing.JFrame {
     }
 
     public void abrirTela() {
+        atualizarTabela();
         setVisible(true);
     }
 
@@ -73,7 +74,7 @@ public class TelaGerenciarSessao extends javax.swing.JFrame {
                 {null, null, null, null, null}
             },
             new String [] {
-                "Id", "Filme", "Sala", "Data", "Horário"
+                "Id", "Filme", "Sala", "Data/Horário", "Cam"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -173,7 +174,7 @@ public class TelaGerenciarSessao extends javax.swing.JFrame {
         dispose();
         TelaCadastrarSessao.geraCadastrarSessao().abrirTela();
     }
-    
+
     /*private void pesquisarSessao() {
         String nomeSessao = pesquisar_input.getText().trim();
         if (!nomeFilme.isEmpty()) {
@@ -201,7 +202,6 @@ public class TelaGerenciarSessao extends javax.swing.JFrame {
             posLin++;
         }
     }*/
-
     private void atualizarTabela() {
         DefaultTableModel modelo = (DefaultTableModel) tabela.getModel();
         modelo.setRowCount(0);
@@ -210,16 +210,17 @@ public class TelaGerenciarSessao extends javax.swing.JFrame {
         List<Sessao> sessoes = sessaoDao.findByAll();
         int posLin = 0;
         modelo.setRowCount(posLin);
-        
+
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM HH:mm");
 
         for (Sessao sessao : sessoes) {
             modelo.insertRow(posLin, new Object[]{
                 sessao.getId(),
-                sessao.getCam(),
-                sessao.getHorarioDaSessao().format(formatter),
                 sessao.getFilme().getNome(),
-                sessao.getSala().getNome()
+                sessao.getSala().getNome(),
+                sessao.getHorarioDaSessao().format(formatter),
+                sessao.getCam()
+
             });
             posLin++;
         }

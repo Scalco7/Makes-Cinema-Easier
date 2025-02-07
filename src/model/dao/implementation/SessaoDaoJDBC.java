@@ -127,35 +127,63 @@ public class SessaoDaoJDBC implements SessaoDao {
         ResultSet rs = null;
         try {
             st = conn.prepareStatement(
-                    "SELECT sessao.HorarioDaSessao, sessao.Cam, sala.Nome as Sala, filme.Nome as Filme "
-                    + "FROM sessao INNER JOIN sala ON sessao.SalaId = sala.Id INNER "
-                    + "JOIN filme ON sessao.FilmeId = filme.Id ORDER BY HorarioDaSessao");
+                    "SELECT sessao.Id, sessao.HorarioDaSessao, sessao.Cam, " +
+                    "sala.Id AS SalaId, sala.Nome AS SalaNome, sala.Largura, sala.Profundidade, " +
+                    "filme.Id AS FilmeId, filme.Nome AS FilmeNome, filme.Descricao, filme.Classificacao, filme.MinutosTotais " +
+                    "FROM sessao " +
+                    "INNER JOIN sala ON sessao.SalaId = sala.Id " +
+                    "INNER JOIN filme ON sessao.FilmeId = filme.Id " +
+                    "ORDER BY HorarioDaSessao");
 
             rs = st.executeQuery();
 
             List<Sessao> list = new ArrayList<>();
-            Map<Integer, Sala> map1 = new HashMap<>();
-            Map<Integer, Filme> map2 = new HashMap<>();
+            Map<Integer, Sala> mapSalas = new HashMap<>();
+            Map<Integer, Filme> mapFilmes = new HashMap<>();
 
             while (rs.next()) {
-                Sala sal = map1.get(rs.getInt("SalaId"));
-                Filme film = map2.get(rs.getInt("FilmeId"));
-
-                if (sal == null) {
-                    sal = instantiateSala(rs);
-                    map1.put(rs.getInt("SalaId"), sal);
+                // Instanciar Sala se ainda não existir no Map
+                Sala sala = mapSalas.get(rs.getInt("SalaId"));
+                if (sala == null) {
+                    sala = new Sala();
+                    sala.setId(rs.getInt("SalaId"));
+                    sala.setNome(rs.getString("SalaNome"));
+                    sala.setLargura(rs.getInt("Largura"));
+                    sala.setProfundidade(rs.getInt("Profundidade"));
+                    mapSalas.put(rs.getInt("SalaId"), sala);
                 }
-                if (film == null) {
-                    film = instantiateFilme(rs);
-                    map2.put(rs.getInt("FilmeId"), film);
+
+                // Instanciar Filme se ainda não existir no Map
+                Filme filme = mapFilmes.get(rs.getInt("FilmeId"));
+                if (filme == null) {
+                    filme = new Filme();
+                    filme.setId(rs.getInt("FilmeId"));
+                    filme.setNome(rs.getString("FilmeNome"));
+                    filme.setDescricao(rs.getString("Descricao"));
+                    filme.setClassificacao(rs.getString("Classificacao"));
+                    filme.setMinutosTotais(rs.getInt("MinutosTotais"));
+                    mapFilmes.put(rs.getInt("FilmeId"), filme);
                 }
 
-                Sessao ses = instantiateSessao(rs, sal, film);
+                // Criar a Sessao
+                Sessao sessao = new Sessao();
+                sessao.setId(rs.getInt("Id"));
+                sessao.setCam(rs.getString("Cam"));
 
-                list.add(ses);
+                // Converte Timestamp para LocalDateTime
+                Timestamp timestamp = rs.getTimestamp("HorarioDaSessao");
+                if (timestamp != null) {
+                    sessao.setHorarioDaSessao(timestamp.toLocalDateTime());
+                }
+
+                sessao.setSala(sala);
+                sessao.setFilme(filme);
+
+                list.add(sessao);
             }
 
             return list;
+
 
         } catch (SQLException e) {
             throw new DbException(e.getMessage());
