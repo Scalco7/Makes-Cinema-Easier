@@ -10,5 +10,6 @@ public interface FilmeDao {
     Filme findById(Integer id);
     List<Filme> findByName(String nome);
     List<Filme> findByAll();
+    List<Filme> listAvailables();
     
 }

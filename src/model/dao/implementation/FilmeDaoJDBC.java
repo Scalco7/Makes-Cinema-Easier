@@ -114,7 +114,7 @@ public class FilmeDaoJDBC implements FilmeDao {
     @Override
     public List<Filme> findByName(String nome) {
         List<Filme> filmes = new ArrayList<>();
-        nome = "%"+nome+"%";
+        nome = "%" + nome + "%";
         PreparedStatement st = null;
         ResultSet rs = null;
         try {
@@ -169,4 +169,29 @@ public class FilmeDaoJDBC implements FilmeDao {
         }
     }
 
+    @Override
+    public List<Filme> listAvailables() {
+        PreparedStatement st = null;
+        ResultSet rs = null;
+        try {
+            st = conn.prepareStatement("SELECT f.Id, f.Nome, f.Descricao, f.Classificacao, f.MinutosTotais, f.Imagem  FROM filme as f INNER JOIN sessao s on s.FilmeId = f.id WHERE s.HorarioDaSessao > DATE(NOW()) GROUP BY f.Id ORDER BY Nome");
+
+            rs = st.executeQuery();
+
+            List<Filme> list = new ArrayList<>();
+
+            while (rs.next()) {
+                Filme film = instantiateFilme(rs);
+                list.add(film);
+            }
+
+            return list;
+
+        } catch (SQLException e) {
+            throw new DbException(e.getMessage());
+        } finally {
+            DB.closeStatement(st);
+            DB.closeResultSet(rs);
+        }
+    }
 }

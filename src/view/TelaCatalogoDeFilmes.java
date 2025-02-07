@@ -1,22 +1,26 @@
 package view;
 
 import java.awt.Dimension;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Base64;
+import java.util.List;
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
+import model.dao.DaoFactory;
+import model.dao.FilmeDao;
 import model.entities.Filme;
 
 public class TelaCatalogoDeFilmes extends javax.swing.JFrame {
 
     private static TelaCatalogoDeFilmes unicCatalogoDeFilmes;
 
-    private ArrayList<Filme> filmes = new ArrayList<>();
+    private List<Filme> filmes = new ArrayList<>();
 
     private TelaCatalogoDeFilmes() {
-        filmes.add(new Filme("Aranha verso", "Homem aranha ganha de td mundo", "12+", 120, ""));
-        filmes.add(new Filme("Eu vinho do futuro", "UMa comédia sobre vinhos mt loka", "Legendado", 101, ""));
-        filmes.add(new Filme("Aranha verso", "Homem aranha ganha de td mundo", "12+", 120, ""));
-
-        initComponents();
-        renderizaFilmes();
     }
 
     public static TelaCatalogoDeFilmes geraCatalogoDeFilmes() {
@@ -28,6 +32,9 @@ public class TelaCatalogoDeFilmes extends javax.swing.JFrame {
     }
 
     public void abrirTela() {
+        buscarFilmes();
+        initComponents();
+        renderizaFilmes();
         setVisible(true);
     }
 
@@ -44,10 +51,11 @@ public class TelaCatalogoDeFilmes extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         catalogo = new javax.swing.JPanel();
+        jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        BotaoEntrar.setText("Entrar");
+        BotaoEntrar.setText("Administrador - Entrar");
         BotaoEntrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 BotaoEntrarActionPerformed(evt);
@@ -55,7 +63,7 @@ public class TelaCatalogoDeFilmes extends javax.swing.JFrame {
         });
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jLabel1.setText("Catalogo");
+        jLabel1.setText("Makes Cinema Easier");
 
         jScrollPane1.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 
@@ -78,20 +86,27 @@ public class TelaCatalogoDeFilmes extends javax.swing.JFrame {
 
         jScrollPane1.setViewportView(catalogo);
 
+        jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel2.setText("Qual vai ser a aventura de hoje?");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(19, 19, 19)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 590, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 16, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(BotaoEntrar)))
+                        .addComponent(BotaoEntrar))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(19, 19, 19)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 590, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel2))
+                        .addGap(0, 16, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -99,13 +114,11 @@ public class TelaCatalogoDeFilmes extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(BotaoEntrar)
-                        .addGap(27, 27, 27))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
+                    .addComponent(BotaoEntrar)
+                    .addComponent(jLabel1))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 17, Short.MAX_VALUE)
+                .addComponent(jLabel2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 324, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -125,8 +138,13 @@ public class TelaCatalogoDeFilmes extends javax.swing.JFrame {
         dispose();
         TelaLogin.geraLogin().abrirTela();
     }
-    
-    private void filmeClicado(java.awt.event.MouseEvent evt, int index){
+
+    private void buscarFilmes() {
+        FilmeDao filmeDao = DaoFactory.createFilmeDao();
+        filmes = filmeDao.listAvailables();
+    }
+
+    private void filmeClicado(java.awt.event.MouseEvent evt, int index) {
         dispose();
         TelaFilme.geraFilme().abrirTela(filmes.get(index));
     }
@@ -134,12 +152,27 @@ public class TelaCatalogoDeFilmes extends javax.swing.JFrame {
     private void renderizaFilmes() {
         int largura = 150;
         int altura = 200;
-        int x = 20;
+        int x = 45;
         int y = 20;
 
         for (int i = 0; i < filmes.size(); i++) {
             Filme filme = filmes.get(i);
             javax.swing.JPanel filmePanel = new javax.swing.JPanel();
+            javax.swing.JLabel img = new javax.swing.JLabel();
+
+            img.setPreferredSize(new Dimension(142, 160));
+            img.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+            img.setVerticalTextPosition(JLabel.TOP);
+            img.setHorizontalTextPosition(JLabel.CENTER);
+
+            try {
+                byte[] bytes = Base64.getDecoder().decode(filme.getBase64Image());
+                img.setIcon(new ImageIcon(bytes));
+            } catch (Exception exc) {
+                img.setText("Erro");
+            }
+
+            filmePanel.add(img);
             filmePanel.add(new javax.swing.JLabel(filme.getNome()));
             filmePanel.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
@@ -162,7 +195,7 @@ public class TelaCatalogoDeFilmes extends javax.swing.JFrame {
 
             if ((i + 1) % 3 == 0) {
                 y = y + altura + 20;
-                x = 20;
+                x = 45;
             }
         }
     }
@@ -204,7 +237,7 @@ public class TelaCatalogoDeFilmes extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new TelaCatalogoDeFilmes().setVisible(true);
+                TelaCatalogoDeFilmes.geraCatalogoDeFilmes().abrirTela();
             }
         });
     }
@@ -213,6 +246,7 @@ public class TelaCatalogoDeFilmes extends javax.swing.JFrame {
     private javax.swing.JButton BotaoEntrar;
     private javax.swing.JPanel catalogo;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables
 }
