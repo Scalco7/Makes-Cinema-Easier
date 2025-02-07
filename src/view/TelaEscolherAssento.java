@@ -249,6 +249,7 @@ public class TelaEscolherAssento extends javax.swing.JFrame {
     }
 
     private void renderizaTela() {
+        assentosReservados.clear();
         quantidade_label.setText("0");
         assentos_panel.removeAll();
 
@@ -315,7 +316,6 @@ public class TelaEscolherAssento extends javax.swing.JFrame {
         Color color = button.getBackground();
 
         if (color.equals(ocupedColor)) {
-            System.out.println("aquii" + color);
             return;
         }
 

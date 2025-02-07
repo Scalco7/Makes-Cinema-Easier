@@ -139,6 +139,7 @@ public class TelaReservarAssentos extends javax.swing.JFrame {
     }//GEN-LAST:event_finalizar_botaoActionPerformed
 
     private void renderizaTela() {
+        nomeReservaInputs.clear();
         reservar_pnl.removeAll();
         
         int x = 6;
@@ -159,7 +160,7 @@ public class TelaReservarAssentos extends javax.swing.JFrame {
             nomeLabel.setText("Nome:");
             nomeInput.setToolTipText("Coloque seu nome");
 
-            assentoLabel.setBounds(x, y, 77, assentoLabelH);
+            assentoLabel.setBounds(x, y, 90, assentoLabelH);
             y = y + 6 + assentoLabelH;
 
             nomeLabel.setBounds(x, y, 77, nomeLabelH);
@@ -182,6 +183,7 @@ public class TelaReservarAssentos extends javax.swing.JFrame {
 
     private void inserirIngresso() {
         List<Ingresso> ingressos = new ArrayList<>();
+         System.out.println(nomeReservaInputs);
     
         for (int i = 0; i < nomeReservaInputs.size(); i++) {
             String nomeCliente = nomeReservaInputs.get(i).getText();
