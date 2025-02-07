@@ -6,7 +6,6 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.PreparedStatement;
-import java.sql.Statement;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -14,7 +13,6 @@ import java.util.List;
 import java.util.Map;
 import model.entities.Ingresso;
 import model.dao.IngressoDao;
-import model.entities.Usuario;
 import model.entities.Filme;
 import model.entities.Sala;
 import model.entities.Sessao;
@@ -72,33 +70,33 @@ public class IngressoDaoJDBC implements IngressoDao {
     @Override
     public void insert(List<Ingresso> ingressos) {
         PreparedStatement st = null;
-    
+
         try {
             String sql = "INSERT INTO ingresso (Preco, Assento, NomeCliente, SessaoId) "
-                       + "VALUES (?, ?, ?, ?)";
-    
+                    + "VALUES (?, ?, ?, ?)";
+
             st = conn.prepareStatement(sql);
-    
+
             // Desativando auto-commit para inserção em batch (melhora performance)
             conn.setAutoCommit(false);
-    
+
             // Loop pelos ingressos na lista e adiciona os parâmetros ao PreparedStatement
             for (Ingresso ingresso : ingressos) {
                 st.setDouble(1, ingresso.getPreco());
                 st.setString(2, ingresso.getAssento());
                 st.setString(3, ingresso.getNomeCliente());
                 st.setInt(4, ingresso.getSessao().getId());
-    
+
                 // Adiciona a inserção ao batch
                 st.addBatch();
             }
-    
+
             // Executa o batch de inserção
             st.executeBatch();
-    
+
             // Confirma as alterações no banco de dados
             conn.commit();
-    
+
         } catch (SQLException e) {
             // Em caso de erro, reverte as alterações
             try {
@@ -118,7 +116,6 @@ public class IngressoDaoJDBC implements IngressoDao {
             DB.closeStatement(st);
         }
     }
-    
 
     @Override
     public void update(Ingresso obj) {
@@ -240,4 +237,38 @@ public class IngressoDaoJDBC implements IngressoDao {
         }
     }
 
+    @Override
+    public List<Ingresso> findBySection(Integer sectionId) {
+        PreparedStatement st = null;
+        ResultSet rs = null;
+        try {
+            st = conn.prepareStatement("SELECT Id, Preco, Assento, NomeCliente "
+                    + "FROM ingresso "
+                    + "WHERE SessaoId = ? "
+                    + "ORDER BY Id "
+            );
+
+            st.setInt(1, sectionId);
+            rs = st.executeQuery();
+
+            List<Ingresso> list = new ArrayList<>();
+
+            while (rs.next()) {
+                Ingresso ingresso = new Ingresso();
+                ingresso.setId(rs.getInt("Id"));
+                ingresso.setPreco(rs.getDouble("Preco"));
+                ingresso.setAssento(rs.getString("Assento"));
+                ingresso.setNomeCliente(rs.getString("NomeCliente"));
+                list.add(ingresso);
+            }
+
+            return list;
+
+        } catch (SQLException e) {
+            throw new DbException(e.getMessage());
+        } finally {
+            DB.closeStatement(st);
+            DB.closeResultSet(rs);
+        }
+    }
 }

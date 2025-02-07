@@ -3,6 +3,10 @@ package view;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.util.ArrayList;
+import java.util.List;
+import model.dao.DaoFactory;
+import model.dao.IngressoDao;
+import model.entities.Ingresso;
 import model.entities.Sessao;
 
 /**
@@ -239,8 +243,20 @@ public class TelaEscolherAssento extends javax.swing.JFrame {
         reservar();
     }//GEN-LAST:event_reservar_botaoActionPerformed
 
+    private List<Ingresso> pegarIngressosDaSessao() {
+        IngressoDao ingressoDao = DaoFactory.createIngressoDao();
+        return ingressoDao.findBySection(sessao.getId());
+    }
+
     private void renderizaTela() {
+        quantidade_label.setText("0");
         assentos_panel.removeAll();
+
+        ArrayList<String> listaAssentosOcupados = new ArrayList<>();
+
+        for (Ingresso ingresso : pegarIngressosDaSessao()) {
+            listaAssentosOcupados.add(ingresso.getAssento());
+        }
 
         int largura = sessao.getSala().getLargura();
         int profundidade = sessao.getSala().getProfundidade();
@@ -256,13 +272,14 @@ public class TelaEscolherAssento extends javax.swing.JFrame {
             x = 0;
             for (int num = 1; num <= largura; num++) {
                 String codigoAssento = String.valueOf((char) (letra + 65)) + Integer.toString(num);
+                boolean estaOcupado = listaAssentosOcupados.contains(codigoAssento);
                 javax.swing.JButton botao = new javax.swing.JButton();
                 botao.setIconTextGap(0);
                 botao.setFont(new java.awt.Font("Segoe UI", 0, 10));
                 botao.setLabel(codigoAssento);
                 botao.setMargin(new java.awt.Insets(3, 0, 3, 0));
                 botao.setBounds(x, y, assentoW, assentoH);
-                botao.setBackground(defaultColor);
+                botao.setBackground(estaOcupado ? ocupedColor : defaultColor);
 
                 botao.addActionListener((java.awt.event.ActionEvent evt) -> {
                     toogleReservarAssento(botao, codigoAssento);

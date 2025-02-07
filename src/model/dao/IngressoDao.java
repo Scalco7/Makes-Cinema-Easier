@@ -9,5 +9,6 @@ public interface IngressoDao {
     void update(Ingresso obj);
     Ingresso findById(Integer id);
     List<Ingresso> findByAll();
+    List<Ingresso> findBySection(Integer sectionId);
     
 }

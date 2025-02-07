@@ -54,7 +54,7 @@ public class TelaReservarAssentos extends javax.swing.JFrame {
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        finalizar_botao = new javax.swing.JButton();
         voltar_botao = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         reservar_pnl = new javax.swing.JPanel();
@@ -65,10 +65,10 @@ public class TelaReservarAssentos extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel1.setText("Reservar assentos");
 
-        jButton1.setText("Finalizar");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        finalizar_botao.setText("Finalizar");
+        finalizar_botao.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                finalizar_botaoActionPerformed(evt);
             }
         });
 
@@ -107,7 +107,7 @@ public class TelaReservarAssentos extends javax.swing.JFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(voltar_botao)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(finalizar_botao, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addGap(0, 0, Short.MAX_VALUE)))
@@ -122,7 +122,7 @@ public class TelaReservarAssentos extends javax.swing.JFrame {
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 335, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(finalizar_botao, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(voltar_botao, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addContainerGap())
         );
@@ -134,9 +134,9 @@ public class TelaReservarAssentos extends javax.swing.JFrame {
         voltar();
     }//GEN-LAST:event_voltar_botaoActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void finalizar_botaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_finalizar_botaoActionPerformed
         inserirIngresso();
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_finalizar_botaoActionPerformed
 
     private void renderizaTela() {
         reservar_pnl.removeAll();
@@ -210,7 +210,7 @@ public class TelaReservarAssentos extends javax.swing.JFrame {
     
         JOptionPane.showMessageDialog(this, "Ingressos reservados com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
         dispose(); 
-        TelaEscolherAssento.geraEscolherAssento().abrirTela(sessao); 
+        TelaCatalogoDeFilmes.geraCatalogoDeFilmes().abrirTela(); 
     }
     
     
@@ -222,7 +222,7 @@ public class TelaReservarAssentos extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton finalizar_botao;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JPanel reservar_pnl;

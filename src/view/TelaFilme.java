@@ -159,7 +159,6 @@ public class TelaFilme extends javax.swing.JFrame {
         try {
             SessaoDao sessaoDao = DaoFactory.createSessaoDao();
             sessoes = sessaoDao.buscarSessaoDisponivel(filme.getId());
-            System.out.println(sessoes);
         } catch (SQLException ecp) {
         }
     }
@@ -186,7 +185,6 @@ public class TelaFilme extends javax.swing.JFrame {
         int height = 35;
 
         for (Sessao sessao : sessoes) {
-            System.out.println("Aquiii");
             JButton button = new JButton();
             LocalDateTime hora = sessao.getHorarioDaSessao();
 
