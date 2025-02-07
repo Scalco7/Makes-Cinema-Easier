@@ -2,7 +2,6 @@ package model.entities;
 
 import db.DB;
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.Objects;
 import model.dao.implementation.SalaDaoJDBC;
 

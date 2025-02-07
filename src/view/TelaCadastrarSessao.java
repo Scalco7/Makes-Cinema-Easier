@@ -1,5 +1,17 @@
 package view;
 
+import controller.SessaoControl;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
+import javax.swing.JOptionPane;
+import model.dao.DaoFactory;
+import model.dao.FilmeDao;
+import model.dao.SalaDao;
+import model.entities.Filme;
+import model.entities.Sala;
+
 /**
  *
  * @author Scalco
@@ -7,6 +19,9 @@ package view;
 public class TelaCadastrarSessao extends javax.swing.JFrame {
 
     private static TelaCadastrarSessao unicCadastrarSessao;
+
+    private List<Filme> filmes;
+    private List<Sala> salas;
 
     private TelaCadastrarSessao() {
         initComponents();
@@ -21,6 +36,9 @@ public class TelaCadastrarSessao extends javax.swing.JFrame {
     }
 
     public void abrirTela() {
+        listarFilmes();
+        listarSalas();
+        renderizaTela();
         setVisible(true);
     }
 
@@ -44,6 +62,10 @@ public class TelaCadastrarSessao extends javax.swing.JFrame {
         dublado_radio = new javax.swing.JRadioButton();
         legendado_radio = new javax.swing.JRadioButton();
         jLabel4 = new javax.swing.JLabel();
+        data_input = new javax.swing.JFormattedTextField();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        hora_input = new javax.swing.JFormattedTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -52,7 +74,6 @@ public class TelaCadastrarSessao extends javax.swing.JFrame {
 
         jLabel2.setText("Selecione o Filme");
 
-        filme_combo_box.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Homem aranha 1", "Homem aranha 2", "Homem aranha 3", " " }));
         filme_combo_box.setToolTipText("Filmes disponíveis");
         filme_combo_box.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -62,7 +83,6 @@ public class TelaCadastrarSessao extends javax.swing.JFrame {
 
         jLabel3.setText("Selecione a Sala");
 
-        sala_combo_box.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Sala 1", "Sala 2", "Sala 3" }));
         sala_combo_box.setToolTipText("Filmes disponíveis");
 
         cadastrar_botao.setText("Cadastrar");
@@ -100,6 +120,19 @@ public class TelaCadastrarSessao extends javax.swing.JFrame {
 
         jLabel4.setText("Idioma");
 
+        data_input.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter(java.text.DateFormat.getDateInstance(java.text.DateFormat.SHORT))));
+        data_input.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                data_inputActionPerformed(evt);
+            }
+        });
+
+        jLabel5.setText("Data (dd/MM/aaaa)");
+
+        jLabel6.setText("Horário (HH:mm)");
+
+        hora_input.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter(java.text.DateFormat.getTimeInstance(java.text.DateFormat.SHORT))));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -122,8 +155,16 @@ public class TelaCadastrarSessao extends javax.swing.JFrame {
                                 .addComponent(dublado_radio, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(legendado_radio, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jLabel4))
-                        .addGap(0, 467, Short.MAX_VALUE)))
+                            .addComponent(jLabel4)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel5)
+                                .addGap(25, 25, 25)
+                                .addComponent(jLabel6))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(data_input, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(hora_input, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 411, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -145,7 +186,15 @@ public class TelaCadastrarSessao extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(dublado_radio)
                     .addComponent(legendado_radio))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 160, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel5)
+                    .addComponent(jLabel6))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(data_input, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(hora_input, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 98, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(cadastrar_botao, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(voltar_botao))
@@ -172,13 +221,33 @@ public class TelaCadastrarSessao extends javax.swing.JFrame {
     }//GEN-LAST:event_legendado_radioActionPerformed
 
     private void cadastrar_botaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cadastrar_botaoActionPerformed
-        // TODO add your handling code here:
+        cadastrarSessao();
     }//GEN-LAST:event_cadastrar_botaoActionPerformed
+
+    private void data_inputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_data_inputActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_data_inputActionPerformed
 
     private void voltar() {
         dispose();
         limparTela();
         TelaGerenciarSessao.geraTelaGerenciarSessao().abrirTela();
+    }
+
+    private void renderizaTela() {
+        ArrayList<String> filmeStrList = new ArrayList<>();
+        ArrayList<String> salaStrList = new ArrayList<>();
+
+        for (Filme filme : filmes) {
+            filmeStrList.add(filme.getNome());
+        }
+
+        for (Sala sala : salas) {
+            salaStrList.add(sala.getNome());
+        }
+
+        filme_combo_box.setModel(new javax.swing.DefaultComboBoxModel(filmeStrList.toArray()));
+        sala_combo_box.setModel(new javax.swing.DefaultComboBoxModel(salaStrList.toArray()));
     }
 
     private String getIdioma() {
@@ -191,19 +260,60 @@ public class TelaCadastrarSessao extends javax.swing.JFrame {
     }
 
     private void limparTela() {
-        filme_combo_box.setSelectedIndex(0);
-        sala_combo_box.setSelectedIndex(0);
+        filme_combo_box.removeAll();
+        filme_combo_box.setSelectedIndex(-1);
+        sala_combo_box.removeAll();
+        sala_combo_box.setSelectedIndex(-1);
         dublado_radio.setSelected(true);
+        data_input.setText("");
+        hora_input.setText("");
+    }
+
+    private void cadastrarSessao() {
+        String idioma = getIdioma();
+        String strData = data_input.getText() + " " + hora_input.getText();
+        Filme filme = filmes.get(filme_combo_box.getSelectedIndex());
+        Sala sala = salas.get(sala_combo_box.getSelectedIndex());
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+        LocalDateTime data = LocalDateTime.parse(strData, formatter);
+
+        try {
+            SessaoControl sessao = new SessaoControl();
+            boolean sucesso = sessao.cadastrarSessao(idioma, data, filme, sala);
+            if (sucesso) {
+                JOptionPane.showMessageDialog(null, "Cadastro efetuado com sucesso!");
+                voltar();
+            } else {
+                JOptionPane.showMessageDialog(null, "Erro no preenchimento de campos!");
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Erro: " + e.getMessage());
+        }
+    }
+
+    private void listarFilmes() {
+        FilmeDao filmeDao = DaoFactory.createFilmeDao();
+        filmes = filmeDao.findByAll();
+    }
+
+    private void listarSalas() {
+        SalaDao salaDao = DaoFactory.createSalaDao();
+        salas = salaDao.findByAll();
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton cadastrar_botao;
+    private javax.swing.JFormattedTextField data_input;
     private javax.swing.JRadioButton dublado_radio;
     private javax.swing.JComboBox<String> filme_combo_box;
+    private javax.swing.JFormattedTextField hora_input;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JRadioButton legendado_radio;
     private javax.swing.ButtonGroup linguagem_grupo;
     private javax.swing.JComboBox<String> sala_combo_box;

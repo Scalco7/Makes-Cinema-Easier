@@ -57,6 +57,11 @@ public class TelaReservarAssentos extends javax.swing.JFrame {
         jLabel1.setText("Reservar assentos");
 
         jButton1.setText("Finalizar");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         voltar_botao.setText("Voltar");
         voltar_botao.addActionListener(new java.awt.event.ActionListener() {
@@ -119,6 +124,10 @@ public class TelaReservarAssentos extends javax.swing.JFrame {
     private void voltar_botaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_voltar_botaoActionPerformed
         voltar();
     }//GEN-LAST:event_voltar_botaoActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     private void renderizaTela() {
         reservar_pnl.removeAll();

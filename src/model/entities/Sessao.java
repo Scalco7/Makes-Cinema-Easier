@@ -1,9 +1,11 @@
 package model.entities;
 
+import db.DB;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.Objects;
+import model.dao.implementation.SessaoDaoJDBC;
 
 public class Sessao implements Serializable{
     
@@ -17,8 +19,7 @@ public class Sessao implements Serializable{
     public Sessao() {
     }
 
-    public Sessao(Integer id, String cam, LocalDateTime horarioDaSessao, Filme filme, Sala sala) {
-        this.id = id;
+    public Sessao(String cam, LocalDateTime horarioDaSessao, Filme filme, Sala sala) {
         this.cam = cam;
         this.horarioDaSessao = horarioDaSessao;
         this.filme = filme;
@@ -63,6 +64,10 @@ public class Sessao implements Serializable{
 
     public void setSala(Sala sala) {
         this.sala = sala;
+    }
+    
+    public void cadastrarSessao(Sessao obj){
+        new SessaoDaoJDBC(DB.getConnection()).insert(obj);
     }
 
     @Override
