@@ -55,6 +55,7 @@ public class TelaCatalogoDeFilmes extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Catalogo de Filmes");
 
         BotaoEntrar.setText("Administrador - Entrar");
         BotaoEntrar.addActionListener(new java.awt.event.ActionListener() {

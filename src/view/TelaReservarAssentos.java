@@ -52,6 +52,7 @@ public class TelaReservarAssentos extends javax.swing.JFrame {
         reservar_pnl = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Reservar Assentos");
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel1.setText("Reservar assentos");

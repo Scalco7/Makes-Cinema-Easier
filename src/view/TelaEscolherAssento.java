@@ -72,6 +72,7 @@ public class TelaEscolherAssento extends javax.swing.JFrame {
         quantidade_label = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Escolher Assento");
 
         title_label.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         title_label.setText("Escolha seu assento");

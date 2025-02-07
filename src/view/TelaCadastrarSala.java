@@ -51,6 +51,7 @@ public class TelaCadastrarSala extends javax.swing.JFrame {
         profundidade_input = new javax.swing.JFormattedTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Cadastrar Sala");
         setMinimumSize(new java.awt.Dimension(661, 569));
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N

@@ -42,6 +42,7 @@ public class TelaCentralAdministrador extends javax.swing.JFrame {
         sair_botao = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Administrador");
         setPreferredSize(new java.awt.Dimension(678, 443));
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
