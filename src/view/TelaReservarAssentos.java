@@ -1,7 +1,13 @@
 package view;
 
+import db.DB;
+import db.DbException;
 import java.awt.Dimension;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
+import model.dao.IngressoDao;
+import model.dao.implementation.IngressoDaoJDBC;
+import model.entities.Ingresso;
 import model.entities.Sessao;
 
 /**
@@ -171,7 +177,40 @@ public class TelaReservarAssentos extends javax.swing.JFrame {
         reservar_pnl.revalidate();
         reservar_pnl.repaint();
     }
+
+    private void inserirIngresso() {
+        // Verifica se todos os campos de nome foram preenchidos
+        for (int i = 0; i < nomeReservaInputs.size(); i++) {
+            String nomeCliente = nomeReservaInputs.get(i).getText();
+            String assento = assentosReservados.get(i); // Assento correspondente
+            if (nomeCliente.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Por favor, preencha todos os nomes.", "Erro", JOptionPane.ERROR_MESSAGE);
+                return; // Interrompe a inserção caso algum campo esteja vazio.
+            }
     
+            // Criação do objeto Ingresso
+            Ingresso ingresso = new Ingresso();
+            ingresso.setNomeCliente(nomeCliente);
+            ingresso.setAssento(assento);
+            ingresso.setPreco(20.0); // Pode ser um valor fixo ou dinâmico conforme a lógica do seu sistema
+            ingresso.setSessao(sessao); // A sessão do ingresso vem da variável 'sessao'
+    
+            // Inserir o ingresso no banco de dados
+            try {
+                IngressoDao ingressoDao = new IngressoDaoJDBC(DB.getConnection());
+                ingressoDao.insert(ingresso); // Chama o método de inserção no banco de dados
+            } catch (DbException e) {
+                JOptionPane.showMessageDialog(this, "Erro ao salvar no banco de dados: " + e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+                return; // Interrompe em caso de erro ao salvar
+            }
+        }
+    
+        JOptionPane.showMessageDialog(this, "Ingressos reservados com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+        dispose(); // Fecha a tela após a reserva
+        TelaEscolherAssento.geraEscolherAssento().abrirTela(sessao); // Volta para a tela de escolha de assento
+    }
+    
+
     private void voltar() {
         dispose();
         TelaEscolherAssento.geraEscolherAssento().abrirTela(sessao);
