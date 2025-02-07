@@ -1,6 +1,7 @@
 package view;
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.util.ArrayList;
 import model.entities.Sessao;
 
@@ -49,20 +50,7 @@ public class TelaEscolherAssento extends javax.swing.JFrame {
         title_label = new javax.swing.JLabel();
         reservar_botao = new javax.swing.JButton();
         voltar_botao = new javax.swing.JButton();
-        label = new javax.swing.JLabel();
-        assento_botao_b_3 = new javax.swing.JButton();
-        assento_botao_a_1 = new javax.swing.JButton();
-        assento_botao_b_6 = new javax.swing.JButton();
-        assento_botao_a_2 = new javax.swing.JButton();
-        assento_botao_a_3 = new javax.swing.JButton();
-        assento_botao_a_4 = new javax.swing.JButton();
-        assento_botao_a_5 = new javax.swing.JButton();
-        assento_botao_a_6 = new javax.swing.JButton();
-        assento_botao_b_1 = new javax.swing.JButton();
-        filme_label = new javax.swing.JLabel();
-        assento_botao_b_4 = new javax.swing.JButton();
-        assento_botao_b_2 = new javax.swing.JButton();
-        assento_botao_b_5 = new javax.swing.JButton();
+        quantidade__static_label = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -70,6 +58,8 @@ public class TelaEscolherAssento extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
         quantidade_label = new javax.swing.JLabel();
+        assentos_panel = new javax.swing.JPanel();
+        filme_label = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Escolher Assento");
@@ -91,121 +81,7 @@ public class TelaEscolherAssento extends javax.swing.JFrame {
             }
         });
 
-        label.setText("Quantidade selecionada:");
-
-        assento_botao_b_3.setIconTextGap(0);
-        assento_botao_b_3.setLabel("B2");
-        assento_botao_b_3.setMargin(new java.awt.Insets(3, 5, 3, 5));
-        assento_botao_b_3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                assento_botao_b_3ActionPerformed(evt);
-            }
-        });
-
-        assento_botao_a_1.setText("A1");
-        assento_botao_a_1.setIconTextGap(0);
-        assento_botao_a_1.setMargin(new java.awt.Insets(3, 5, 3, 5));
-        assento_botao_a_1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                assento_botao_a_1ActionPerformed(evt);
-            }
-        });
-
-        assento_botao_b_6.setIconTextGap(0);
-        assento_botao_b_6.setLabel("B5");
-        assento_botao_b_6.setMargin(new java.awt.Insets(3, 5, 3, 5));
-        assento_botao_b_6.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                assento_botao_b_6ActionPerformed(evt);
-            }
-        });
-
-        assento_botao_a_2.setIconTextGap(0);
-        assento_botao_a_2.setLabel("A2");
-        assento_botao_a_2.setMargin(new java.awt.Insets(3, 5, 3, 5));
-        assento_botao_a_2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                assento_botao_a_2ActionPerformed(evt);
-            }
-        });
-
-        assento_botao_a_3.setIconTextGap(0);
-        assento_botao_a_3.setLabel("A3");
-        assento_botao_a_3.setMargin(new java.awt.Insets(3, 5, 3, 5));
-        assento_botao_a_3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                assento_botao_a_3ActionPerformed(evt);
-            }
-        });
-
-        assento_botao_a_4.setBackground(new java.awt.Color(153, 255, 153));
-        assento_botao_a_4.setIconTextGap(0);
-        assento_botao_a_4.setLabel("A4");
-        assento_botao_a_4.setMargin(new java.awt.Insets(3, 5, 3, 5));
-        assento_botao_a_4.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                assento_botao_a_4ActionPerformed(evt);
-            }
-        });
-
-        assento_botao_a_5.setIconTextGap(0);
-        assento_botao_a_5.setLabel("A5");
-        assento_botao_a_5.setMargin(new java.awt.Insets(3, 5, 3, 5));
-        assento_botao_a_5.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                assento_botao_a_5ActionPerformed(evt);
-            }
-        });
-
-        assento_botao_a_6.setBackground(new java.awt.Color(255, 102, 102));
-        assento_botao_a_6.setIconTextGap(0);
-        assento_botao_a_6.setLabel("A6");
-        assento_botao_a_6.setMargin(new java.awt.Insets(3, 5, 3, 5));
-        assento_botao_a_6.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                assento_botao_a_6ActionPerformed(evt);
-            }
-        });
-
-        assento_botao_b_1.setIconTextGap(0);
-        assento_botao_b_1.setLabel("B6");
-        assento_botao_b_1.setMargin(new java.awt.Insets(3, 5, 3, 5));
-        assento_botao_b_1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                assento_botao_b_1ActionPerformed(evt);
-            }
-        });
-
-        filme_label.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        filme_label.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        filme_label.setText("Filme");
-
-        assento_botao_b_4.setIconTextGap(0);
-        assento_botao_b_4.setLabel("B3");
-        assento_botao_b_4.setMargin(new java.awt.Insets(3, 5, 3, 5));
-        assento_botao_b_4.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                assento_botao_b_4ActionPerformed(evt);
-            }
-        });
-
-        assento_botao_b_2.setIconTextGap(0);
-        assento_botao_b_2.setLabel("B1");
-        assento_botao_b_2.setMargin(new java.awt.Insets(3, 5, 3, 5));
-        assento_botao_b_2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                assento_botao_b_2ActionPerformed(evt);
-            }
-        });
-
-        assento_botao_b_5.setIconTextGap(0);
-        assento_botao_b_5.setLabel("B4");
-        assento_botao_b_5.setMargin(new java.awt.Insets(3, 5, 3, 5));
-        assento_botao_b_5.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                assento_botao_b_5ActionPerformed(evt);
-            }
-        });
+        quantidade__static_label.setText("Quantidade selecionada:");
 
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel1.setText("Livre");
@@ -266,49 +142,44 @@ public class TelaEscolherAssento extends javax.swing.JFrame {
         quantidade_label.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         quantidade_label.setText("0");
 
+        filme_label.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        filme_label.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        filme_label.setText("Filme");
+
+        javax.swing.GroupLayout assentos_panelLayout = new javax.swing.GroupLayout(assentos_panel);
+        assentos_panel.setLayout(assentos_panelLayout);
+        assentos_panelLayout.setHorizontalGroup(
+            assentos_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(filme_label, javax.swing.GroupLayout.DEFAULT_SIZE, 390, Short.MAX_VALUE)
+        );
+        assentos_panelLayout.setVerticalGroup(
+            assentos_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, assentos_panelLayout.createSequentialGroup()
+                .addContainerGap(326, Short.MAX_VALUE)
+                .addComponent(filme_label)
+                .addContainerGap())
+        );
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(252, 252, 252)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(assento_botao_b_2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(assento_botao_b_3)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(assento_botao_b_4)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(assento_botao_b_5)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(assento_botao_b_6)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(assento_botao_b_1))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(assento_botao_a_1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(assento_botao_a_2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(assento_botao_a_3)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(assento_botao_a_4)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(assento_botao_a_5)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(assento_botao_a_6))
-                    .addComponent(filme_label, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(261, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(voltar_botao)
-                    .addComponent(title_label)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(label)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(quantidade_label)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addContainerGap()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(voltar_botao)
+                            .addComponent(title_label)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(quantidade__static_label)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(quantidade_label)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 408, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(assentos_panel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(62, 62, 62)))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(reservar_botao, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
@@ -330,9 +201,6 @@ public class TelaEscolherAssento extends javax.swing.JFrame {
                 .addComponent(title_label)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(label)
-                        .addComponent(quantidade_label))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(layout.createSequentialGroup()
@@ -345,82 +213,23 @@ public class TelaEscolherAssento extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel2)
-                            .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 126, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(assento_botao_b_2)
-                    .addComponent(assento_botao_b_3)
-                    .addComponent(assento_botao_b_4)
-                    .addComponent(assento_botao_b_5)
-                    .addComponent(assento_botao_b_6)
-                    .addComponent(assento_botao_b_1))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(assento_botao_a_1)
-                    .addComponent(assento_botao_a_2)
-                    .addComponent(assento_botao_a_3)
-                    .addComponent(assento_botao_a_4)
-                    .addComponent(assento_botao_a_5)
-                    .addComponent(assento_botao_a_6))
-                .addGap(38, 38, 38)
-                .addComponent(filme_label)
-                .addGap(40, 40, 40)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(reservar_botao, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(voltar_botao, javax.swing.GroupLayout.Alignment.TRAILING))
+                            .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(reservar_botao, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(voltar_botao, javax.swing.GroupLayout.Alignment.TRAILING)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(quantidade__static_label)
+                            .addComponent(quantidade_label))
+                        .addGap(18, 18, 18)
+                        .addComponent(assentos_panel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 39, Short.MAX_VALUE)))
                 .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void assento_botao_b_3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_assento_botao_b_3ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_assento_botao_b_3ActionPerformed
-
-    private void assento_botao_a_1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_assento_botao_a_1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_assento_botao_a_1ActionPerformed
-
-    private void assento_botao_b_6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_assento_botao_b_6ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_assento_botao_b_6ActionPerformed
-
-    private void assento_botao_a_2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_assento_botao_a_2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_assento_botao_a_2ActionPerformed
-
-    private void assento_botao_a_3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_assento_botao_a_3ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_assento_botao_a_3ActionPerformed
-
-    private void assento_botao_a_4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_assento_botao_a_4ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_assento_botao_a_4ActionPerformed
-
-    private void assento_botao_a_5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_assento_botao_a_5ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_assento_botao_a_5ActionPerformed
-
-    private void assento_botao_a_6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_assento_botao_a_6ActionPerformed
-        toogleReservarAssento(assento_botao_a_6, "A6");
-    }//GEN-LAST:event_assento_botao_a_6ActionPerformed
-
-    private void assento_botao_b_1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_assento_botao_b_1ActionPerformed
-        toogleReservarAssento(assento_botao_b_1, "B1");
-    }//GEN-LAST:event_assento_botao_b_1ActionPerformed
-
-    private void assento_botao_b_4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_assento_botao_b_4ActionPerformed
-        toogleReservarAssento(assento_botao_b_4, "B4");
-    }//GEN-LAST:event_assento_botao_b_4ActionPerformed
-
-    private void assento_botao_b_2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_assento_botao_b_2ActionPerformed
-        toogleReservarAssento(assento_botao_b_2, "B2");
-    }//GEN-LAST:event_assento_botao_b_2ActionPerformed
-
-    private void assento_botao_b_5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_assento_botao_b_5ActionPerformed
-        toogleReservarAssento(assento_botao_b_5, "B5");
-    }//GEN-LAST:event_assento_botao_b_5ActionPerformed
 
     private void voltar_botaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_voltar_botaoActionPerformed
         voltar();
@@ -431,16 +240,57 @@ public class TelaEscolherAssento extends javax.swing.JFrame {
     }//GEN-LAST:event_reservar_botaoActionPerformed
 
     private void renderizaTela() {
-        //carregar assentos
+        assentos_panel.removeAll();
+
+        int largura = sessao.getSala().getLargura();
+        int profundidade = sessao.getSala().getProfundidade();
+
+        int panelHeight = 350;
+        int assentoW = 47;
+        int assentoH = 30;
+        int space = 5;
+        int x = 0;
+        int y = panelHeight - assentoH - 40;
+
+        for (int letra = 0; letra < profundidade; letra++) {
+            x = 0;
+            for (int num = 1; num <= largura; num++) {
+                String codigoAssento = String.valueOf((char) (letra + 65)) + Integer.toString(num);
+                javax.swing.JButton botao = new javax.swing.JButton();
+                botao.setIconTextGap(0);
+                botao.setFont(new java.awt.Font("Segoe UI", 0, 10));
+                botao.setLabel(codigoAssento);
+                botao.setMargin(new java.awt.Insets(3, 0, 3, 0));
+                botao.setBounds(x, y, assentoW, assentoH);
+                botao.setBackground(defaultColor);
+
+                botao.addActionListener((java.awt.event.ActionEvent evt) -> {
+                    toogleReservarAssento(botao, codigoAssento);
+                });
+
+                assentos_panel.add(botao);
+
+                x = x + assentoW + space;
+            }
+            y = y - assentoH - space;
+        }
+
+        filme_label.setBounds(0, panelHeight - 20, x - space, 20);
+        assentos_panel.add(filme_label);
+
+        assentos_panel.setPreferredSize(new Dimension(x - space, panelHeight));
+        assentos_panel.revalidate();
+        assentos_panel.repaint();
     }
-    
-    private void voltar(){
+
+    private void voltar() {
         dispose();
         TelaFilme.geraFilme().abrirTela(sessao.getFilme());
     }
 
     private void reservar() {
         dispose();
+        assentosReservados.sort(null);
         TelaReservarAssentos.geraTelaReservarAssentos().abrirTela(sessao, assentosReservados);
     }
 
@@ -469,18 +319,7 @@ public class TelaEscolherAssento extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton assento_botao_a_1;
-    private javax.swing.JButton assento_botao_a_2;
-    private javax.swing.JButton assento_botao_a_3;
-    private javax.swing.JButton assento_botao_a_4;
-    private javax.swing.JButton assento_botao_a_5;
-    private javax.swing.JButton assento_botao_a_6;
-    private javax.swing.JButton assento_botao_b_1;
-    private javax.swing.JButton assento_botao_b_2;
-    private javax.swing.JButton assento_botao_b_3;
-    private javax.swing.JButton assento_botao_b_4;
-    private javax.swing.JButton assento_botao_b_5;
-    private javax.swing.JButton assento_botao_b_6;
+    private javax.swing.JPanel assentos_panel;
     private javax.swing.JLabel filme_label;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -488,7 +327,7 @@ public class TelaEscolherAssento extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
-    private javax.swing.JLabel label;
+    private javax.swing.JLabel quantidade__static_label;
     private javax.swing.JLabel quantidade_label;
     private javax.swing.JButton reservar_botao;
     private javax.swing.JLabel title_label;

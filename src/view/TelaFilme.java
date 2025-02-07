@@ -6,14 +6,12 @@ import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Base64;
-import java.util.Date;
 import java.util.List;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import model.dao.DaoFactory;
 import model.dao.SessaoDao;
 import model.entities.Filme;
-import model.entities.Sala;
 import model.entities.Sessao;
 
 /**

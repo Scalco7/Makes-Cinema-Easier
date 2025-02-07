@@ -122,15 +122,15 @@ public class SessaoDaoJDBC implements SessaoDao {
         ResultSet rs = null;
         try {
             st = conn.prepareStatement(
-                    "SELECT sessao.Id, sessao.HorarioDaSessao, sessao.Cam, " +
-                    "sala.Id AS SalaId, sala.Nome AS SalaNome, sala.Largura, sala.Profundidade, " +
-                    "filme.Id AS FilmeId, filme.Nome AS FilmeNome, filme.Descricao, filme.Classificacao, filme.MinutosTotais " +
-                    "FROM sessao " +
-                    "INNER JOIN sala ON sessao.SalaId = sala.Id " +
-                    "INNER JOIN filme ON sessao.FilmeId = filme.Id " +
-                    "WHERE HorarioDaSessao = ? " +
-                    "ORDER BY HorarioDaSessao");
-            
+                    "SELECT sessao.Id, sessao.HorarioDaSessao, sessao.Cam, "
+                    + "sala.Id AS SalaId, sala.Nome AS SalaNome, sala.Largura, sala.Profundidade, "
+                    + "filme.Id AS FilmeId, filme.Nome AS FilmeNome, filme.Descricao, filme.Classificacao, filme.MinutosTotais "
+                    + "FROM sessao "
+                    + "INNER JOIN sala ON sessao.SalaId = sala.Id "
+                    + "INNER JOIN filme ON sessao.FilmeId = filme.Id "
+                    + "WHERE HorarioDaSessao = ? "
+                    + "ORDER BY HorarioDaSessao");
+
             st.setTimestamp(1, Timestamp.valueOf(dia));
             rs = st.executeQuery();
 
@@ -181,7 +181,6 @@ public class SessaoDaoJDBC implements SessaoDao {
 
             return list;
 
-
         } catch (SQLException e) {
             throw new DbException(e.getMessage());
         } finally {
@@ -196,13 +195,13 @@ public class SessaoDaoJDBC implements SessaoDao {
         ResultSet rs = null;
         try {
             st = conn.prepareStatement(
-                    "SELECT sessao.Id, sessao.HorarioDaSessao, sessao.Cam, " +
-                    "sala.Id AS SalaId, sala.Nome AS SalaNome, sala.Largura, sala.Profundidade, " +
-                    "filme.Id AS FilmeId, filme.Nome AS FilmeNome, filme.Descricao, filme.Classificacao, filme.MinutosTotais " +
-                    "FROM sessao " +
-                    "INNER JOIN sala ON sessao.SalaId = sala.Id " +
-                    "INNER JOIN filme ON sessao.FilmeId = filme.Id " +
-                    "ORDER BY HorarioDaSessao");
+                    "SELECT sessao.Id, sessao.HorarioDaSessao, sessao.Cam, "
+                    + "sala.Id AS SalaId, sala.Nome AS SalaNome, sala.Largura, sala.Profundidade, "
+                    + "filme.Id AS FilmeId, filme.Nome AS FilmeNome, filme.Descricao, filme.Classificacao, filme.MinutosTotais "
+                    + "FROM sessao "
+                    + "INNER JOIN sala ON sessao.SalaId = sala.Id "
+                    + "INNER JOIN filme ON sessao.FilmeId = filme.Id "
+                    + "ORDER BY HorarioDaSessao");
 
             rs = st.executeQuery();
 
@@ -253,7 +252,6 @@ public class SessaoDaoJDBC implements SessaoDao {
 
             return list;
 
-
         } catch (SQLException e) {
             throw new DbException(e.getMessage());
         } finally {
@@ -261,61 +259,69 @@ public class SessaoDaoJDBC implements SessaoDao {
             DB.closeResultSet(rs);
         }
     }
-    
+
     @Override
-    public List<Sessao> buscarSessaoDisponivel(Integer idFilme) throws SQLException{
-    List<Sessao> sessoes = new ArrayList<>();
-    
-    PreparedStatement st = null;
-    ResultSet rs = null;
-    try {
-        // Consulta SQL para buscar as sessões de um filme dentro de uma semana
-        st = conn.prepareStatement(
-                "SELECT sessao.Id, sessao.HorarioDaSessao, sessao.Cam, " +
-                "filme.Id AS FilmeId, filme.Nome AS FilmeNome, filme.Descricao, filme.Classificacao, filme.MinutosTotais " +
-                "FROM sessao " +
-                "INNER JOIN filme ON sessao.FilmeId = filme.Id " +
-                "WHERE sessao.FilmeId = ? " +
-                "AND sessao.HorarioDaSessao > NOW() " +
-                "ORDER BY sessao.HorarioDaSessao ASC");
-        
-        st.setInt(1, idFilme); // Define o id do filme na consulta
-        rs = st.executeQuery();
+    public List<Sessao> buscarSessaoDisponivel(Integer idFilme) throws SQLException {
+        List<Sessao> sessoes = new ArrayList<>();
 
-        while (rs.next()) {
-            // Instancia o filme
-            Filme filme = new Filme();
-            filme.setId(rs.getInt("FilmeId"));
-            filme.setNome(rs.getString("FilmeNome"));
-            filme.setDescricao(rs.getString("Descricao"));
-            filme.setClassificacao(rs.getString("Classificacao"));
-            filme.setMinutosTotais(rs.getInt("MinutosTotais"));
+        PreparedStatement st = null;
+        ResultSet rs = null;
+        try {
+            // Consulta SQL para buscar as sessões de um filme dentro de uma semana
+            st = conn.prepareStatement(
+                    "SELECT se.Id, se.HorarioDaSessao, se.Cam, "
+                    + "fi.Id AS FilmeId, fi.Nome AS FilmeNome, fi.Descricao, fi.Classificacao, fi.MinutosTotais, "
+                    + "sa.Id AS SalaId, sa.Nome AS SalaNome, sa.largura As SalaLargura, sa.Profundidade As SalaProfundidade "
+                    + "FROM sessao se "
+                    + "INNER JOIN filme fi ON se.FilmeId = fi.Id "
+                    + "INNER JOIN sala sa ON se.SalaId = sa.Id "
+                    + "WHERE se.FilmeId = ? "
+                    + "AND se.HorarioDaSessao > NOW() "
+                    + "ORDER BY se.HorarioDaSessao ASC");
 
-            // Cria a sessão e popula os dados
-            Sessao sessao = new Sessao();
-            sessao.setId(rs.getInt("Id"));
-            sessao.setCam(rs.getString("Cam"));
-            sessao.setFilme(filme);
+            st.setInt(1, idFilme); // Define o id do filme na consulta
+            rs = st.executeQuery();
 
-            // Converte Timestamp para LocalDateTime
-            Timestamp timestamp = rs.getTimestamp("HorarioDaSessao");
-            if (timestamp != null) {
-                sessao.setHorarioDaSessao(timestamp.toLocalDateTime());
+            while (rs.next()) {
+                // Instancia o filme
+                Filme filme = new Filme();
+                filme.setId(rs.getInt("FilmeId"));
+                filme.setNome(rs.getString("FilmeNome"));
+                filme.setDescricao(rs.getString("Descricao"));
+                filme.setClassificacao(rs.getString("Classificacao"));
+                filme.setMinutosTotais(rs.getInt("MinutosTotais"));
+
+                Sala sala = new Sala();
+                sala.setId(rs.getInt("SalaId"));
+                sala.setNome(rs.getString("SalaNome"));
+                sala.setLargura(rs.getInt("SalaLargura"));
+                sala.setProfundidade(rs.getInt("SalaProfundidade"));
+
+                // Cria a sessão e popula os dados
+                Sessao sessao = new Sessao();
+                sessao.setId(rs.getInt("Id"));
+                sessao.setCam(rs.getString("Cam"));
+                sessao.setFilme(filme);
+                sessao.setSala(sala);
+
+                // Converte Timestamp para LocalDateTime
+                Timestamp timestamp = rs.getTimestamp("HorarioDaSessao");
+                if (timestamp != null) {
+                    sessao.setHorarioDaSessao(timestamp.toLocalDateTime());
+                }
+
+                // Adiciona à lista de sessões
+                sessoes.add(sessao);
             }
 
-            // Adiciona à lista de sessões
-            sessoes.add(sessao);
+        } catch (SQLException e) {
+            throw new DbException(e.getMessage());
+        } finally {
+            DB.closeStatement(st);
+            DB.closeResultSet(rs);
         }
 
-    } catch (SQLException e) {
-        throw new DbException(e.getMessage());
-    } finally {
-        DB.closeStatement(st);
-        DB.closeResultSet(rs);
+        return sessoes;
     }
-
-    return sessoes;
-}
-
 
 }
