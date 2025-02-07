@@ -3,6 +3,7 @@ package view;
 import controller.SalaControl;
 import java.awt.Dimension;
 import javax.swing.JOptionPane;
+import model.entities.Usuario;
 
 /**
  *
@@ -11,14 +12,16 @@ import javax.swing.JOptionPane;
 public class TelaCadastrarSala extends javax.swing.JFrame {
 
     private static TelaCadastrarSala unicCadastrarSala;
+    private Usuario usuario;
 
-    private TelaCadastrarSala() {
+    private TelaCadastrarSala(Usuario usuario) {
+        this.usuario = usuario;
         initComponents();
     }
 
-    public static TelaCadastrarSala geraCadastrarSala() {
+    public static TelaCadastrarSala geraCadastrarSala(Usuario usuario) {
         if (unicCadastrarSala == null) {
-            unicCadastrarSala = new TelaCadastrarSala();
+            unicCadastrarSala = new TelaCadastrarSala(usuario);
         }
 
         return unicCadastrarSala;
@@ -225,7 +228,7 @@ public class TelaCadastrarSala extends javax.swing.JFrame {
     private void voltar() {
         dispose();
         limparTela();
-        TelaGerenciarSala.geraTelaGerenciarSala().abrirTela();
+        TelaGerenciarSala.geraTelaGerenciarSala(usuario).abrirTela();
     }
 
     private void limparTela() {

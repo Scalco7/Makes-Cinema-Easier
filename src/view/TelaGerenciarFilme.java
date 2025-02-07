@@ -6,6 +6,7 @@ import javax.swing.table.DefaultTableModel;
 import model.dao.DaoFactory;
 import model.dao.FilmeDao;
 import model.entities.Filme;
+import model.entities.Usuario;
 
 /**
  *
@@ -14,14 +15,16 @@ import model.entities.Filme;
 public class TelaGerenciarFilme extends javax.swing.JFrame {
 
     private static TelaGerenciarFilme unicTelaGerenciarFilme;
+    private Usuario usuario;
 
-    private TelaGerenciarFilme() {
+    private TelaGerenciarFilme(Usuario usuario) {
+        this.usuario = usuario;
         initComponents();
     }
 
-    public static TelaGerenciarFilme geraTelaGerenciarFilme() {
+    public static TelaGerenciarFilme geraTelaGerenciarFilme(Usuario usuario) {
         if (unicTelaGerenciarFilme == null) {
-            unicTelaGerenciarFilme = new TelaGerenciarFilme();
+            unicTelaGerenciarFilme = new TelaGerenciarFilme(usuario);
         }
 
         return unicTelaGerenciarFilme;
@@ -232,12 +235,12 @@ public class TelaGerenciarFilme extends javax.swing.JFrame {
     
     private void voltar() {
         dispose();
-        TelaCentralAdministrador.geraTelaCentralAdministrador().abrirTela();
+        TelaCentralAdministrador.geraTelaCentralAdministrador(usuario).abrirTela();
     }
 
     private void abrirCadastrarFilme() {
         dispose();
-        TelaCadastrarFilme.geraCadastrarFilme().abrirTela();
+        TelaCadastrarFilme.geraCadastrarFilme(usuario).abrirTela();
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

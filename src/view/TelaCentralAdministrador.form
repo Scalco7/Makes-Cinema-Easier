@@ -117,6 +117,9 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="Editar conta"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="eidtar_perfil_botaoActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="sair_botao">
       <Properties>
