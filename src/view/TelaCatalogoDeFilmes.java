@@ -1,6 +1,7 @@
 package view;
 
 import java.awt.Dimension;
+import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
@@ -162,12 +163,14 @@ public class TelaCatalogoDeFilmes extends javax.swing.JFrame {
 
             img.setPreferredSize(new Dimension(142, 160));
             img.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-            img.setVerticalTextPosition(JLabel.TOP);
-            img.setHorizontalTextPosition(JLabel.CENTER);
 
             try {
                 byte[] bytes = Base64.getDecoder().decode(filme.getBase64Image());
-                img.setIcon(new ImageIcon(bytes));
+                ImageIcon imageIcon = new ImageIcon(bytes);
+                Image image = imageIcon.getImage();
+                Image newimg = image.getScaledInstance(142, 160, java.awt.Image.SCALE_SMOOTH); 
+                imageIcon = new ImageIcon(newimg);
+                img.setIcon(imageIcon);
             } catch (Exception exc) {
                 img.setText("Erro");
             }
