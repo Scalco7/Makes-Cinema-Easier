@@ -4,7 +4,9 @@ import db.DB;
 import db.DbException;
 import java.awt.Dimension;
 import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JOptionPane;
+import model.dao.DaoFactory;
 import model.dao.IngressoDao;
 import model.dao.implementation.IngressoDaoJDBC;
 import model.entities.Ingresso;
@@ -133,7 +135,7 @@ public class TelaReservarAssentos extends javax.swing.JFrame {
     }//GEN-LAST:event_voltar_botaoActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
+        inserirIngresso();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void renderizaTela() {
@@ -179,36 +181,39 @@ public class TelaReservarAssentos extends javax.swing.JFrame {
     }
 
     private void inserirIngresso() {
-        // Verifica se todos os campos de nome foram preenchidos
+        List<Ingresso> ingressos = new ArrayList<>();
+    
         for (int i = 0; i < nomeReservaInputs.size(); i++) {
             String nomeCliente = nomeReservaInputs.get(i).getText();
-            String assento = assentosReservados.get(i); // Assento correspondente
+            String assento = assentosReservados.get(i); 
+    
             if (nomeCliente.isEmpty()) {
                 JOptionPane.showMessageDialog(this, "Por favor, preencha todos os nomes.", "Erro", JOptionPane.ERROR_MESSAGE);
-                return; // Interrompe a inserção caso algum campo esteja vazio.
+                return; 
             }
     
-            // Criação do objeto Ingresso
             Ingresso ingresso = new Ingresso();
             ingresso.setNomeCliente(nomeCliente);
             ingresso.setAssento(assento);
-            ingresso.setPreco(20.0); // Pode ser um valor fixo ou dinâmico conforme a lógica do seu sistema
-            ingresso.setSessao(sessao); // A sessão do ingresso vem da variável 'sessao'
+            ingresso.setPreco(20.0); 
+            ingresso.setSessao(sessao); 
+            ingressos.add(ingresso);
+        }
     
-            // Inserir o ingresso no banco de dados
-            try {
-                IngressoDao ingressoDao = new IngressoDaoJDBC(DB.getConnection());
-                ingressoDao.insert(ingresso); // Chama o método de inserção no banco de dados
-            } catch (DbException e) {
-                JOptionPane.showMessageDialog(this, "Erro ao salvar no banco de dados: " + e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
-                return; // Interrompe em caso de erro ao salvar
-            }
+        try {
+            IngressoDao ingressoDao = new IngressoDaoJDBC(DB.getConnection());
+            ingressoDao.insert(ingressos); 
+        } catch (DbException e) {
+            JOptionPane.showMessageDialog(this, "Erro ao salvar no banco de dados: " + e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+            return; 
         }
     
         JOptionPane.showMessageDialog(this, "Ingressos reservados com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
-        dispose(); // Fecha a tela após a reserva
-        TelaEscolherAssento.geraEscolherAssento().abrirTela(sessao); // Volta para a tela de escolha de assento
+        dispose(); 
+        TelaEscolherAssento.geraEscolherAssento().abrirTela(sessao); 
     }
+    
+    
     
 
     private void voltar() {

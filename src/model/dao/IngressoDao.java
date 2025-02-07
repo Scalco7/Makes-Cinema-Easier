@@ -5,7 +5,7 @@ import model.entities.Ingresso;
 
 public interface IngressoDao {
     
-    void insert(Ingresso obj);
+    void insert(List<Ingresso> ingressos);
     void update(Ingresso obj);
     Ingresso findById(Integer id);
     List<Ingresso> findByAll();

@@ -70,39 +70,55 @@ public class IngressoDaoJDBC implements IngressoDao {
     }
 
     @Override
-    public void insert(Ingresso obj) {
+    public void insert(List<Ingresso> ingressos) {
         PreparedStatement st = null;
+    
         try {
-            st = conn.prepareStatement(
-                    "INSERT INTO ingresso "
-                    + "(Preco, Assento, SessaoId, NomeCliente) "
-                    + "VALUES  "
-                    + "(?, ?, ?) ", Statement.RETURN_GENERATED_KEYS);
-
-            st.setDouble(1, obj.getPreco());
-            st.setString(2, obj.getAssento());
-            st.setInt(3, obj.getSessao().getId());
-            st.setString(4, obj.getNomeCliente());
-
-            int rowsAffected = st.executeUpdate();
-
-            if (rowsAffected > 0) {
-                ResultSet rs = st.getGeneratedKeys();
-                if (rs.next()) {
-                    int id = rs.getInt(1);
-                    obj.setId(id);
-                }
-                DB.closeResultSet(rs);
-            } else {
-                throw new DbException("Unexpected error! No rows affected!");
+            String sql = "INSERT INTO ingresso (Preco, Assento, NomeCliente, SessaoId) "
+                       + "VALUES (?, ?, ?, ?)";
+    
+            st = conn.prepareStatement(sql);
+    
+            // Desativando auto-commit para inserção em batch (melhora performance)
+            conn.setAutoCommit(false);
+    
+            // Loop pelos ingressos na lista e adiciona os parâmetros ao PreparedStatement
+            for (Ingresso ingresso : ingressos) {
+                st.setDouble(1, ingresso.getPreco());
+                st.setString(2, ingresso.getAssento());
+                st.setString(3, ingresso.getNomeCliente());
+                st.setInt(4, ingresso.getSessao().getId());
+    
+                // Adiciona a inserção ao batch
+                st.addBatch();
+            }
+    
+            // Executa o batch de inserção
+            st.executeBatch();
+    
+            // Confirma as alterações no banco de dados
+            conn.commit();
+    
+        } catch (SQLException e) {
+            // Em caso de erro, reverte as alterações
+            try {
+                conn.rollback();
+            } catch (SQLException ex) {
+                throw new DbException(ex.getMessage());
+            }
+            throw new DbException("Erro ao inserir ingressos: " + e.getMessage());
+        } finally {
+            // Restaura o auto-commit
+            try {
+                conn.setAutoCommit(true);
+            } catch (SQLException e) {
+                throw new DbException(e.getMessage());
             }
 
-        } catch (SQLException e) {
-            throw new DbException(e.getMessage());
-        } finally {
             DB.closeStatement(st);
         }
     }
+    
 
     @Override
     public void update(Ingresso obj) {

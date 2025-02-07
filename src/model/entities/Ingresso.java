@@ -2,6 +2,7 @@ package model.entities;
 
 import db.DB;
 import java.io.Serializable;
+import java.util.List;
 import java.util.Objects;
 import model.dao.implementation.IngressoDaoJDBC;
 
@@ -64,8 +65,8 @@ public class Ingresso implements Serializable{
         this.nomeCliente = nomeCliente;
     }
     
-    public void cadastrarIngresso(Ingresso obj){
-        new IngressoDaoJDBC(DB.getConnection()).insert(obj);
+    public void cadastrarIngresso(List<Ingresso> ingressos){
+        new IngressoDaoJDBC(DB.getConnection()).insert(ingressos);
     }
 
     @Override
