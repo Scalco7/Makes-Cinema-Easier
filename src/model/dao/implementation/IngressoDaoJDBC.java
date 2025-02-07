@@ -27,22 +27,13 @@ public class IngressoDaoJDBC implements IngressoDao {
         this.conn = conn;
     }
 
-    private Ingresso instantiateIngresso(ResultSet rs, Sessao ses, Usuario cli) throws SQLException {
+    private Ingresso instantiateIngresso(ResultSet rs, Sessao ses) throws SQLException {
         Ingresso obj = new Ingresso();
         obj.setId(rs.getInt("Id"));
         obj.setPreco(rs.getDouble("Preco"));
+        obj.setNomeCliente(rs.getString("NomeCliente"));
+        obj.setAssento(rs.getString("Assento"));
         obj.setSessao(ses);
-        obj.setCliente(cli);
-        return obj;
-    }
-
-    private Usuario instantiateCliente(ResultSet rs) throws SQLException {
-        Usuario obj = new Usuario();
-        obj.setCpf(rs.getString("Cpf"));
-        obj.setNome(rs.getString("Nome"));
-        obj.setEmail(rs.getString("Email"));
-        obj.setSenha(rs.getString("Senha"));
-        obj.setTelefone(rs.getString("Telefone"));
         return obj;
     }
 
@@ -84,13 +75,14 @@ public class IngressoDaoJDBC implements IngressoDao {
         try {
             st = conn.prepareStatement(
                     "INSERT INTO ingresso "
-                    + "(Preco, SessaoId, ClienteId) "
+                    + "(Preco, Assento, SessaoId, NomeCliente) "
                     + "VALUES  "
                     + "(?, ?, ?) ", Statement.RETURN_GENERATED_KEYS);
 
             st.setDouble(1, obj.getPreco());
-            st.setInt(2, obj.getSessao().getId());
-            st.setString(3, obj.getCliente().getCpf());
+            st.setString(2, obj.getAssento());
+            st.setInt(3, obj.getSessao().getId());
+            st.setString(4, obj.getNomeCliente());
 
             int rowsAffected = st.executeUpdate();
 
@@ -118,12 +110,13 @@ public class IngressoDaoJDBC implements IngressoDao {
         try {
             st = conn.prepareStatement(
                     "UPDATE ingresso "
-                    + "SET Preco = ?, SessaoId = ?, ClienteId = ? "
+                    + "SET Preco = ?, Assento = ?, SessaoId = ?, NomeCliente = ? "
                     + "WHERE Id = ? ");
 
             st.setDouble(1, obj.getPreco());
-            st.setInt(2, obj.getSessao().getId());
-            st.setString(3, obj.getCliente().getCpf());
+            st.setString(2, obj.getAssento());
+            st.setInt(3, obj.getSessao().getId());
+            st.setString(4, obj.getNomeCliente());
             st.setInt(4, obj.getId());
 
             st.executeUpdate();
@@ -140,14 +133,12 @@ public class IngressoDaoJDBC implements IngressoDao {
         PreparedStatement st = null;
         ResultSet rs = null;
         try {
-            st = conn.prepareStatement("SELECT ingresso.Id AS IngressoId, ingresso.Preco, sessao.Id AS SessaoId, sessao.Cam, sessao.HorarioDaSessao, "
-                    + "sala.Id AS SalaId, sala.Nome AS SalaNome, sala.QtdeAssentos, filme.Id AS FilmeId, filme.Nome AS FilmeNome,"
-                    + "usuario.Cpf AS ClienteCpf, usuario.Nome AS ClienteNome"
+            st = conn.prepareStatement("SELECT ingresso.Id AS IngressoId, ingresso.Preco, ingresso.Assento, ingresso.NomeCliente, sessao.Id AS SessaoId, sessao.Cam, sessao.HorarioDaSessao, "
+                    + "sala.Id AS SalaId, sala.Nome AS SalaNome, filme.Id AS FilmeId, filme.Nome AS FilmeNome,"
                     + "FROM ingresso INNER JOIN sessao ON ingresso.SessaoId = sessao.Id "
                     + "INNER JOIN sala ON sessao.SalaId = sala.Id "
                     + "INNER JOIN filme ON sessao.FilmeId = filme.Id "
-                    + "INNER JOIN usuario ON ingresso.ClienteId = usuario.Cpf "
-                    + "ORDER BY ingresso.Id "
+                    + "ORDER BY ingresso.Id"
                     + "WHERE Id = ?");
 
             st.setInt(1, id);
@@ -157,8 +148,7 @@ public class IngressoDaoJDBC implements IngressoDao {
                 Filme film = instantiateFilme(rs);
                 Sala sal = instantiateSala(rs);
                 Sessao ses = instantiateSessao(rs, sal, film);
-                Usuario cli = instantiateCliente(rs);
-                Ingresso ass = instantiateIngresso(rs, ses, cli);
+                Ingresso ass = instantiateIngresso(rs, ses);
                 return ass;
             }
 
@@ -179,13 +169,11 @@ public class IngressoDaoJDBC implements IngressoDao {
 
         try {
             st = conn.prepareStatement(
-                    "SELECT ingresso.Id AS IngressoId, ingresso.Preco, sessao.Id AS SessaoId, sessao.Cam, sessao.HorarioDaSessao, "
-                    + "sala.Id AS SalaId, sala.Nome AS SalaNome, sala.QtdeAssentos, filme.Id AS FilmeId, filme.Nome AS FilmeNome,"
-                    + "usuario.Cpf AS ClienteCpf, usuario.Nome AS ClienteNome"
+                    "SELECT ingresso.Id AS IngressoId, ingresso.Preco, ingresso.Assento, ingresso.NomeCliente, sessao.Id AS SessaoId, sessao.Cam, sessao.HorarioDaSessao, "
+                    + "sala.Id AS SalaId, sala.Nome AS SalaNome, filme.Id AS FilmeId, filme.Nome AS FilmeNome "
                     + "FROM ingresso INNER JOIN sessao ON ingresso.SessaoId = sessao.Id "
                     + "INNER JOIN sala ON sessao.SalaId = sala.Id "
                     + "INNER JOIN filme ON sessao.FilmeId = filme.Id "
-                    + "INNER JOIN usuario ON ingresso.ClienteId = usuario.Cpf "
                     + "ORDER BY ingresso.Id"
             );
 
@@ -195,7 +183,6 @@ public class IngressoDaoJDBC implements IngressoDao {
             Map<Integer, Sessao> sessaoMap = new HashMap<>();
             Map<Integer, Sala> salaMap = new HashMap<>();
             Map<Integer, Filme> filmeMap = new HashMap<>();
-            Map<String, Usuario> clienteMap = new HashMap<>();
 
             while (rs.next()) {
                 // Recuperar ou instanciar entidades relacionadas
@@ -220,15 +207,8 @@ public class IngressoDaoJDBC implements IngressoDao {
                     sessaoMap.put(sessao.getId(), sessao);
                 }
 
-                Usuario cliente = clienteMap.get(rs.getString("ClienteCpf"));
-                if (cliente == null) {
-                    cliente = instantiateCliente(rs);
-                    cliente.setCpf(rs.getString("ClienteCpf"));
-                    clienteMap.put(cliente.getCpf(), cliente);
-                }
-
                 // Instanciar ingresso
-                Ingresso ingresso = instantiateIngresso(rs, sessao, cliente);
+                Ingresso ingresso = instantiateIngresso(rs, sessao);
                 ingresso.setId(rs.getInt("IngressoId"));
 
                 list.add(ingresso);

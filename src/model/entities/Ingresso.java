@@ -1,24 +1,27 @@
 package model.entities;
 
+import db.DB;
 import java.io.Serializable;
 import java.util.Objects;
+import model.dao.implementation.IngressoDaoJDBC;
 
 public class Ingresso implements Serializable{
     
     private static final long serialVersionUID = 1L;
     private Integer id;
     private Double preco;
+    private String assento;
     private Sessao sessao;
-    private Usuario cliente;
+    private String nomeCliente;
 
     public Ingresso() {
     }
 
-    public Ingresso(Integer id, Double preco, Sessao sessao, Usuario cliente) {
-        this.id = id;
+    public Ingresso(Double preco, String assento, Sessao sessao, String nomeCliente) {
         this.preco = preco;
+        this.assento = assento;
         this.sessao = sessao;
-        this.cliente = cliente;
+        this.nomeCliente = nomeCliente;
     }
 
     public Integer getId() {
@@ -45,12 +48,24 @@ public class Ingresso implements Serializable{
         this.sessao = sessao;
     }
 
-    public Usuario getCliente() {
-        return cliente;
+    public String getAssento() {
+        return assento;
     }
 
-    public void setCliente(Usuario cliente) {
-        this.cliente = cliente;
+    public void setAssento(String assento) {
+        this.assento = assento;
+    }
+
+    public String getNomeCliente() {
+        return nomeCliente;
+    }
+
+    public void setNomeCliente(String nomeCliente) {
+        this.nomeCliente = nomeCliente;
+    }
+    
+    public void cadastrarIngresso(Ingresso obj){
+        new IngressoDaoJDBC(DB.getConnection()).insert(obj);
     }
 
     @Override
@@ -77,7 +92,7 @@ public class Ingresso implements Serializable{
 
     @Override
     public String toString() {
-        return "Ingresso{" + "id=" + id + ", preco=" + preco + ", sessao=" + sessao + ", cliente=" + cliente + '}';
+        return "Ingresso{" + "id=" + id + ", preco=" + preco + ", sessao=" + sessao + '}';
     }
     
 }
