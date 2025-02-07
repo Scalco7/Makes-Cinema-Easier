@@ -158,6 +158,7 @@ public class TelaFilme extends javax.swing.JFrame {
     }
 
     private void renderizaTela() {
+        sessoes_pnl.removeAll();
         filme_nome.setText(filme.getNome());
         idade_text.setText(filme.getClassificacao());
         descricao_text.setText(filme.getDescricao());
