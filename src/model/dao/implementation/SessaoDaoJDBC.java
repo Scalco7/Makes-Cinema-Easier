@@ -129,7 +129,7 @@ public class SessaoDaoJDBC implements SessaoDao {
                     "FROM sessao " +
                     "INNER JOIN sala ON sessao.SalaId = sala.Id " +
                     "INNER JOIN filme ON sessao.FilmeId = filme.Id " +
-                    "WHERE DATETIME(sessao.HorarioDaSessao) = ? " +
+                    "WHERE HorarioDaSessao = ? " +
                     "ORDER BY HorarioDaSessao");
             
             st.setTimestamp(1, Timestamp.valueOf(dia));
