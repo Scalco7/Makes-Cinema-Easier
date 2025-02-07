@@ -211,7 +211,7 @@ public class TelaCadastrarSala extends javax.swing.JFrame {
             sucesso = sala.cadastrarSala(nome, largura, profundidade);
             if (sucesso) {
                 JOptionPane.showMessageDialog(null, "Cadastro efetuado com sucesso!");
-                TelaGerenciarSala.geraTelaGerenciarSala().atualizarTabela();
+                voltar();
             } else {
                 JOptionPane.showMessageDialog(null, "Erro no preenchimento de campos!");
             }

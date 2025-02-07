@@ -14,7 +14,7 @@ CREATE TABLE filme (
   Id int(11) NOT NULL AUTO_INCREMENT,
   Nome varchar(60) NOT NULL,
   Descricao varchar(500) NOT NULL,
-  Classificacao varchar(2) NOT NULL,
+  Classificacao varchar(6) NOT NULL,
   MinutosTotais int(3) NOT NULL,
   Imagem LONGTEXT,
   PRIMARY KEY (Id)

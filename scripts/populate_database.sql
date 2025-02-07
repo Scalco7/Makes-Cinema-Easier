@@ -8,16 +8,16 @@ INSERT INTO sala (Nome, Largura, Profundidade) VALUES
 
 -- Inserindo filmes
 INSERT INTO filme (Nome, Descricao, Classificacao, MinutosTotais, Imagem) VALUES
-('Oppenheimer', 'Filme baseado na história de J. Robert Oppenheimer e o desenvolvimento da bomba atômica.', '16', 180, 'link_para_imagem_1'),
-('Avatar: O Caminho da Água', 'Continuação do épico de ficção científica de James Cameron.', '12', 192, 'link_para_imagem_2'),
+('Oppenheimer', 'Filme baseado na história de J. Robert Oppenheimer e o desenvolvimento da bomba atômica.', '16+', 180, 'link_para_imagem_1'),
+('Avatar: O Caminho da Água', 'Continuação do épico de ficção científica de James Cameron.', '12+', 192, 'link_para_imagem_2'),
 ('Duna: Parte Dois', 'Paul Atreides une forças com os Fremen para se vingar dos conspiradores que destruíram sua família.', '14', 165, 'link_para_imagem_4'),
-('Velozes & Furiosos 10', 'Dom Toretto e sua equipe enfrentam um novo inimigo que busca vingança.', '12', 142, 'link_para_imagem_5'),
+('Velozes & Furiosos 10', 'Dom Toretto e sua equipe enfrentam um novo inimigo que busca vingança.', '12+', 142, 'link_para_imagem_5'),
 ('Homem-Aranha: Através do Aranhaverso', 'Miles Morales viaja pelo multiverso e encontra diferentes versões do Homem-Aranha.', '10', 140, 'link_para_imagem_6'),
-('John Wick 4: Baba Yaga', 'John Wick enfrenta inimigos poderosos em sua busca por liberdade.', '16', 169, 'link_para_imagem_7'),
-('Barbie', 'Barbie embarca em uma jornada pelo mundo real após questionar sua vida perfeita.', 'L', 114, 'link_para_imagem_8'),
-('Wonka', 'A história de origem do famoso chocolateiro Willy Wonka.', 'L', 116, 'link_para_imagem_9'),
-('Guardiões da Galáxia Vol. 3', 'O grupo de heróis espaciais enfrenta uma nova ameaça para salvar um de seus membros.', '12', 150, 'link_para_imagem_10'),
-('Super Mario Bros. - O Filme', 'Animação baseada no famoso jogo da Nintendo.', 'L', 92, 'link_para_imagem_3');
+('John Wick 4: Baba Yaga', 'John Wick enfrenta inimigos poderosos em sua busca por liberdade.', '16+', 169, 'link_para_imagem_7'),
+('Barbie', 'Barbie embarca em uma jornada pelo mundo real após questionar sua vida perfeita.', 'Livre', 114, 'link_para_imagem_8'),
+('Wonka', 'A história de origem do famoso chocolateiro Willy Wonka.', 'Livre', 116, 'link_para_imagem_9'),
+('Guardiões da Galáxia Vol. 3', 'O grupo de heróis espaciais enfrenta uma nova ameaça para salvar um de seus membros.', '12+', 150, 'link_para_imagem_10'),
+('Super Mario Bros. - O Filme', 'Animação baseada no famoso jogo da Nintendo.', 'Livre', 92, 'link_para_imagem_3');
 
 -- Inserindo sessões
 INSERT INTO sessao (Cam, HorarioDaSessao, FilmeId, SalaId) VALUES

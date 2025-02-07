@@ -66,6 +66,11 @@ public class TelaCadastrarSessao extends javax.swing.JFrame {
         sala_combo_box.setToolTipText("Filmes disponíveis");
 
         cadastrar_botao.setText("Cadastrar");
+        cadastrar_botao.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cadastrar_botaoActionPerformed(evt);
+            }
+        });
 
         voltar_botao.setText("Voltar");
         voltar_botao.addActionListener(new java.awt.event.ActionListener() {
@@ -165,6 +170,10 @@ public class TelaCadastrarSessao extends javax.swing.JFrame {
     private void legendado_radioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_legendado_radioActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_legendado_radioActionPerformed
+
+    private void cadastrar_botaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cadastrar_botaoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cadastrar_botaoActionPerformed
 
     private void voltar() {
         dispose();
