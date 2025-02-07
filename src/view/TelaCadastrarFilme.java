@@ -12,6 +12,7 @@ import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+import model.entities.Usuario;
 
 /**
  *
@@ -21,14 +22,16 @@ public class TelaCadastrarFilme extends javax.swing.JFrame {
 
     private static TelaCadastrarFilme unicCadastrarFilme;
     private String imagemBase64;
+    private Usuario usuario;
 
-    private TelaCadastrarFilme() {
+    private TelaCadastrarFilme(Usuario usuario) {
+        this.usuario = usuario;
         initComponents();
     }
 
-    public static TelaCadastrarFilme geraCadastrarFilme() {
+    public static TelaCadastrarFilme geraCadastrarFilme(Usuario usuario) {
         if (unicCadastrarFilme == null) {
-            unicCadastrarFilme = new TelaCadastrarFilme();
+            unicCadastrarFilme = new TelaCadastrarFilme(usuario);
         }
 
         return unicCadastrarFilme;
@@ -311,7 +314,7 @@ public class TelaCadastrarFilme extends javax.swing.JFrame {
     private void voltar() {
         dispose();
         limparTela();
-        TelaGerenciarFilme.geraTelaGerenciarFilme().abrirTela();
+        TelaGerenciarFilme.geraTelaGerenciarFilme(usuario).abrirTela();
     }
 
     private void limparTela() {

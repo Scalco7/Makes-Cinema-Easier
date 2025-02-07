@@ -58,6 +58,7 @@ public class UsuarioDaoJDBC implements UsuarioDao{
     public void update(Usuario obj) {
         PreparedStatement st = null;
         try {
+            
             st = conn.prepareStatement("UPDATE usuario SET Nome = ?, Email = ?, Senha = ?, Telefone = ? WHERE Cpf = ? ");
 
             st.setString(1, obj.getNome());

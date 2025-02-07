@@ -1,5 +1,7 @@
 package view;
 
+import model.entities.Usuario;
+
 /**
  *
  * @author Scalco
@@ -7,14 +9,17 @@ package view;
 public class TelaCentralAdministrador extends javax.swing.JFrame {
 
     private static TelaCentralAdministrador unicTelaCentralAdministrador;
+    private Usuario usuario;
 
-    private TelaCentralAdministrador() {
+    private TelaCentralAdministrador(Usuario usuario) {
+        this.usuario = usuario;
         initComponents();
     }
 
-    public static TelaCentralAdministrador geraTelaCentralAdministrador() {
+    public static TelaCentralAdministrador geraTelaCentralAdministrador(Usuario usuario) {
         if (unicTelaCentralAdministrador == null) {
-            unicTelaCentralAdministrador = new TelaCentralAdministrador();
+            unicTelaCentralAdministrador = new TelaCentralAdministrador(usuario);
+            
         }
 
         return unicTelaCentralAdministrador;
@@ -77,6 +82,11 @@ public class TelaCentralAdministrador extends javax.swing.JFrame {
         });
 
         eidtar_perfil_botao.setText("Editar conta");
+        eidtar_perfil_botao.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                eidtar_perfil_botaoActionPerformed(evt);
+            }
+        });
 
         sair_botao.setText("sair");
         sair_botao.addActionListener(new java.awt.event.ActionListener() {
@@ -149,6 +159,16 @@ public class TelaCentralAdministrador extends javax.swing.JFrame {
         sair();
     }//GEN-LAST:event_sair_botaoActionPerformed
 
+    private void eidtar_perfil_botaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eidtar_perfil_botaoActionPerformed
+        editar();
+    }//GEN-LAST:event_eidtar_perfil_botaoActionPerformed
+
+    private void editar(){
+        dispose();
+        TelaAtualizarUsuario.geraTelaAtualizarUsuario(usuario).setUsuario();
+        TelaAtualizarUsuario.geraTelaAtualizarUsuario(usuario).abrirTela();
+    }
+    
     private void sair(){
         dispose();
         TelaCatalogoDeFilmes.geraCatalogoDeFilmes().abrirTela();
@@ -161,17 +181,17 @@ public class TelaCentralAdministrador extends javax.swing.JFrame {
 
     private void irParaGerenciarSessao() {
         dispose();
-        TelaGerenciarSessao.geraTelaGerenciarSessao().abrirTela();
+        TelaGerenciarSessao.geraTelaGerenciarSessao(usuario).abrirTela();
     }
 
     private void irParaGerenciarFilme() {
         dispose();
-        TelaGerenciarFilme.geraTelaGerenciarFilme().abrirTela();
+        TelaGerenciarFilme.geraTelaGerenciarFilme(usuario).abrirTela();
     }
 
     private void irParaGerenciarSala() {
         dispose();
-        TelaGerenciarSala.geraTelaGerenciarSala().abrirTela();
+        TelaGerenciarSala.geraTelaGerenciarSala(usuario).abrirTela();
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

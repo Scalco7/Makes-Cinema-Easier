@@ -11,6 +11,7 @@ import model.dao.FilmeDao;
 import model.dao.SalaDao;
 import model.entities.Filme;
 import model.entities.Sala;
+import model.entities.Usuario;
 
 /**
  *
@@ -19,17 +20,19 @@ import model.entities.Sala;
 public class TelaCadastrarSessao extends javax.swing.JFrame {
 
     private static TelaCadastrarSessao unicCadastrarSessao;
+    private Usuario usuario;
 
     private List<Filme> filmes;
     private List<Sala> salas;
 
-    private TelaCadastrarSessao() {
+    private TelaCadastrarSessao(Usuario usuario) {
+        this.usuario = usuario;
         initComponents();
     }
 
-    public static TelaCadastrarSessao geraCadastrarSessao() {
+    public static TelaCadastrarSessao geraCadastrarSessao(Usuario usuario) {
         if (unicCadastrarSessao == null) {
-            unicCadastrarSessao = new TelaCadastrarSessao();
+            unicCadastrarSessao = new TelaCadastrarSessao(usuario);
         }
 
         return unicCadastrarSessao;
@@ -232,7 +235,7 @@ public class TelaCadastrarSessao extends javax.swing.JFrame {
     private void voltar() {
         dispose();
         limparTela();
-        TelaGerenciarSessao.geraTelaGerenciarSessao().abrirTela();
+        TelaGerenciarSessao.geraTelaGerenciarSessao(usuario).abrirTela();
     }
 
     private void renderizaTela() {

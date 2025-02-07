@@ -8,18 +8,19 @@ import model.entities.Usuario;
  *
  * @author Scalco
  */
-public class TelaCadastrarUsuario extends javax.swing.JFrame {
+public class TelaAtualizarUsuario extends javax.swing.JFrame {
 
-    private static TelaCadastrarUsuario unicCadastrarUsuario;
+    private static TelaAtualizarUsuario unicCadastrarUsuario;
     private Usuario usuario;
 
-    private TelaCadastrarUsuario() {
+    private TelaAtualizarUsuario(Usuario usuario) {
+        this.usuario = usuario;
         initComponents();
     }
 
-    public static TelaCadastrarUsuario geraCadastrarUsuario() {
+    public static TelaAtualizarUsuario geraTelaAtualizarUsuario(Usuario usuario) {
         if (unicCadastrarUsuario == null) {
-            unicCadastrarUsuario = new TelaCadastrarUsuario();
+            unicCadastrarUsuario = new TelaAtualizarUsuario(usuario);
         }
 
         return unicCadastrarUsuario;
@@ -57,9 +58,14 @@ public class TelaCadastrarUsuario extends javax.swing.JFrame {
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("Cadastro");
+        jLabel1.setText("Atualizar");
 
         nome_input.setToolTipText("Nome");
+        nome_input.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                nome_inputActionPerformed(evt);
+            }
+        });
 
         nome_label.setText("Nome");
 
@@ -79,7 +85,7 @@ public class TelaCadastrarUsuario extends javax.swing.JFrame {
             }
         });
 
-        entrar_botao.setText("Cadastrar");
+        entrar_botao.setText("Atualizar");
         entrar_botao.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 entrar_botaoActionPerformed(evt);
@@ -177,12 +183,16 @@ public class TelaCadastrarUsuario extends javax.swing.JFrame {
     }//GEN-LAST:event_voltar_botaoActionPerformed
 
     private void entrar_botaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_entrar_botaoActionPerformed
-        criarConta();
+        atualizarConta();
     }//GEN-LAST:event_entrar_botaoActionPerformed
 
     private void senha_inputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_senha_inputActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_senha_inputActionPerformed
+
+    private void nome_inputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nome_inputActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_nome_inputActionPerformed
 
     private void voltar() {
         limparTela();
@@ -190,15 +200,22 @@ public class TelaCadastrarUsuario extends javax.swing.JFrame {
         TelaCentralAdministrador.geraTelaCentralAdministrador(usuario).abrirTela();
     }
     
+    public void setUsuario(){
+        cpf_input.setText(usuario.getCpf());
+        nome_input.setText(usuario.getNome());
+        email_input.setText(usuario.getEmail());
+        senha_input.setText(usuario.getSenha());
+        telefone_input.setText(usuario.getTelefone());
+    }
+    
     private void limparTela(){
-        cpf_input.setText("");
         nome_input.setText("");
         email_input.setText("");
         senha_input.setText("");
         telefone_input.setText("");
     }
 
-    private void criarConta() {
+    private void atualizarConta() {
         String cpf = cpf_input.getText();
         String nome = nome_input.getText();
         String email = email_input.getText();
@@ -208,9 +225,9 @@ public class TelaCadastrarUsuario extends javax.swing.JFrame {
         
         try{
             UsuarioControl user = new UsuarioControl(); 
-            sucesso = user.cadastrarUsuario(cpf, nome, email, senha, telefone);
+            sucesso = user.atualizarUsuario(cpf, nome, email, senha, telefone);
             if(sucesso){
-                JOptionPane.showMessageDialog(null, "Cadastro efetuado com sucesso!");
+                JOptionPane.showMessageDialog(null, "Atualizacao efetuada com sucesso!");
                 voltar();
             } else{
                 JOptionPane.showMessageDialog(null, "Erro no preenchimento de campos!");

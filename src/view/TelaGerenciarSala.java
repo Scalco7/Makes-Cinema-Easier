@@ -6,6 +6,7 @@ import javax.swing.table.DefaultTableModel;
 import model.dao.DaoFactory;
 import model.dao.SalaDao;
 import model.entities.Sala;
+import model.entities.Usuario;
 
 /**
  *
@@ -14,14 +15,16 @@ import model.entities.Sala;
 public class TelaGerenciarSala extends javax.swing.JFrame {
 
     private static TelaGerenciarSala unicTelaGerenciarSala;
+    private Usuario usuario;
 
-    private TelaGerenciarSala() {
+    private TelaGerenciarSala(Usuario usuario) {
+        this.usuario = usuario;
         initComponents();
     }
 
-    public static TelaGerenciarSala geraTelaGerenciarSala() {
+    public static TelaGerenciarSala geraTelaGerenciarSala(Usuario usuario) {
         if (unicTelaGerenciarSala == null) {
-            unicTelaGerenciarSala = new TelaGerenciarSala();
+            unicTelaGerenciarSala = new TelaGerenciarSala(usuario);
         }
 
         return unicTelaGerenciarSala;
@@ -186,12 +189,12 @@ public class TelaGerenciarSala extends javax.swing.JFrame {
 
     private void voltar() {
         dispose();
-        TelaCentralAdministrador.geraTelaCentralAdministrador().abrirTela();
+        TelaCentralAdministrador.geraTelaCentralAdministrador(usuario).abrirTela();
     }
 
     private void abrirTelaCadastrar() {
         dispose();
-        TelaCadastrarSala.geraCadastrarSala().abrirTela();
+        TelaCadastrarSala.geraCadastrarSala(usuario).abrirTela();
     }
     
     private void pesquisarSala() {

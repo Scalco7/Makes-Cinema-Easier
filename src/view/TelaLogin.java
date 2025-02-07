@@ -2,6 +2,7 @@ package view;
 
 import controller.UsuarioControl;
 import javax.swing.JOptionPane;
+import model.entities.Usuario;
 
 /**
  *
@@ -10,6 +11,7 @@ import javax.swing.JOptionPane;
 public class TelaLogin extends javax.swing.JFrame {
 
     private static TelaLogin unicLogin;
+    private Usuario usuario;
 
     private TelaLogin() {
         initComponents();
@@ -141,7 +143,7 @@ public class TelaLogin extends javax.swing.JFrame {
     private void vaiParaTelaCentral() {
         limparTela();
         dispose();
-        TelaCentralAdministrador.geraTelaCentralAdministrador().abrirTela();
+        TelaCentralAdministrador.geraTelaCentralAdministrador(usuario).abrirTela();
     }
 
     private void limparTela() {
@@ -156,8 +158,8 @@ public class TelaLogin extends javax.swing.JFrame {
 
         try {
             UsuarioControl user = new UsuarioControl();
-            sucesso = user.login(email, senha);
-            if (sucesso) {
+            usuario = user.login(email, senha);
+            if (usuario != null) {
                 vaiParaTelaCentral();
             } else {
                 JOptionPane.showMessageDialog(null, "Email ou senha incorretos!");

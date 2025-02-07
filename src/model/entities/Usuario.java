@@ -70,6 +70,11 @@ public class Usuario implements Serializable {
     public void cadastrarUsuario(Usuario obj){
         new UsuarioDaoJDBC(DB.getConnection()).insert(obj);
     }
+    
+    public void atualizarUsuario(Usuario obj){
+        
+        new UsuarioDaoJDBC(DB.getConnection()).update(obj);
+    }
 
     @Override
     public int hashCode() {
