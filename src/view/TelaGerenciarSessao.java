@@ -1,8 +1,10 @@
 package view;
 
 import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import model.dao.DaoFactory;
 import model.dao.SessaoDao;
@@ -103,6 +105,11 @@ public class TelaGerenciarSessao extends javax.swing.JFrame {
         pesquisar_botao.setMaximumSize(new java.awt.Dimension(646, 647));
         pesquisar_botao.setMinimumSize(new java.awt.Dimension(646, 647));
         pesquisar_botao.setPreferredSize(new java.awt.Dimension(646, 647));
+        pesquisar_botao.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                pesquisar_botaoActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -165,6 +172,10 @@ public class TelaGerenciarSessao extends javax.swing.JFrame {
         abrirTelaCadastrar();
     }//GEN-LAST:event_nova_botaoActionPerformed
 
+    private void pesquisar_botaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pesquisar_botaoActionPerformed
+        pesquisarSessao();
+    }//GEN-LAST:event_pesquisar_botaoActionPerformed
+
     private void voltar() {
         dispose();
         TelaCentralAdministrador.geraTelaCentralAdministrador().abrirTela();
@@ -175,33 +186,40 @@ public class TelaGerenciarSessao extends javax.swing.JFrame {
         TelaCadastrarSessao.geraCadastrarSessao().abrirTela();
     }
 
-    /*private void pesquisarSessao() {
-        String nomeSessao = pesquisar_input.getText().trim();
-        if (!nomeFilme.isEmpty()) {
-            FilmeDao filmeDao = DaoFactory.createFilmeDao();
-            List<Filme> filmes = filmeDao.findByName(nomeFilme);
-            atualizarTabela(filmes);
+    private void pesquisarSessao() {
+        String diaSessao = pesquisar_input.getText().trim();
+        diaSessao = diaSessao + ":00";
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
+        if (!diaSessao.isEmpty()) {
+            SessaoDao sessaoDao = DaoFactory.createSessaoDao();
+            LocalDateTime dataHora = LocalDateTime.parse(diaSessao, formatter);
+            
+            List<Sessao> sessoes = sessaoDao.findByDay(dataHora);
+            atualizarTabela(sessoes);
         } else {
             JOptionPane.showMessageDialog(this, "Por favor, insira o nome do filme para pesquisa.");
         }
     }
 
-    private void atualizarTabela(List<Filme> filmes) {
+    private void atualizarTabela(List<Sessao> sessoes) {
         DefaultTableModel modelo = (DefaultTableModel) tabela.getModel();
         
         int posLin = 0;
         modelo.setRowCount(posLin);
+        
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
 
-        for (Filme filme : filmes) {
+        for (Sessao sessao : sessoes) {
             modelo.insertRow(posLin, new Object[]{
-                filme.getId(),
-                filme.getNome(),
-                filme.getClassificacao(),
-                filme.getMinutosTotais()
+                sessao.getId(),
+                sessao.getFilme().getNome(),
+                sessao.getSala().getNome(),
+                sessao.getHorarioDaSessao().format(formatter),
+                sessao.getCam()
             });
             posLin++;
         }
-    }*/
+    }
     private void atualizarTabela() {
         DefaultTableModel modelo = (DefaultTableModel) tabela.getModel();
         modelo.setRowCount(0);
@@ -211,7 +229,7 @@ public class TelaGerenciarSessao extends javax.swing.JFrame {
         int posLin = 0;
         modelo.setRowCount(posLin);
 
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM HH:mm");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
 
         for (Sessao sessao : sessoes) {
             modelo.insertRow(posLin, new Object[]{

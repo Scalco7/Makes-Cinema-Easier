@@ -8,6 +8,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Timestamp;
 import java.sql.PreparedStatement;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -117,8 +118,77 @@ public class SessaoDaoJDBC implements SessaoDao {
     }
 
     @Override
-    public Sessao findById(Integer id) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public List<Sessao> findByDay(LocalDateTime dia) {
+        PreparedStatement st = null;
+        ResultSet rs = null;
+        try {
+            st = conn.prepareStatement(
+                    "SELECT sessao.Id, sessao.HorarioDaSessao, sessao.Cam, " +
+                    "sala.Id AS SalaId, sala.Nome AS SalaNome, sala.Largura, sala.Profundidade, " +
+                    "filme.Id AS FilmeId, filme.Nome AS FilmeNome, filme.Descricao, filme.Classificacao, filme.MinutosTotais " +
+                    "FROM sessao " +
+                    "INNER JOIN sala ON sessao.SalaId = sala.Id " +
+                    "INNER JOIN filme ON sessao.FilmeId = filme.Id " +
+                    "WHERE DATETIME(sessao.HorarioDaSessao) = ? " +
+                    "ORDER BY HorarioDaSessao");
+            
+            st.setTimestamp(1, Timestamp.valueOf(dia));
+            rs = st.executeQuery();
+
+            List<Sessao> list = new ArrayList<>();
+            Map<Integer, Sala> mapSalas = new HashMap<>();
+            Map<Integer, Filme> mapFilmes = new HashMap<>();
+
+            while (rs.next()) {
+                // Instanciar Sala se ainda não existir no Map
+                Sala sala = mapSalas.get(rs.getInt("SalaId"));
+                if (sala == null) {
+                    sala = new Sala();
+                    sala.setId(rs.getInt("SalaId"));
+                    sala.setNome(rs.getString("SalaNome"));
+                    sala.setLargura(rs.getInt("Largura"));
+                    sala.setProfundidade(rs.getInt("Profundidade"));
+                    mapSalas.put(rs.getInt("SalaId"), sala);
+                }
+
+                // Instanciar Filme se ainda não existir no Map
+                Filme filme = mapFilmes.get(rs.getInt("FilmeId"));
+                if (filme == null) {
+                    filme = new Filme();
+                    filme.setId(rs.getInt("FilmeId"));
+                    filme.setNome(rs.getString("FilmeNome"));
+                    filme.setDescricao(rs.getString("Descricao"));
+                    filme.setClassificacao(rs.getString("Classificacao"));
+                    filme.setMinutosTotais(rs.getInt("MinutosTotais"));
+                    mapFilmes.put(rs.getInt("FilmeId"), filme);
+                }
+
+                // Criar a Sessao
+                Sessao sessao = new Sessao();
+                sessao.setId(rs.getInt("Id"));
+                sessao.setCam(rs.getString("Cam"));
+
+                // Converte Timestamp para LocalDateTime
+                Timestamp timestamp = rs.getTimestamp("HorarioDaSessao");
+                if (timestamp != null) {
+                    sessao.setHorarioDaSessao(timestamp.toLocalDateTime());
+                }
+
+                sessao.setSala(sala);
+                sessao.setFilme(filme);
+
+                list.add(sessao);
+            }
+
+            return list;
+
+
+        } catch (SQLException e) {
+            throw new DbException(e.getMessage());
+        } finally {
+            DB.closeStatement(st);
+            DB.closeResultSet(rs);
+        }
     }
 
     @Override
