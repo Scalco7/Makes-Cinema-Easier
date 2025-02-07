@@ -11,21 +11,21 @@ public class TelaCentralAdministrador extends javax.swing.JFrame {
     private static TelaCentralAdministrador unicTelaCentralAdministrador;
     private Usuario usuario;
 
-    private TelaCentralAdministrador(Usuario usuario) {
-        this.usuario = usuario;
+    private TelaCentralAdministrador(){
         initComponents();
     }
 
-    public static TelaCentralAdministrador geraTelaCentralAdministrador(Usuario usuario) {
+    public static TelaCentralAdministrador geraTelaCentralAdministrador() {
         if (unicTelaCentralAdministrador == null) {
-            unicTelaCentralAdministrador = new TelaCentralAdministrador(usuario);
+            unicTelaCentralAdministrador = new TelaCentralAdministrador();
             
         }
 
         return unicTelaCentralAdministrador;
     }
 
-    public void abrirTela() {
+    public void abrirTela(Usuario usuario) {
+        this.usuario = usuario;
         setVisible(true);
     }
 
@@ -165,8 +165,7 @@ public class TelaCentralAdministrador extends javax.swing.JFrame {
 
     private void editar(){
         dispose();
-        TelaAtualizarUsuario.geraTelaAtualizarUsuario(usuario).setUsuario();
-        TelaAtualizarUsuario.geraTelaAtualizarUsuario(usuario).abrirTela();
+        TelaAtualizarUsuario.geraTelaAtualizarUsuario().abrirTela(usuario);
     }
     
     private void sair(){
@@ -176,22 +175,22 @@ public class TelaCentralAdministrador extends javax.swing.JFrame {
     
     private void irParaCadastro() {
         dispose();
-        TelaCadastrarUsuario.geraCadastrarUsuario().abrirTela();
+        TelaCadastrarUsuario.geraCadastrarUsuario().abrirTela(usuario);
     }
 
     private void irParaGerenciarSessao() {
         dispose();
-        TelaGerenciarSessao.geraTelaGerenciarSessao(usuario).abrirTela();
+        TelaGerenciarSessao.geraTelaGerenciarSessao().abrirTela(usuario);
     }
 
     private void irParaGerenciarFilme() {
         dispose();
-        TelaGerenciarFilme.geraTelaGerenciarFilme(usuario).abrirTela();
+        TelaGerenciarFilme.geraTelaGerenciarFilme().abrirTela(usuario);
     }
 
     private void irParaGerenciarSala() {
         dispose();
-        TelaGerenciarSala.geraTelaGerenciarSala(usuario).abrirTela();
+        TelaGerenciarSala.geraTelaGerenciarSala().abrirTela(usuario);
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

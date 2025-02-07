@@ -19,20 +19,20 @@ public class TelaGerenciarSessao extends javax.swing.JFrame {
     private static TelaGerenciarSessao unicTelaGerenciarSessao;
     private Usuario usuario;
 
-    private TelaGerenciarSessao(Usuario usuario) {
-        this.usuario = usuario;
+    private TelaGerenciarSessao() {  
         initComponents();
     }
 
-    public static TelaGerenciarSessao geraTelaGerenciarSessao(Usuario usuario) {
+    public static TelaGerenciarSessao geraTelaGerenciarSessao() {
         if (unicTelaGerenciarSessao == null) {
-            unicTelaGerenciarSessao = new TelaGerenciarSessao(usuario);
+            unicTelaGerenciarSessao = new TelaGerenciarSessao();
         }
 
         return unicTelaGerenciarSessao;
     }
 
-    public void abrirTela() {
+    public void abrirTela(Usuario usuario) {
+        this.usuario = usuario;
         atualizarTabela();
         setVisible(true);
     }
@@ -181,12 +181,12 @@ public class TelaGerenciarSessao extends javax.swing.JFrame {
 
     private void voltar() {
         dispose();
-        TelaCentralAdministrador.geraTelaCentralAdministrador(usuario).abrirTela();
+        TelaCentralAdministrador.geraTelaCentralAdministrador().abrirTela(usuario);
     }
 
     private void abrirTelaCadastrar() {
         dispose();
-        TelaCadastrarSessao.geraCadastrarSessao(usuario).abrirTela();
+        TelaCadastrarSessao.geraCadastrarSessao().abrirTela(usuario);
     }
 
     private void pesquisarSessao() {

@@ -17,20 +17,20 @@ public class TelaGerenciarFilme extends javax.swing.JFrame {
     private static TelaGerenciarFilme unicTelaGerenciarFilme;
     private Usuario usuario;
 
-    private TelaGerenciarFilme(Usuario usuario) {
-        this.usuario = usuario;
+    private TelaGerenciarFilme() {
         initComponents();
     }
 
-    public static TelaGerenciarFilme geraTelaGerenciarFilme(Usuario usuario) {
+    public static TelaGerenciarFilme geraTelaGerenciarFilme() {
         if (unicTelaGerenciarFilme == null) {
-            unicTelaGerenciarFilme = new TelaGerenciarFilme(usuario);
+            unicTelaGerenciarFilme = new TelaGerenciarFilme();
         }
 
         return unicTelaGerenciarFilme;
     }
 
-    public void abrirTela() {
+    public void abrirTela(Usuario usuario) {
+        this.usuario = usuario;
         atualizarTabela();
         setVisible(true);
     }
@@ -235,12 +235,12 @@ public class TelaGerenciarFilme extends javax.swing.JFrame {
     
     private void voltar() {
         dispose();
-        TelaCentralAdministrador.geraTelaCentralAdministrador(usuario).abrirTela();
+        TelaCentralAdministrador.geraTelaCentralAdministrador().abrirTela(usuario);
     }
 
     private void abrirCadastrarFilme() {
         dispose();
-        TelaCadastrarFilme.geraCadastrarFilme(usuario).abrirTela();
+        TelaCadastrarFilme.geraCadastrarFilme().abrirTela(usuario);
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

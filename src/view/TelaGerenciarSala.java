@@ -17,20 +17,20 @@ public class TelaGerenciarSala extends javax.swing.JFrame {
     private static TelaGerenciarSala unicTelaGerenciarSala;
     private Usuario usuario;
 
-    private TelaGerenciarSala(Usuario usuario) {
-        this.usuario = usuario;
+    private TelaGerenciarSala() {
         initComponents();
     }
 
-    public static TelaGerenciarSala geraTelaGerenciarSala(Usuario usuario) {
+    public static TelaGerenciarSala geraTelaGerenciarSala() {
         if (unicTelaGerenciarSala == null) {
-            unicTelaGerenciarSala = new TelaGerenciarSala(usuario);
+            unicTelaGerenciarSala = new TelaGerenciarSala();
         }
 
         return unicTelaGerenciarSala;
     }
 
-    public void abrirTela() {
+    public void abrirTela(Usuario usuario) {
+        this.usuario = usuario;
         atualizarTabela();
         setVisible(true);
     }
@@ -189,12 +189,12 @@ public class TelaGerenciarSala extends javax.swing.JFrame {
 
     private void voltar() {
         dispose();
-        TelaCentralAdministrador.geraTelaCentralAdministrador(usuario).abrirTela();
+        TelaCentralAdministrador.geraTelaCentralAdministrador().abrirTela(usuario);
     }
 
     private void abrirTelaCadastrar() {
         dispose();
-        TelaCadastrarSala.geraCadastrarSala(usuario).abrirTela();
+        TelaCadastrarSala.geraCadastrarSala().abrirTela(usuario);
     }
     
     private void pesquisarSala() {

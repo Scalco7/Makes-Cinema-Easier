@@ -7,16 +7,16 @@ import model.dao.implementation.UsuarioDaoJDBC;
 import model.entities.Usuario;
 
 public class UsuarioControl {
-    
+
     private Connection conn;
 
     public UsuarioControl() {
         conn = DB.getConnection();
-    }  
+    }
 
     public boolean cadastrarUsuario(String cpf, String nome, String email, String senha, String telefone) {
         if (cpf != null && cpf.length() > 0 && nome != null && nome.length() > 0 && email != null && email.length() > 0 && senha != null && senha.length() > 8 && telefone != null && telefone.length() > 0) {
-            if(validarCPF(cpf)){
+            if (validarCPF(cpf)) {
                 Usuario user = new Usuario(cpf, nome, email, senha, telefone);
                 user.cadastrarUsuario(user);
                 return true;
@@ -25,16 +25,12 @@ public class UsuarioControl {
         }
         return false;
     }
-    
+
     public boolean atualizarUsuario(String cpf, String nome, String email, String senha, String telefone) {
         if (cpf != null && cpf.length() > 0 && nome != null && nome.length() > 0 && email != null && email.length() > 0 && senha != null && senha.length() > 8 && telefone != null && telefone.length() > 0) {
-            if(validarCPF(cpf)){
-                System.out.println("OI");
-                Usuario user = new Usuario(cpf, nome, email, senha, telefone);
-                user.atualizarUsuario(user);
-                return true;
-            }
-            JOptionPane.showMessageDialog(null, "CPF Inválido!");
+            Usuario user = new Usuario(cpf, nome, email, senha, telefone);
+            user.atualizarUsuario(user);
+            return true;
         }
         return false;
     }
@@ -47,7 +43,7 @@ public class UsuarioControl {
         }
         return null;
     }
-    
+
     public static boolean validarCPF(String cpf) {
         // Remover caracteres não numéricos
         cpf = cpf.replaceAll("[^0-9]", "");
@@ -83,7 +79,7 @@ public class UsuarioControl {
         }
 
         // Comparar com os dígitos do CPF
-        return primeiroDigito == Character.getNumericValue(cpf.charAt(9)) &&
-               segundoDigito == Character.getNumericValue(cpf.charAt(10));
+        return primeiroDigito == Character.getNumericValue(cpf.charAt(9))
+                && segundoDigito == Character.getNumericValue(cpf.charAt(10));
     }
 }

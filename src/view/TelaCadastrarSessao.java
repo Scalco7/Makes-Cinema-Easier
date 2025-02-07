@@ -25,20 +25,20 @@ public class TelaCadastrarSessao extends javax.swing.JFrame {
     private List<Filme> filmes;
     private List<Sala> salas;
 
-    private TelaCadastrarSessao(Usuario usuario) {
-        this.usuario = usuario;
+    private TelaCadastrarSessao() {
         initComponents();
     }
 
-    public static TelaCadastrarSessao geraCadastrarSessao(Usuario usuario) {
+    public static TelaCadastrarSessao geraCadastrarSessao() {
         if (unicCadastrarSessao == null) {
-            unicCadastrarSessao = new TelaCadastrarSessao(usuario);
+            unicCadastrarSessao = new TelaCadastrarSessao();
         }
 
         return unicCadastrarSessao;
     }
 
-    public void abrirTela() {
+    public void abrirTela(Usuario usuario) {
+        this.usuario = usuario;
         listarFilmes();
         listarSalas();
         renderizaTela();
@@ -235,7 +235,7 @@ public class TelaCadastrarSessao extends javax.swing.JFrame {
     private void voltar() {
         dispose();
         limparTela();
-        TelaGerenciarSessao.geraTelaGerenciarSessao(usuario).abrirTela();
+        TelaGerenciarSessao.geraTelaGerenciarSessao().abrirTela(usuario);
     }
 
     private void renderizaTela() {

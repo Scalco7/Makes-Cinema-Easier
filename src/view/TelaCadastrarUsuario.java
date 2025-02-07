@@ -25,7 +25,8 @@ public class TelaCadastrarUsuario extends javax.swing.JFrame {
         return unicCadastrarUsuario;
     }
 
-    public void abrirTela() {
+    public void abrirTela(Usuario usuario) {
+        this.usuario = usuario;
         setVisible(true);
     }
 
@@ -187,7 +188,7 @@ public class TelaCadastrarUsuario extends javax.swing.JFrame {
     private void voltar() {
         limparTela();
         dispose();
-        TelaCentralAdministrador.geraTelaCentralAdministrador(usuario).abrirTela();
+        TelaCentralAdministrador.geraTelaCentralAdministrador().abrirTela(usuario);
     }
     
     private void limparTela(){

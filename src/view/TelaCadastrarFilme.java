@@ -24,20 +24,20 @@ public class TelaCadastrarFilme extends javax.swing.JFrame {
     private String imagemBase64;
     private Usuario usuario;
 
-    private TelaCadastrarFilme(Usuario usuario) {
-        this.usuario = usuario;
+    private TelaCadastrarFilme() {
         initComponents();
     }
 
-    public static TelaCadastrarFilme geraCadastrarFilme(Usuario usuario) {
+    public static TelaCadastrarFilme geraCadastrarFilme() {
         if (unicCadastrarFilme == null) {
-            unicCadastrarFilme = new TelaCadastrarFilme(usuario);
+            unicCadastrarFilme = new TelaCadastrarFilme();
         }
 
         return unicCadastrarFilme;
     }
 
-    public void abrirTela() {
+    public void abrirTela(Usuario usuario) {
+        this.usuario = usuario;
         setVisible(true);
     }
 
@@ -314,7 +314,7 @@ public class TelaCadastrarFilme extends javax.swing.JFrame {
     private void voltar() {
         dispose();
         limparTela();
-        TelaGerenciarFilme.geraTelaGerenciarFilme(usuario).abrirTela();
+        TelaGerenciarFilme.geraTelaGerenciarFilme().abrirTela(usuario);
     }
 
     private void limparTela() {

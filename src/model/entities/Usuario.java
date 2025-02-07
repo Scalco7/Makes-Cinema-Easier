@@ -72,7 +72,6 @@ public class Usuario implements Serializable {
     }
     
     public void atualizarUsuario(Usuario obj){
-        
         new UsuarioDaoJDBC(DB.getConnection()).update(obj);
     }
 

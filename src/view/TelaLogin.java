@@ -143,7 +143,7 @@ public class TelaLogin extends javax.swing.JFrame {
     private void vaiParaTelaCentral() {
         limparTela();
         dispose();
-        TelaCentralAdministrador.geraTelaCentralAdministrador(usuario).abrirTela();
+        TelaCentralAdministrador.geraTelaCentralAdministrador().abrirTela(usuario);
     }
 
     private void limparTela() {
