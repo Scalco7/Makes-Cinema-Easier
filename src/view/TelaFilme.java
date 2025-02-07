@@ -246,6 +246,8 @@ public class TelaFilme extends javax.swing.JFrame {
         dispose();
         TelaEscolherAssento.geraEscolherAssento().abrirTela(mockSessao);
     }
+    
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton data_botao_1;
