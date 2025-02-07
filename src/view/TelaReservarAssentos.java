@@ -1,7 +1,13 @@
 package view;
 
+import db.DB;
+import db.DbException;
 import java.awt.Dimension;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
+import model.dao.IngressoDao;
+import model.dao.implementation.IngressoDaoJDBC;
+import model.entities.Ingresso;
 import model.entities.Sessao;
 
 /**
