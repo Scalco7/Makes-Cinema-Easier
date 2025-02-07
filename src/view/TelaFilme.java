@@ -1,7 +1,17 @@
 package view;
 
+import java.awt.Dimension;
+import java.awt.Image;
+import java.sql.SQLException;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Base64;
 import java.util.Date;
+import java.util.List;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import model.dao.DaoFactory;
+import model.dao.SessaoDao;
 import model.entities.Filme;
 import model.entities.Sala;
 import model.entities.Sessao;
@@ -14,6 +24,8 @@ public class TelaFilme extends javax.swing.JFrame {
 
     private static TelaFilme unicFilme;
     private Filme filme;
+
+    private List<Sessao> sessoes;
 
     private TelaFilme() {
         initComponents();
@@ -29,6 +41,7 @@ public class TelaFilme extends javax.swing.JFrame {
 
     public void abrirTela(Filme filme) {
         this.filme = filme;
+        buscaSessoes();
         renderizaTela();
         setVisible(true);
     }
@@ -42,37 +55,17 @@ public class TelaFilme extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        filme_img = new javax.swing.JPanel();
         filme_nome = new javax.swing.JLabel();
         voltar_botao = new javax.swing.JButton();
-        data_botao_1 = new javax.swing.JButton();
-        data_botao_2 = new javax.swing.JButton();
-        data_botao_3 = new javax.swing.JButton();
-        data_botao_4 = new javax.swing.JButton();
-        data_botao_5 = new javax.swing.JButton();
         idade_text = new javax.swing.JLabel();
         lingua_text = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         descricao_text = new javax.swing.JTextArea();
-        hora_botao_1 = new javax.swing.JButton();
-        hora_botao_2 = new javax.swing.JButton();
-        hora_botao_3 = new javax.swing.JButton();
-        hora_botao_4 = new javax.swing.JButton();
+        filme_img = new javax.swing.JLabel();
+        sessoes_pnl = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
-        filme_img.setBackground(new java.awt.Color(51, 255, 255));
-
-        javax.swing.GroupLayout filme_imgLayout = new javax.swing.GroupLayout(filme_img);
-        filme_img.setLayout(filme_imgLayout);
-        filme_imgLayout.setHorizontalGroup(
-            filme_imgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 174, Short.MAX_VALUE)
-        );
-        filme_imgLayout.setVerticalGroup(
-            filme_imgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 232, Short.MAX_VALUE)
-        );
+        setTitle("Filme");
 
         filme_nome.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         filme_nome.setText("Homem Aranha - vamos para Casa? ");
@@ -83,16 +76,6 @@ public class TelaFilme extends javax.swing.JFrame {
                 voltar_botaoActionPerformed(evt);
             }
         });
-
-        data_botao_1.setText("12/01");
-
-        data_botao_2.setText("13/01");
-
-        data_botao_3.setText("14/01");
-
-        data_botao_4.setText("15/01");
-
-        data_botao_5.setText("16/01");
 
         idade_text.setText("12+");
 
@@ -111,32 +94,16 @@ public class TelaFilme extends javax.swing.JFrame {
         descricao_text.setBorder(null);
         jScrollPane1.setViewportView(descricao_text);
 
-        hora_botao_1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        hora_botao_1.setText("13:45");
-        hora_botao_1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                hora_botao_1ActionPerformed(evt);
-            }
-        });
-
-        hora_botao_2.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        hora_botao_2.setText("17:45");
-        hora_botao_2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                hora_botao_2ActionPerformed(evt);
-            }
-        });
-
-        hora_botao_3.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        hora_botao_3.setText("19:45");
-        hora_botao_3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                hora_botao_3ActionPerformed(evt);
-            }
-        });
-
-        hora_botao_4.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        hora_botao_4.setText("22:00");
+        javax.swing.GroupLayout sessoes_pnlLayout = new javax.swing.GroupLayout(sessoes_pnl);
+        sessoes_pnl.setLayout(sessoes_pnlLayout);
+        sessoes_pnlLayout.setHorizontalGroup(
+            sessoes_pnlLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+        sessoes_pnlLayout.setVerticalGroup(
+            sessoes_pnlLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 175, Short.MAX_VALUE)
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -145,33 +112,20 @@ public class TelaFilme extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(sessoes_pnl, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(hora_botao_1)
-                        .addGap(18, 18, 18)
-                        .addComponent(hora_botao_2)
-                        .addGap(18, 18, 18)
-                        .addComponent(hora_botao_3))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(filme_img, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(filme_nome, javax.swing.GroupLayout.DEFAULT_SIZE, 416, Short.MAX_VALUE)
-                            .addComponent(idade_text, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jScrollPane1)
-                            .addComponent(lingua_text, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(voltar_botao)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(data_botao_1, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(data_botao_2, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(data_botao_3, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(data_botao_4, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(data_botao_5, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(hora_botao_4))
-                .addContainerGap(70, Short.MAX_VALUE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(filme_img, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(filme_nome, javax.swing.GroupLayout.DEFAULT_SIZE, 416, Short.MAX_VALUE)
+                                    .addComponent(idade_text, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jScrollPane1)
+                                    .addComponent(lingua_text, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(voltar_botao))
+                        .addGap(0, 64, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -181,31 +135,19 @@ public class TelaFilme extends javax.swing.JFrame {
                 .addGap(9, 9, 9)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(filme_img, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18))
-                    .addGroup(layout.createSequentialGroup()
                         .addComponent(filme_nome)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(lingua_text)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(12, 12, 12)
                         .addComponent(idade_text)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(38, 38, 38)))
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(data_botao_1)
-                    .addComponent(data_botao_2)
-                    .addComponent(data_botao_3)
-                    .addComponent(data_botao_4)
-                    .addComponent(data_botao_5))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(hora_botao_1, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(hora_botao_2, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(hora_botao_3, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(7, 7, 7)
+                        .addComponent(filme_img, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(hora_botao_4, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(24, Short.MAX_VALUE))
+                .addComponent(sessoes_pnl, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         pack();
@@ -215,22 +157,59 @@ public class TelaFilme extends javax.swing.JFrame {
         voltar();
     }//GEN-LAST:event_voltar_botaoActionPerformed
 
-    private void hora_botao_2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_hora_botao_2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_hora_botao_2ActionPerformed
-
-    private void hora_botao_3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_hora_botao_3ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_hora_botao_3ActionPerformed
-
-    private void hora_botao_1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_hora_botao_1ActionPerformed
-        irParaAssento();
-    }//GEN-LAST:event_hora_botao_1ActionPerformed
+    private void buscaSessoes() {
+        try {
+            SessaoDao sessaoDao = DaoFactory.createSessaoDao();
+            sessoes = sessaoDao.buscarSessaoDisponivel(filme.getId());
+            System.out.println(sessoes);
+        } catch (SQLException ecp) {
+        }
+    }
 
     private void renderizaTela() {
         filme_nome.setText(filme.getNome());
         idade_text.setText(filme.getClassificacao());
         descricao_text.setText(filme.getDescricao());
+
+        try {
+            byte[] bytes = Base64.getDecoder().decode(filme.getBase64Image());
+            ImageIcon imageIcon = new ImageIcon(bytes);
+            Image image = imageIcon.getImage();
+            Image newimg = image.getScaledInstance(168, 205, java.awt.Image.SCALE_SMOOTH);
+            imageIcon = new ImageIcon(newimg);
+            filme_img.setIcon(imageIcon);
+        } catch (Exception exc) {
+            filme_img.setText("Erro");
+        }
+
+        int x = 10;
+        int y = 10;
+        int width = 100;
+        int height = 35;
+
+        for (Sessao sessao : sessoes) {
+            System.out.println("Aquiii");
+            JButton button = new JButton();
+            LocalDateTime hora = sessao.getHorarioDaSessao();
+
+            button.setText(hora.format(DateTimeFormatter.ofPattern("dd/MM - HH:mm")));
+            button.addActionListener((java.awt.event.ActionEvent evt) -> {
+                irParaAssento(sessao);
+            });
+
+            button.setBounds(x, y, width, height);
+            sessoes_pnl.add(button);
+            
+            x = x + width + 20;
+            if(sessoes.indexOf(sessao) + 1 % 5 == 0){
+                x = 10;
+                y = y + height + 15;
+            }
+        }
+
+        sessoes_pnl.setPreferredSize(new Dimension(660, 175));
+        sessoes_pnl.revalidate();
+        sessoes_pnl.repaint();
     }
 
     private void voltar() {
@@ -238,33 +217,20 @@ public class TelaFilme extends javax.swing.JFrame {
         TelaCatalogoDeFilmes.geraCatalogoDeFilmes().abrirTela();
     }
 
-    private void irParaAssento() {
-        Filme mockFilme = new Filme();
-        Sala mockSala = new Sala();
-        Sessao mockSessao = new Sessao("dublado", LocalDateTime.of(2025, 2, 6, 14, 30), mockFilme, mockSala);
-        
+    private void irParaAssento(Sessao sessao) {
         dispose();
-        TelaEscolherAssento.geraEscolherAssento().abrirTela(mockSessao);
+        TelaEscolherAssento.geraEscolherAssento().abrirTela(sessao);
     }
-    
-    
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton data_botao_1;
-    private javax.swing.JButton data_botao_2;
-    private javax.swing.JButton data_botao_3;
-    private javax.swing.JButton data_botao_4;
-    private javax.swing.JButton data_botao_5;
     private javax.swing.JTextArea descricao_text;
-    private javax.swing.JPanel filme_img;
+    private javax.swing.JLabel filme_img;
     private javax.swing.JLabel filme_nome;
-    private javax.swing.JButton hora_botao_1;
-    private javax.swing.JButton hora_botao_2;
-    private javax.swing.JButton hora_botao_3;
-    private javax.swing.JButton hora_botao_4;
     private javax.swing.JLabel idade_text;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lingua_text;
+    private javax.swing.JPanel sessoes_pnl;
     private javax.swing.JButton voltar_botao;
     // End of variables declaration//GEN-END:variables
 }

@@ -8,7 +8,6 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Timestamp;
 import java.sql.PreparedStatement;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -263,6 +262,7 @@ public class SessaoDaoJDBC implements SessaoDao {
         }
     }
     
+    @Override
     public List<Sessao> buscarSessaoDisponivel(Integer idFilme) throws SQLException{
     List<Sessao> sessoes = new ArrayList<>();
     
@@ -276,7 +276,7 @@ public class SessaoDaoJDBC implements SessaoDao {
                 "FROM sessao " +
                 "INNER JOIN filme ON sessao.FilmeId = filme.Id " +
                 "WHERE sessao.FilmeId = ? " +
-                "AND sessao.HorarioDaSessao BETWEEN NOW() AND DATE_ADD(NOW(), INTERVAL 1 WEEK) " +
+                "AND sessao.HorarioDaSessao > NOW() " +
                 "ORDER BY sessao.HorarioDaSessao ASC");
         
         st.setInt(1, idFilme); // Define o id do filme na consulta

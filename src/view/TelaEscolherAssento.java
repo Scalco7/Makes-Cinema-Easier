@@ -423,7 +423,7 @@ public class TelaEscolherAssento extends javax.swing.JFrame {
     }//GEN-LAST:event_assento_botao_b_5ActionPerformed
 
     private void voltar_botaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_voltar_botaoActionPerformed
-        // TODO add your handling code here:
+        voltar();
     }//GEN-LAST:event_voltar_botaoActionPerformed
 
     private void reservar_botaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_reservar_botaoActionPerformed
@@ -432,6 +432,11 @@ public class TelaEscolherAssento extends javax.swing.JFrame {
 
     private void renderizaTela() {
         //carregar assentos
+    }
+    
+    private void voltar(){
+        dispose();
+        TelaFilme.geraFilme().abrirTela(sessao.getFilme());
     }
 
     private void reservar() {

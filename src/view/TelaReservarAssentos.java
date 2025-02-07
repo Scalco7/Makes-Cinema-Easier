@@ -171,7 +171,7 @@ public class TelaReservarAssentos extends javax.swing.JFrame {
         reservar_pnl.revalidate();
         reservar_pnl.repaint();
     }
-
+    
     private void voltar() {
         dispose();
         TelaEscolherAssento.geraEscolherAssento().abrirTela(sessao);
